@@ -1,8 +1,0 @@
-asset/tailwind/node_modules
-asset/tailwind/src
-asset/tailwind/mix-manifest.json
-asset/tailwind/package-lock.json
-asset/tailwind/package.json
-asset/tailwind/postcss.config.js
-asset/tailwind/tailwind.config.js
-asset/tailwind/webpack.mix.js

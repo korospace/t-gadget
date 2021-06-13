@@ -47,33 +47,6 @@ function getData(method){
 }
 
 /*
-.. Set Banner Min Height
-*/
-document.querySelector('.glide').style.height = document.querySelector('.bannerTumbal').clientHeight+'px';
-
-/*
-.. Create Banner
-*/
-getData('spanduk');
-function createBanner(response){
-    response.forEach(r=>$('.glide__track .glide__slides').append(`<div class="glide__slide">
-            <img src="${r.imgurl}" class="w-full h-28 mysm2:h-32 mysm:h-44 sm:h-auto">
-        </div>`));
-
-    var glide = new Glide('.glide', {
-        type: 'carousel',
-        focusAt: 'center',
-        autoplay: 5000,
-        animationTimingFunc: 'ease-in-out',
-        animationDuration: 1000,
-        gap: 0,
-        perView: 1
-    });
-
-    glide.mount();
-}
-
-/*
 .. Banner On Hover
 */
 $("div.glide").mouseenter(()=>$('.glide__arrow').toggleClass('active'));
@@ -538,4 +511,31 @@ function closeBuy(e,event){
     $('#link-shopee').html('');
     $('#link-lazada').html('');
     $('#link-wa').html('');
+}
+
+/*
+.. Set Banner Min Height
+*/
+document.querySelector('.glide').style.height = document.querySelector('.bannerTumbal').clientHeight+'px';
+
+/*
+.. Create Banner
+*/
+getData('spanduk');
+function createBanner(response){
+    response.forEach(r=>$('.glide__track .glide__slides').append(`<div class="glide__slide">
+            <img src="${r.imgurl}" class="w-full h-28 mysm2:h-32 mysm:h-44 sm:h-auto">
+        </div>`));
+
+    var glide = new Glide('.glide', {
+        type: 'carousel',
+        focusAt: 'center',
+        autoplay: 5000,
+        animationTimingFunc: 'ease-in-out',
+        animationDuration: 1000,
+        gap: 0,
+        perView: 1
+    });
+
+    glide.mount();
 }
