@@ -33,10 +33,10 @@
             <a class="w-8 mr-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'https://www.tokopedia.com/t-gadgetid/product','tokopedia');">
                 <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/tokopedia.svg" alt="tgadget id">
             </a>
-            <a class="w-8 mx-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'','shopee');">
+            <a class="w-8 mx-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'lapak belum tersedia','shopee');">
                 <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/shopee.svg" alt="tgadget id">
             </a>
-            <a class="w-8 mx-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'','lazada');">
+            <a class="w-8 mx-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'lapak belum tersedia','lazada');">
                 <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/lazada.svg" alt="t gadget id">
             </a>
             <a class="w-8 ml-2 transform translate-x-28 transition duration-500 opacity-0 cursor-pointer" onclick="updateStat(this,event,'https://mywa.link/3xwr4ga2','whatsapp');">

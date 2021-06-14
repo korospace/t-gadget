@@ -438,7 +438,9 @@ function closeDetail(){
         }, 300);
     }, 300);
     descriptionDown();
-    document.querySelector('#deskription-wraper1').style.height = "50px"; 
+    if(window.innerWidth <= 640){
+        document.querySelector('#deskription-wraper1').style.height = "50px"; 
+    }
 }
 
 /* 
