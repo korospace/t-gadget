@@ -24,6 +24,6 @@ Live Demo Can access at <a href="https://t-gadget.herokuapp.com/">https://t-gadg
 > Product
 > <img src="asset/screenshoot/popup.webp" width="860px" /><br><br>
 
-> Mobile <br>
+> Mobile
 > <img src="asset/screenshoot/mobile2.webp" width="860px" /><br><br>
 > <img src="asset/screenshoot/mobile.webp" width="860px" /><br><br>
