@@ -5,15 +5,8 @@
 
     <script>
         // ... URL ...
-        const API_URL = $('span#api-url').data('url');
+        const API_URL  = $('span#api-url').data('url');
         const BASE_URL = $('span#base-url').data('url');
-        // ... remove loading animation
-        $(window).on('load',function() {
-            setTimeout(() => {
-                document.querySelector('#divloader').classList.add('hidden');
-                document.querySelector('body').classList.remove('overflow-hidden');
-            }, 400);
-        });
     </script>
 
     <?php if($data['title'] == 'home') : ?>

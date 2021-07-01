@@ -54,7 +54,7 @@
                 </div>
                 <div class="md:relative w-96 md:w-4/5 mymd:w-4/5 lg:w-5/6 mylg:w-3/4 text-xs mylg:text-sm flex text-center link-wraper">
                     <a href="testimoni" class="hover:bg-black mr-2 mymd:mr-4 py-1 border-2 border-white text-white tracking-wide capitalize flex-1 rounded-full hrefSection notNavHref hreftestimoni">
-                        <h4>testimoni</h4></a>
+                        <h4 href="testimoni" class="notNavHref">testimoni</h4></a>
                     <a href="<?= BASE_URL; ?>produk/" class="bg-myyellow ml-2 mymd:ml-4 py-1 border-2 border-myyellow tracking-wide capitalize flex-1 rounded-full opacity-90 hover:opacity-100 notNavHref">
                         <h4>produk kami</h4></a>
                 </div>
@@ -102,7 +102,7 @@
                 <h2 class="mb-14 max-w-max text-white text-xs sm:text-base md:text-xl font-bold tracking-wide opacity-90" style="font-family: 'lato';">
                     Testimoni diambil dari lapak kami di Tokopedia</h2>
                 <div class="testi-clicked-wraper bg-testi-clicked fixed z-40 px-5 w-full h-full flex hidden justify-center items-center"  onclick="testiClick('close');">
-                    <img id="img-testi" src="http://localhost/t-admin/asset/img/imgTesti/60625edff3f06testi3-min.png" class="w-full md:w-3/5">
+                    <img id="img-testi" src="" class="w-full md:w-3/5">
                 </div>
                 <div id="img-wraper" class="mb-8 mt:mb-0 pb-0 md:pb-16 mylg:pb-0 w-full grid grid-cols-1 sm:grid-cols-2 mylg:grid-cols-3 grid-rows-10 sm:grid-rows-4 md:grid-rows-3 mylg:grid-rows-2 gap-2 overflow-auto sm:overflow-visible"></div>
             </div>

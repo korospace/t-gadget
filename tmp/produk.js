@@ -1,3 +1,10 @@
+
+// ... remove loading animation
+setTimeout(() => {
+    document.querySelector('#divloader').classList.add('hidden');
+    document.querySelector('body').classList.remove('overflow-hidden');
+}, 400);
+
 /*
 .. Object of array
 */

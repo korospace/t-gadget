@@ -10,12 +10,12 @@
         <a class="text-sm tracking-widest uppercase opacity-90 hrefSection hreftestimoni" href="testimoni">testimoni</a>
         <a class="text-sm tracking-widest uppercase opacity-90" href="<?= BASE_URL; ?>produk/">product</a>
     </div>
-    <div class="burgerOpen w-6 h-4 sm:h-5 flex md:hidden flex-col justify-between cursor-pointer transform transition duration-300" onclick="burgerOpen(this,event);">
+    <div class="burgerOpen w-6 h-4 sm:h-5 flex md:hidden flex-col justify-between cursor-pointer transform transition duration-300" onclick="openLinkWraper2();">
         <span class="bg-myyellow w-full h-1 sm:h-1"></span>
         <span class="bg-myyellow w-full h-1 sm:h-1"></span>
         <span class="bg-myyellow w-full h-1 sm:h-1"></span>
     </div>
-    <div class="burgerClose absolute top-6 sm:top-7 right-6 w-10 sm:w-12 h-4 sm:h-6 flex md:hidden flex-col justify-center transform translate-x-40 transition duration-300 cursor-pointer overflow-hidden" onclick="burgerClose(this,event);">
+    <div class="burgerClose absolute top-6 sm:top-7 right-6 w-10 sm:w-12 h-4 sm:h-6 flex md:hidden flex-col justify-center transform translate-x-40 transition duration-300 cursor-pointer overflow-hidden" onclick="closeLinkWraper2();">
         <span class="bg-myyellow w-full h-1/6 origin-center transform rotate-45"></span>
         <span class="bg-myyellow w-full h-1/6 origin-center transform -rotate-45"></span>
     </div>
