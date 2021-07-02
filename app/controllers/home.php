@@ -2,12 +2,12 @@
 
 class home extends BaseController{
     public function index(){
-        $data['title'] = 'home';
-        $data['visitor'] = '';
+        $data['title']   = 'home';
+        $data['visitor'] = 'false';
         
         if(!isset($_SESSION['visitor'])){
+            $data['visitor']     = 'true';
             $_SESSION['visitor'] = true; 
-            $data['visitor'] = 'pengunjung';
         }
 
         $this->view('Layout/header',$data);

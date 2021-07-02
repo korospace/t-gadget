@@ -1,7 +1,7 @@
 <?php
 
 class App{
-    public $controller = 'home';
+    public $controller = 'produk';
     public $method = 'index';
     public $params = [];
 

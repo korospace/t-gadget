@@ -548,3 +548,51 @@ function createBanner(response){
 
     glide.mount();
 }
+
+
+/* 
+    Banner
+*/
+let glide = document.querySelector('.glide');
+
+// .. Set Banner Min Height
+glide.style.height = document.querySelector('.bannerTumbal').clientHeight+'px';
+
+// .. Insert banner img
+let resBanners = getDataFromApi(API_URL+'/getBanners');
+
+resBanners.then( (banners) => {
+    
+    console.log(banners);
+    
+    banners.forEach( (banner) => {
+        $('.glide__track .glide__slides').append(`<div class="glide__slide">
+            <img src="${banner.imgurl}" class="w-full h-28 mysm2:h-32 mysm:h-44 sm:h-auto">
+        </div>`)
+    });
+
+    new Glide('.glide', {
+        type: 'carousel',
+        focusAt: 'center',
+        autoplay: 5000,
+        animationTimingFunc: 'ease-in-out',
+        animationDuration: 1000,
+        gap: 0,
+        perView: 1
+    }).mount();
+
+    // .. Banner On Hover
+    let divGlide   = document.querySelector('div.glide');
+    let glideArrow = document.querySelectorAll('.glide__arrow');
+
+    divGlide.addEventListener('mouseenter', () => {
+        glideArrow.forEach( e => {
+            e.classList.toggle('active');
+        });
+    });
+    divGlide.addEventListener('mouseleave', () => {
+        glideArrow.forEach( e => {
+            e.classList.toggle('active');
+        });
+    });
+});

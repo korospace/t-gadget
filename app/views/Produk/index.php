@@ -1,6 +1,8 @@
 <section class="pt-32 mysm:pt-20 flex-1 flex flex-col justify-between items-center overflow-auto">
+    
     <!-- banner -->
-    <div id="banner-container" class="px-5 mymd:px-10 pt-2 sm:pt-3 w-full transition-all duration-500">
+    <!-- <div id="banner-container" class="px-5 mymd:px-10 pt-2 sm:pt-3 w-full transition-all duration-500">
+        
         <div class="glide mysm2:h-32 mysm:h-44 sm:h-72.5 flex justify-center items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
             <div class="glide__track relative z-30" data-glide-el="track">
                 <div class="glide__slides flex items-center">
@@ -17,7 +19,8 @@
                 </button>
             </div>
         </div>
-    </div>
+
+    </div> -->
 
     <!-- Products -->
     <div id="produk-container" class="relative z-20 px-5 mymd:px-10 mt-8 mb-24 sm:mb-32 w-full">
@@ -75,8 +78,8 @@
     </div>
 </section>
 
-<!-- Popup -->
-<div id="popup-container" class="bg-testi-clicked close px-16 hidden z-min1 fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center" style="backdrop-filter: blur(4px);-webkit-backdrop-filter: blur(8px);" onclick="closePopup(this,event);">
+<!-- Count-Down -->
+<div id="popup-container" class="bg-testi-clicked close px-16 hidden z-min1 fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center" onclick="closePopup(this,event);">
     <div id="popup-wraper" class="relative w-72">
         <div id="close-popup" class="bg-myyellow close absolute z-30 -top-2 mysm:-top-3 -right-2 mysm:-right-3 w-6 mysm:w-8 p-2 rounded-full cursor-pointer" onclick="closePopup(this,event);">
             <img class="w-full close" src="<?= BASE_URL; ?>asset/img/cancel.svg">

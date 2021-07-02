@@ -1,18 +1,28 @@
 
-<!-- Container -->
 <div id="container" class="flex-1 flex flex-col bg-cover bg-fixed bg-no-repeat overflow-hidden" style="background-image: url(<?= BASE_URL; ?>asset/img/bg-min.webp)">
     <div id="section-wraper" class="w-full h-full" style="background-color: rgba(0, 0, 0, .8);">
         
-        <!-- Home -->
+        <!-- 
+            Home
+        -->
         <section id="home" class="relative w-full h-full flex flex-col justify-center items-center text-center transition duration-700">
+            
+            <!-- main text -->
             <div class="flex flex-col md:flex-row justify-center items-center opacity-90">
                 <h1 class="pt-0 md:pt-6 pb-3 pr-0 md:pr-10 text-white text-8xl md:text-6xl mymd:text-7xl mylg:text-8xl tracking-widest border-r-0 md:border-r-2 border-myyellow" style="font-family: 'bebas';">
                     welcome to</h1>
                 <h2 class="pb-8 md:pb-0 pl-0 md:pl-10 text-8xl md:text-6xl mymd:text-7xl mylg:text-8xl tracking-wide uppercase border-b-2 md:border-b-0 border-myyellow" style="font-family: 'lato';">
                     tgadget</h2>
             </div>
+            
+            <!-- second text -->
             <h3 class="mt-6 mymd:mt-8 text-white text-lg sm:text-lg mylg:text-2xl tracking-wide capitalize opacity-90" style="font-family: 'lato';">
-                Kami menjual berbagai macam Aksersoris hp, komputer <br class="block mymd:hidden">dan keperluan gadget lainnya</h3>
+                Kami menjual berbagai macam Aksersoris hp, komputer 
+                <br class="block mymd:hidden">
+                dan keperluan gadget lainnya
+            </h3>
+            
+            <!-- button -->
             <div class="link-wraper flex">
                 <a href="about" class="hrefabout notNavHref hrefSection hover:bg-black mt-20 mx-3 px-6 mylg:px-8 py-2 mylg:py-4 inline md:hidden text-white text-lg mylg:text-2xl font-bold tracking-widest uppercase border-2 border-white opacity-90" style="font-family: 'bebas';">
                     tentang kami
@@ -21,21 +31,27 @@
                     lihat produk
                 </a>
             </div>
-            <!-- CService -->
+
+            <!-- Customer Service -->
             <div id="cservice-wraper" class=" w-min-max flex items-center fixed z-10 bottom-6 right-6">
                 <h4 class="bg-cservice-span mr-5 p-1.5 sm:p-2 relative min-w-max text-xs sm:text-sm flex items-center transition-all duration-700 rounded-sm sm:rounded opacity-0">
                     <span class="text-black">Hai, ada yang bisa saya bantu?</span>
                     <div class="bg-white absolute -right-4 w-5 h-5 border-l-2 border-white" style="clip-path: polygon(90% 50%, 0 0, 0 100%);"></div>
                 </h4>
-                <a id="cservice" class="relative w-10 sm:w-16 h-10 sm:h-16 flex items-center rounded-full cursor-pointer" onclick="updateStat(this,event,'https://mywa.link/3xwr4ga2','whatsapp');">
+                <a id="cservice" class="relative w-10 sm:w-16 h-10 sm:h-16 flex items-center rounded-full cursor-pointer" onclick="updateStatistic('whatsapp','https://mywa.link/3xwr4ga2');">
                     <img src="<?= BASE_URL; ?>asset/img/profil-min.webp" class="w-full h-full rounded-full">
                     <div class="bg-green-500 absolute bottom-0 right-0.5 w-3 sm:w-4 h-3 sm:h-4 rounded-full"></div>
                 </a>
             </div>
+
         </section> 
         
-        <!-- About -->
+        <!--  
+            About
+        -->
         <section id="about" class="relative w-full h-full flex flex-col mymd:flex-row justify-center items-center transition duration-300 overflow-hidden">
+
+            <!-- Left side -->
             <div id="leftAbout" class="h-auto sm:h-2/4 mymd:h-full pt-8 sm:pt-0 pb-24 sm:pb-0 pl-8 md:pl-16 pr-8 md:pr-0 w-full mymd:w-3/5 flex flex-col justify-center">
                 <h1 class="text-myyellow text-5xl md:text-6xl mymd:text-5xl mylg:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
                     anti</h1>
@@ -59,6 +75,8 @@
                         <h4>produk kami</h4></a>
                 </div>
             </div>
+
+            <!-- Right side -->
             <div id="rightAbout" class="h-auto sm:h-2/4 mymd:h-full pt-24 sm:pt-0 pb-36 sm:pb-0 pl-6 md:pl-0 pr-14 md:pr-24 w-full mymd:w-auto flex-0 mymd:flex-1 flex justify-center sm:justify-end items-center">
                 <div id="card-wraper" class="relative h-10 w-96 flex justify-center items-center shadow-lg">
                     <div id="garis" class="absolute z-10 right-0 w-32 sm:w-72 mymd:w-32 mylg:w-72 border-b-2 border-myyellow opacity-90"></div>
@@ -94,16 +112,22 @@
             </div>
         </section>
         
-        <!-- Testimoni -->
+        <!--  
+            Testimoni
+        -->
         <section id="testimoni" class="relative w-full h-full flex transition duration-300 overflow-auto">
             <div class="wraper-all w-full h-full px-8 md:px-16 flex flex-col flex-start mylg:justify-center items-center">
+                <!-- Main text -->
                 <h1 class="mt-14 mylg:mt-0 text-myyellow text-4xl sm:text-5xl md:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
                     apa pendapat mereka ?</h1>
+                <!-- Second text -->
                 <h2 class="mb-14 max-w-max text-white text-xs sm:text-base md:text-xl font-bold tracking-wide opacity-90" style="font-family: 'lato';">
                     Testimoni diambil dari lapak kami di Tokopedia</h2>
+                <!-- Zoomed testimoni -->
                 <div class="testi-clicked-wraper bg-testi-clicked fixed z-40 px-5 w-full h-full flex hidden justify-center items-center"  onclick="testiClick('close');">
                     <img id="img-testi" src="" class="w-full md:w-3/5">
                 </div>
+                <!-- Testimonies wraper -->
                 <div id="img-wraper" class="mb-8 mt:mb-0 pb-0 md:pb-16 mylg:pb-0 w-full grid grid-cols-1 sm:grid-cols-2 mylg:grid-cols-3 grid-rows-10 sm:grid-rows-4 md:grid-rows-3 mylg:grid-rows-2 gap-2 overflow-auto sm:overflow-visible"></div>
             </div>
         </section>   
