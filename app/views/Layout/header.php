@@ -42,8 +42,18 @@
         <div id="newVisitor" data-visitor="<?= $data['visitor']; ?>"></div>
 
         <!-- 
-        Windows Load animation 
+            Windows Load animation 
         -->
         <div id="divloader" class="bg-black fixed w-screen h-screen flex justify-center items-center" style="z-index: 10003;">
             <img src="<?= BASE_URL; ?>asset/img/logo-t-min.webp" class="animate-pulse">
+        </div>
+
+        <!-- 
+            Error
+        -->
+        <div id="diverror" class="bg-white hidden fixed w-screen h-screen flex justify-center items-center" style="z-index: 10003;">
+            <div class="mt-14 mb-8 w-40 mysm:w-52 opacity-80">
+                <img src="<?= BASE_URL; ?>asset/img/notfound.webp" class="w-full">
+                <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center"></h1>
+            </div>
         </div>

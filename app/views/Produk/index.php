@@ -21,11 +21,11 @@
         </div>
 
     </div> -->
-
+    
     <!-- Products -->
     <div id="produk-container" class="relative z-20 px-5 mymd:px-10 mt-8 mb-24 sm:mb-32 w-full">
         <div id="produk-wraper" class="w-full grid gap-4 grid-cols-2 sm:grid-cols-4 lg:grid-cols-5">
-            
+            <a></a>
         </div>
     </div>
 
@@ -37,12 +37,14 @@
 
     <!-- Footer -->
     <div id="footer" class="bg-footer relative pt-10 px-5 mymd:px-10 w-full">
-        <div id="div-load-more" class="absolute -top-16 sm:-top-20 left-0 right-0 flex justify-center">
-            <a id="btn-load-more" class="opacity-80 hover:opacity-100 focus:opacity-100" onclick="loadMore(this,event);" href="">
-                <h1 class="border-b-2 border-black text-sm sm:text-xl text-black">load more</h1>
-                <img class="w-6 sm:w-10 hidden opacity-80" src="<?= BASE_URL; ?>asset/img/loading.svg">
+
+        <!-- load more -->
+        <div id="div-load-more" class="hidden absolute -top-16 sm:-top-20 left-0 right-0 flex justify-center">
+            <a id="btn-load-more" class="opacity-80 hover:opacity-100 focus:opacity-100" href="">
+                <h1 class="border-b-2 border-black text-sm sm:text-xl text-black transition-all duration-300">load more</h1>
             </a>
         </div>
+
         <div class="w-full flex flex-col mysm:flex-row justify-between items-center">
             <div>
                 <div class="flex items-center text-3xl mysm:text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -87,8 +89,8 @@
         <div id="bg-img-popup" class="bg-myyellow p-0.5 w-full rounded-tl-xl rounded-tr-xl rounded-b-md">
             <div id="img-popup-wraper" class="relative w-full flex items-center justify-center rounded-tl-xl rounded-tr-xl rounded-b-md border-2 border-black overflow-hidden">
                 <img id="popup-height" class="relative z-min1 w-full opacity-0" src="<?= BASE_URL; ?>asset/img/popup.webp">
-                <img id="popup-height" class="absolute z-10 w-10 opacity-80" src="<?= BASE_URL; ?>asset/img/loading.svg">
-                <img id="img-popup" class="absolute z-20 w-full" src="">
+                <img id="popup-height" class="loadingImg absolute z-10 w-10 opacity-80" src="<?= BASE_URL; ?>asset/img/loading.svg">
+                <Image id="img-popup" class="absolute z-20 w-full" src="" placeholder="blur" />
             </div>
         </div>
         <div id="bg-countdowb" class="bg-myyellow mt-2 w-full p-0.5 rounded-md">

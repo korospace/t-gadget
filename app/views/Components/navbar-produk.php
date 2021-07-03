@@ -15,7 +15,7 @@
         <!-- search -->
         <div class="relative flex-1 overflow-visible" style="color: rgba(49,53,59,0.96);">
             <div class="bg-white relative border-2 border-myyellow rounded-sm overflow-hidden">
-                <input id="keyword" class="block px-3 py-1 w-full text-xs sm:text-sm outline-none" type="text" autocomplete="off" placeholder="cari produk">
+                <input id="keyword" class="inputKeyword block px-3 py-1 w-full text-xs sm:text-sm outline-none" type="text" autocomplete="off" placeholder="cari produk">
                 <label class="bg-myyellow absolute top-0 bottom-0 right-0 block p-0.5 sm:p-0 w-8 sm:w-10 cursor-pointer" for="keyword">
                     <img class="p-1 w-full h-full opacity-80 hover:opacity-100" src="<?= BASE_URL; ?>asset/img/search.svg">
                 </label>
