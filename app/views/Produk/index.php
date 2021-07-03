@@ -30,7 +30,7 @@
     </div>
 
     <!-- Products Not-found -->
-    <div id="notfound" class="hidden mt-14 mb-8 w-40 mysm:w-52 opacity-80">
+    <div id="notfound" class="hidden pt-10 mt-14 mb-8 w-40 mysm:w-52 opacity-80">
         <img src="<?= BASE_URL; ?>asset/img/notfound.webp" class="w-full">
         <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center">Ups, Product Not Found</h1>
     </div>

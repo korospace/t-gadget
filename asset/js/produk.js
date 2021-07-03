@@ -386,6 +386,10 @@ resProducts
                 document.querySelectorAll('.productCard').forEach(e => e.remove());
             }
 
+            // .. reset notfound status
+            document.querySelector('#notfound').classList.add('hidden');
+            document.querySelector('#produk-container').classList.remove('hidden');
+
             filtered.forEach((e,i) => {
                 if(i >= start && i <= end){
                     let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardClick(this,event);">
@@ -440,6 +444,12 @@ resProducts
             // .. clean card
             if(start == 0){
                 document.querySelectorAll('.productCard').forEach(e => e.remove());
+            }
+
+            // .. produk not found
+            if(filtered.length <= 0){
+                document.querySelector('#notfound').classList.remove('hidden');
+                document.querySelector('#produk-container').classList.add('hidden');
             }
 
             filtered.forEach((e,i) => {
