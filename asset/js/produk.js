@@ -131,6 +131,7 @@ for (let i = 1; i <= total; i++) {
         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp 000.000</span>
         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
             <img class="w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
+            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80">
         </div>
         <div class="name-wraper bg-myyellow px-3 pt-3 pb-2 text-myxs mysm2:text-xs mysm:text-base sm:text-sm md:text-base mymd:text-sm text-left text-black">
             <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">Please wait . . .</span>
@@ -327,8 +328,9 @@ resProducts
                     let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardClick(this,event);">
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
-                            <img class="imgLoad w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
-                            <div class="bg-white w-full absolute z-20}">
+                            <img class="w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
+                            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80 imgLoading">
+                            <div class="bg-white w-full absolute z-20">
                                 <Image placeholder="blur" class="imgProduk w-full" src="${e.imgurl}" alt="${e.nama}" />
                             </div>
                         </div>
@@ -343,7 +345,7 @@ resProducts
                 }
 
             });
-
+            stopLoadingImg();
 
         }
         createProductCard();
@@ -390,7 +392,8 @@ resProducts
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
                             <img class="w-full" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
-                            <div class="bg-white w-full absolute z-20}">
+                            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80 imgLoading">
+                            <div class="bg-white w-full absolute z-20">
                                 <img class="w-full" src="${e.imgurl}" alt="${e.nama}">
                             </div>
                         </div>
@@ -405,6 +408,7 @@ resProducts
                 }
 
             });
+            stopLoadingImg();
 
         }
 
@@ -444,7 +448,8 @@ resProducts
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
                             <img class="w-full" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
-                            <div class="bg-white w-full absolute z-20}">
+                            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80 imgLoading">
+                            <div class="bg-white w-full absolute z-20">
                                 <img class="w-full" src="${e.imgurl}" alt="${e.nama}">
                             </div>
                         </div>
@@ -459,6 +464,7 @@ resProducts
                 }
 
             });
+            stopLoadingImg();
 
         }
 
@@ -494,11 +500,19 @@ resProducts
         document.querySelectorAll('a.loadingCard').forEach(e => {
             e.remove();
         });
-        // .. remove loading img
-        document.querySelectorAll('img.imgProduk').forEach(e => {
-            e.onload = () => {e.parentElement.previousElementSibling.classList.remove('animate-pulse')};
-        });
     });
+
+
+/* 
+    STOP loading img
+*/
+function stopLoadingImg(){
+    document.querySelectorAll('img.imgProduk').forEach(e => {
+        e.onload = () => {
+            e.parentElement.previousElementSibling.remove();
+        };
+    });
+}
 
 /* 
     HTML to ELEMENT
