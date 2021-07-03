@@ -1,4 +1,4 @@
-<section class="pt-32 mysm:pt-20 flex-1 flex flex-col justify-between items-center overflow-auto">
+<section class="pt-16 flex-1 flex flex-col justify-between items-center overflow-auto transition-all duration-300">
     
     <!-- banner -->
     <!-- <div id="banner-container" class="px-5 mymd:px-10 pt-2 sm:pt-3 w-full transition-all duration-500">
@@ -22,7 +22,7 @@
 
     </div> -->
     
-    <!-- Products -->
+    <!-- Products mt-8 -->
     <div id="produk-container" class="relative z-20 px-5 mymd:px-10 mt-8 mb-24 sm:mb-32 w-full">
         <div id="produk-wraper" class="w-full grid gap-4 grid-cols-2 sm:grid-cols-4 lg:grid-cols-5">
             <a></a>

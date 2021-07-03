@@ -167,8 +167,15 @@ function getDataFromApi(url,data){
         let xhr  = new XMLHttpRequest();
         
         xhr.open('POST',url,true);
+
+        xhr.timeout = 30000;
         
         xhr.send(data);
+
+        xhr.ontimeout = () => {
+            rejected(Error("request timeout")); 
+            return 0;
+        }
 
         xhr.onload = () => {
             try{
@@ -255,7 +262,37 @@ function getTesti(){
         testiHover();
     })
     .catch((error) => {
-        console.log(error.message);
+        let el = '';
+        console.log(`message :\n${error.message}`);
+
+        for (let i = 0; i < 9; i++) {
+            if(i>=6){
+                if(i>=8){
+                    el += `<div class="relative opacity-90 block sm:hidden transition rounded-sm md:rounded overflow-hidden">
+                        <div class="bg-myyellow w-full h-full flex flex-col justify-center items-center">
+                            <img src="${BASE_URL}asset/img/notfound.webp" class="w-12 sm:w-16 opacity-80">
+                            <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center opacity-80">${error.message}</h1>
+                        </div>
+                    </div>`;
+                }else{
+                    el += `<div class="relative opacity-90 block md:hidden transition rounded-sm md:rounded overflow-hidden">
+                        <div class="bg-myyellow w-full h-full flex flex-col justify-center items-center">
+                            <img src="${BASE_URL}asset/img/notfound.webp" class="w-12 sm:w-16 opacity-80">
+                            <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center opacity-80">${error.message}</h1>
+                        </div>
+                    </div>`;
+                }
+            }else{
+                el += `<div class="relative opacity-90 transition rounded-sm md:rounded overflow-hidden">
+                    <div class="bg-myyellow w-full h-full flex flex-col justify-center items-center">
+                        <img src="${BASE_URL}asset/img/notfound.webp" class="w-12 sm:w-16 opacity-80">
+                        <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center opacity-80">${error.message}</h1>
+                    </div>
+                </div>`;
+            }
+        }
+
+        document.querySelector('#testimoni #img-wraper').innerHTML = el;
     });
     
 }
