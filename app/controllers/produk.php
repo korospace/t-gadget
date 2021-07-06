@@ -2,17 +2,19 @@
 
 class produk extends BaseController{
     public function index(){
-        $data['title'] = 'produk';
-        $data['visitor'] = '';
+        $data['title']   = 'produk';
+        $data['visitor'] = 'false';
         
         if(!isset($_SESSION['visitor'])){
+            $data['visitor']     = 'true';
             $_SESSION['visitor'] = true; 
-            $data['visitor'] = 'pengunjung';
         }
 
         $this->view('Layout/header',$data);
         $this->view('Components/navbar-produk');
         $this->view('Produk/index');
+        $this->view('Components/countdown');
+        $this->view('Components/modaldetail');
         $this->view('Layout/footer',$data);
     }
 }

@@ -18,11 +18,11 @@ window.addEventListener('load', () => {
 /* 
     API - get all data
 */
-function getDataFromApi(url){
+function getDataFromApi(url,data = null){
     return new Promise((resolve,rejected) => {
-        let xhr  = new XMLHttpRequest();
-        let code = new FormData();
-        
+        let xhr    = new XMLHttpRequest();
+        let params = new FormData();
+
         xhr.open('POST',url,true);
         
         xhr.timeout   = 60000;
@@ -31,33 +31,75 @@ function getDataFromApi(url){
             return 0;
         }
 
-        code.append('code','031020');
-        
-        xhr.send(code);
+        if(data === null){
+            params.append('code','031020');
+        }else{
+            params = data;
+        }
+
+        xhr.send(params);
 
         xhr.onload = () => {
             try{
                 resolve(JSON.parse(xhr.responseText));
             }
             catch(err){
-                rejected(Error("Ups, server error!")); 
+                rejected(Error("Ups, server error")); 
             }
         }
     })
 }
 
 /* 
-... Count-down
+    New visitor
 */
-let resCountDown    = getDataFromApi(API_URL+'getCountDown');
-let imageCountD     = document.querySelector('#img-popup');
-let containerCountD = document.querySelector('#popup-container');
-let doCountDown     = '';
+let spanNewVisitor = document.querySelector('#newVisitor');
+let isNewVisitor   = spanNewVisitor.dataset.visitor;
+if(isNewVisitor === 'true'){
+    updateStatistic('pengunjung');
+}
 
-resCountDown
-    .then((result) => {
-        let date = result.tgl.split('/');
+/* 
+    Update statistic
+*/
+function updateStatistic(atribut,event = null,sosmedLink = null,idProduk = null){
+    (event !== null) ? event.preventDefault() : '';
+    
+    let url    = API_URL+'updateStatistic/';
+    let params = new FormData();
+
+    params.append('code','031020');
+    params.append('atribut',atribut);
+    if(idProduk != null){
+        params.append('id',idProduk);
+    }
+
+    let result = getDataFromApi(url,params);
+
+    result.catch((err) => {
+        console.log(`for developer:\n${err}`);
+    });
+
+    if(sosmedLink !== null){
+        (sosmedLink !== 'not available') ? window.open(sosmedLink,'blank') : alert('Maaf, lapak belum tersedia');
+    }
+}
+
+/* 
+    PROMISE ALL
+*/
+let getCountDown = getDataFromApi(API_URL+'getCountDown');
+let getProducts  = getDataFromApi(API_URL+'getProducts');
+
+getCountDown
+    .then((resCountDown) => {
+
+        /* 
+        ... Count-down
+        */
+        let date = resCountDown.tgl.split('/');
         
+        // .. count-down algorithim
         const countDown = () => {
             const dateX = new Date(`${date[2]}-${date[1]}-${date[0]}T00:00`).getTime();
             const now   = new Date().getTime();
@@ -72,7 +114,7 @@ resCountDown
         doCountDown = setInterval(()=>countDown(), 1000);
         
         // .. open count-down
-        imageCountD.src = result.imgurl;
+        imageCountD.src = resCountDown.imgurl;
         containerCountD.style.zIndex = '10002';
         containerCountD.classList.remove('hidden');
         containerCountD.classList.remove('z-min1');
@@ -80,80 +122,17 @@ resCountDown
         imageCountD.onload = () => {
             imageCountD.previousElementSibling.remove();
         }
-        
+    })
+    .catch(err => {
+        console.log('getCountDown:\n'+err.message);
+        showError(err.message,true);
     });
 
-// .. close count-down
-function closePopup(e,event){
-    if(event.target.classList.contains('close')){
-        clearInterval(doCountDown);
-        containerCountD.style.zIndex = '-1';
-        containerCountD.classList.add('hidden');
-        containerCountD.classList.add('z-min1');
-    }
-}
-
-/*
-.. ARRAY Master
-*/
-let arrMaster = {
-    arrCategories : [],
-    arrKeywords   : [],
-    arrProducts   : [],
-}
-
-/*
-.. CREATE Array
-*/
-function createArray(value,arrName){
-    if(arrMaster[arrName].length == 0){
-        arrMaster[arrName].push(value);
-    }else{        
-        let isExist = arrMaster[arrName].find(el => value == el);
-
-        (!isExist) ? arrMaster[arrName].push(value) : '';
-    }
-}
-
-/* 
-    Product - get all
-*/
-
-// .. create loading card
-let productsWraper = document.querySelector('#produk-wraper');
-let lastCard       = productsWraper.lastElementChild;
-let total = 10;
-if(window.innerWidth < 1024) total = 8;
-if(window.innerWidth < 640) total  = 4;
-
-for (let i = 1; i <= total; i++) {
-    let rawCard = `<a href="" class="loadingCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
-        <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp 000.000</span>
-        <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
-            <img class="w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
-            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80">
-        </div>
-        <div class="name-wraper bg-myyellow px-3 pt-3 pb-2 text-myxs mysm2:text-xs mysm:text-base sm:text-sm md:text-base mymd:text-sm text-left text-black">
-            <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">Please wait . . .</span>
-        </div>
-    </a>`;
-
-    htmlToElements(rawCard).forEach(e => {
-        productsWraper.insertBefore(e,lastCard);
-    });
-}
-
-let resProducts = getDataFromApi(API_URL+'getProduk');
-let divLoadMore = document.querySelector('#div-load-more');
-let btnLoadMore = divLoadMore.querySelector('a');
-
-resProducts
-    .then((products) => {
-
-        /* 
-            Create array
-        */
-        products.forEach(product => {
+getProducts
+    .then((resProducts) => {
+        return console.log(resProducts);
+        // .. create array
+        resProducts.forEach(product => {
             // Array categories
             createArray(product.kategori,'arrCategories');
             // Array keywords
@@ -194,9 +173,9 @@ resProducts
         // .. categories RISE
         if(window.innerWidth <= 411){
             categoriesRise();
-            document.querySelector('section').classList.remove('pt-16');
-            document.querySelector('section').classList.add('pt-32');
+            document.querySelector('#produk-container').classList.remove('pt-16');
             document.querySelector('#produk-container').classList.remove('mt-8');
+            document.querySelector('#produk-container').classList.add('pt-32');
             document.querySelector('#produk-container').classList.add('mt-4');
         };
 
@@ -325,7 +304,7 @@ resProducts
 
             arrMaster.arrProducts.forEach((e,i) => {
                 if(i >= start && i <= end){
-                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardClick(this,event);">
+                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardOnClick(this,event);">
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
                             <img class="w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
@@ -392,13 +371,13 @@ resProducts
 
             filtered.forEach((e,i) => {
                 if(i >= start && i <= end){
-                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardClick(this,event);">
+                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardOnClick(this,event);">
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
                             <img class="w-full" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
                             <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80 imgLoading">
                             <div class="bg-white w-full absolute z-20">
-                                <img class="w-full" src="${e.imgurl}" alt="${e.nama}">
+                                <img class="w-full imgProduk" src="${e.imgurl}" alt="${e.nama}">
                             </div>
                         </div>
                         <div class="name-wraper bg-myyellow px-3 pt-3 pb-2 text-myxs mysm2:text-xs mysm:text-base sm:text-sm md:text-base mymd:text-sm text-left text-black">
@@ -454,13 +433,13 @@ resProducts
 
             filtered.forEach((e,i) => {
                 if(i >= start && i <= end){
-                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardClick(this,event);">
+                    let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardOnClick(this,event);">
                         <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                         <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
                             <img class="w-full" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
                             <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80 imgLoading">
                             <div class="bg-white w-full absolute z-20">
-                                <img class="w-full" src="${e.imgurl}" alt="${e.nama}">
+                                <img class="w-full imgProduk" src="${e.imgurl}" alt="${e.nama}">
                             </div>
                         </div>
                         <div class="name-wraper bg-myyellow px-3 pt-3 pb-2 text-myxs mysm2:text-xs mysm:text-base sm:text-sm md:text-base mymd:text-sm text-left text-black">
@@ -502,7 +481,7 @@ resProducts
         });
     })
     .catch(err => {
-        console.log('message:\n'+err.message);
+        console.log('getProducts:\n'+err.message);
         showError(err.message,true);
     })
     .finally(()=>{
@@ -512,6 +491,85 @@ resProducts
         });
     });
 
+
+////////////////////////
+/////  Variables  //////
+////////////////////////
+/* 
+    VARIABLE for count-down
+*/
+let doCountDown     = '';
+let imageCountD     = document.querySelector('#img-popup');
+let containerCountD = document.querySelector('#popup-container');
+
+/* 
+    VARIABLE for products
+*/
+let divLoadMore = document.querySelector('#div-load-more');
+let btnLoadMore = divLoadMore.querySelector('a');
+let arrMaster   = {
+    arrCategories : [],
+    arrKeywords   : [],
+    arrProducts   : [],
+}
+
+/* 
+    VARIABLE for loading cards
+*/
+let productsWraper = document.querySelector('#produk-wraper');
+let lastCard       = productsWraper.lastElementChild;
+let total = 10;
+if(window.innerWidth < 1024) total = 8;
+if(window.innerWidth < 640) total  = 6;
+
+
+////////////////////////
+/////  Functions  //////
+////////////////////////
+/* 
+    FILL arrMaster
+*/
+function createArray(value,arrName){
+    if(arrMaster[arrName].length == 0){
+        arrMaster[arrName].push(value);
+    }else{        
+        let isExist = arrMaster[arrName].find(el => value == el);
+
+        (!isExist) ? arrMaster[arrName].push(value) : '';
+    }
+}
+
+/* 
+    CREATE loading cards
+*/
+for (let i = 1; i <= total; i++) {
+    let rawCard = `<a href="" class="loadingCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
+        <span class="span-harga bg-black px-2 py-1 absolute z-30 top-0 right-0 text-myyellow text-myxs mysm:text-sm sm:text-xs" style="min-width: max-content;">Rp 000.000</span>
+        <div class="relative p-3 mymd:p-4 img-wraper w-full flex-1 flex justify-center items-center">
+            <img class="w-full animate-pulse" src="${BASE_URL}asset/img/bgproduk.webp" alt="">
+            <img src="${BASE_URL}asset/img/loading.svg" class="absolute w-8 sm:w-12 opacity-80">
+        </div>
+        <div class="name-wraper bg-myyellow px-3 pt-3 pb-2 text-myxs mysm2:text-xs mysm:text-base sm:text-sm md:text-base mymd:text-sm text-left text-black">
+            <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">Please wait . . .</span>
+        </div>
+    </a>`;
+
+    htmlToElements(rawCard).forEach(e => {
+        productsWraper.insertBefore(e,lastCard);
+    });
+}
+
+/* 
+    close count-down
+*/
+function closeCountDown(e,event){
+    if(event.target.classList.contains('close')){
+        clearInterval(doCountDown);
+        containerCountD.style.zIndex = '-1';
+        containerCountD.classList.add('hidden');
+        containerCountD.classList.add('z-min1');
+    }
+}
 
 /* 
     STOP loading img
@@ -554,9 +612,17 @@ function createHarga(rHarga){
     return hargav3;
 }
 
-////////////////////////
-///// CHEACTSHEET /////
-////////////////////////
+/* 
+    CARD OnClick
+*/
+function cardOnClick(cardEl,event){
+    event.preventDefault();
+    updateStatistic('dilihat',null,null,cardEl.dataset.id);
+
+    console.log(cardEl.dataset.id);
+
+}
+
 
 // CLEAR INTERVAL
 // --------------

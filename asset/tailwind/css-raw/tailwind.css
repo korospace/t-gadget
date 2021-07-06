@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .nav-href-active {
+      @apply border-b-2 border-tgadget text-tgadget;
+    }
+}
+
+/* 
+//////////////    
+My native css
+//////////////
+*/
+
+#home #main-text h1 {
+    -webkit-text-stroke: 2px #fff;
+}
+
+#home #main-text h2 {
+    -webkit-text-stroke: 2.5px hsl(43, 100%, 51%);
+}
+
+/* widht break point */
+@media(max-width:910px) {
+    #home #main-text h2 {
+        -webkit-text-stroke: 1.5px #FFB903
+    }
+}
+
+@media(max-width:768px) {
+    #home #main-text h1 {
+        -webkit-text-stroke: 3px #FFF
+    }
+    #home #main-text h2 {
+        -webkit-text-stroke: 2.5px #FFB903
+    }
+}
+
+@media(max-width:560px) {
+    #home #main-text h1 {
+        padding-bottom: 2.6vw;
+        font-size: 17vw;
+        -webkit-text-stroke: .5vw #FFF
+    }
+    #home #main-text h2 {
+        padding-bottom: 6vw;
+        font-size: 17vw;
+        -webkit-text-stroke: .5vw #FFB903;
+        border-bottom: .4vw solid #FFB903;
+    }
+    #home h3#second-text {
+        margin-top: 5vw;
+        font-size: 3.2vw;
+        line-height: 5.4vw
+    }
+    #home #buttons-wraper {
+        margin-top: 13vw !important;
+    }
+    #home #buttons-wraper a {
+        font-size: 3.2vw;
+        line-height: 3.2vw;
+        border-width: .5vw;
+        margin: 0 2vw 0 2vw !important;
+        padding: 2.4vw 4vw 2.4vw 4vw !important;
+    }
+}
+
+@media(max-width:411px) {
+    #about #left-side h1,
+    #about #left-side h2 {
+        font-size: 10.5vw !important;
+    }
+    #about #left-side h3 {
+        font-size: 5.2vw !important;
+        line-height: 5.8vw !important;
+        margin-bottom: 5vw !important;
+    }
+    #about #left-side ul li {
+        font-size: 2.6vw !important;
+    }
+    #about #left-side #buttons-wraper {
+        font-size: 2.6vw !important;
+        margin-top: 5vh !important;
+    }
+    #about #left-side a:nth-child(1) {
+        margin-right: 2vw !important;
+        border-width: .6vw !important;
+        padding: .6vw 0 !important;
+    }
+    #about #left-side a:nth-child(2) {
+        margin-left: 2vw !important;
+        border-width: .6vw !important;
+        padding: .6vw 0 !important;
+    }
+    #about #right-side h5 {
+        font-size: 5.2vw !important;
+        line-height: 6.4vw !important;
+    }
+    #about #right-side h6 {
+        font-size: 4.2vw !important;
+        line-height: 5.4vw !important;
+    }
+    #about #right-side p {
+        font-size: 2.6vw !important;
+        line-height: 3.8vw !important;
+    }
+    #about #right-side #garis {
+        width: 50% !important;
+        border-bottom: .6vw solid #FFB903 !important;
+    }
+    #about #right-side #instan {
+        width: 34% !important;
+        height: 35vw !important;
+        padding: 1.8vw 2.6vw 0 2.8vw !important;
+        transform: translate(-1.6vw, 0);
+    }
+    #about #right-side #murah {
+        width: 34% !important;
+        height: 35vw !important;
+        transform: translate(-3.6vw, 8vw);
+    }
+    #about #right-side #berkualitas {
+        width: 34% !important;
+        height: 40vw !important;
+        transform: translate(1vw, -8vw);
+    }
+    #about #right-side #murah div:nth-child(1) {
+        padding: 1.8vw 2.6vw 0 2.8vw !important;
+    }
+    #about #right-side #berkualitas div:nth-child(2) {
+        padding: 1vw 2.6vw 0 2.8vw !important;
+    }
+}
+
+@media(max-width:366px) {
+    #testimoni h1#main-text {
+        font-size: 9vw !important;
+        line-height: 10vw !important
+    }
+    #testimoni h2#second-text {
+        font-size: 3vw !important;
+        line-height: 4vw !important;
+        margin-bottom: 14vw
+    }
+}
+
+/* height break point */
+@media(max-height:700px) {
+    #testimoni #content-wraper {
+        justify-content: flex-start !important
+    }
+    #testimoni #content-wraper h1#main-text {
+        padding-top: 4rem
+    }
+    #testimoni #testimonies-wraper {
+        padding-bottom: 4rem
+    }
+    #testimoni #img-testi {
+        transform: translateY(-2.5rem)
+    }
+}
+
+@media(max-height:700px) and (max-width:1146px) {
+    #testimoni #content-wraper h1#main-text {
+        padding-top: 0
+    }
+}
+
+@media(max-height:700px) and (max-width:640px) {
+    #testimoni #testimonies-wraper {
+        padding-bottom: 0
+    }
+}

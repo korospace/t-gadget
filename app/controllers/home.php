@@ -2,16 +2,16 @@
 
 class home extends BaseController{
     public function index(){
-        $data['title']   = 'home';
-        $data['visitor'] = 'false';
+        $data['code']       = '031020';
+        $data['title']      = 'home';
+        $data['NewVisitor'] = 'false';
         
-        if(!isset($_SESSION['visitor'])){
-            $data['visitor']     = 'true';
-            $_SESSION['visitor'] = true; 
+        if(!isset($_SESSION['NewVisitor'])){
+            $data['NewVisitor']     = 'true';
+            $_SESSION['NewVisitor'] = true; 
         }
 
         $this->view('Layout/header',$data);
-        $this->view('Components/navbar-home');
         $this->view('Home/index');
         $this->view('Layout/footer',$data);
     }
