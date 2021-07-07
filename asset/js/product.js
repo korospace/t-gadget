@@ -303,6 +303,11 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
 
         // .. loading card
         loadingCard();
+
+        // .. scroll to top
+        window.scrollTo({
+            top: document.querySelector('nav').offsetTop,
+        });
     }
 
     showError("", false);
@@ -319,15 +324,18 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
                     btnLoadMore.classList.add('opacity-0');
                     btnLoadMore.classList.remove('opacity-80');
                 }, 1000);
-                if(resProducts.length <= 0){
-                    showError("Sory, product not found!", true);
-                }
             }
             else{
                 btnLoadMore.innerText = 'load more';
                 btnLoadMore.classList.remove('z-min-1');
                 btnLoadMore.classList.remove('opacity-0');
                 btnLoadMore.classList.add('opacity-80');
+            }
+
+            if(filterBy === 'keyword'){
+                if(resProducts.length <= 0){
+                    showError("Sory, product not found!", true);
+                }
             }
             
             resProducts.forEach(e => {
