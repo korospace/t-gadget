@@ -2,19 +2,17 @@
 
 class produk extends BaseController{
     public function index(){
-        $data['title']   = 'produk';
-        $data['visitor'] = 'false';
+        $data['code']       = '031020';
+        $data['title']      = 'produk';
+        $data['NewVisitor'] = 'false';
         
-        if(!isset($_SESSION['visitor'])){
-            $data['visitor']     = 'true';
-            $_SESSION['visitor'] = true; 
+        if(!isset($_SESSION['NewVisitor'])){
+            $data['NewVisitor']     = 'true';
+            $_SESSION['NewVisitor'] = true; 
         }
 
         $this->view('Layout/header',$data);
-        $this->view('Components/navbar-produk');
         $this->view('Produk/index');
-        $this->view('Components/countdown');
-        $this->view('Components/modaldetail');
         $this->view('Layout/footer',$data);
     }
 }

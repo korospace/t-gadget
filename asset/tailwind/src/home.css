@@ -4,7 +4,7 @@
 
 @layer components {
     .nav-href-active {
-      @apply border-b-2 border-tgadget text-tgadget;
+      @apply border-b-2 border-tgadget-1000 text-tgadget-1000;
     }
 }
 
@@ -14,6 +14,7 @@ My native css
 //////////////
 */
 
+/* HOME */
 #home #main-text h1 {
     -webkit-text-stroke: 2px #fff;
 }
@@ -22,19 +23,18 @@ My native css
     -webkit-text-stroke: 2.5px hsl(43, 100%, 51%);
 }
 
-/* widht break point */
 @media(max-width:910px) {
     #home #main-text h2 {
-        -webkit-text-stroke: 1.5px #FFB903
+        -webkit-text-stroke: 1.5px #FFB903;
     }
 }
 
 @media(max-width:768px) {
     #home #main-text h1 {
-        -webkit-text-stroke: 3px #FFF
+        -webkit-text-stroke: 3px #FFF;
     }
     #home #main-text h2 {
-        -webkit-text-stroke: 2.5px #FFB903
+        -webkit-text-stroke: 2.5px #FFB903;
     }
 }
 
@@ -42,7 +42,7 @@ My native css
     #home #main-text h1 {
         padding-bottom: 2.6vw;
         font-size: 17vw;
-        -webkit-text-stroke: .5vw #FFF
+        -webkit-text-stroke: .5vw #FFF;
     }
     #home #main-text h2 {
         padding-bottom: 6vw;
@@ -67,6 +67,7 @@ My native css
     }
 }
 
+/* ABOUT */
 @media(max-width:411px) {
     #about #left-side h1,
     #about #left-side h2 {
@@ -134,42 +135,42 @@ My native css
     }
 }
 
+/* TESTIMONI */
 @media(max-width:366px) {
     #testimoni h1#main-text {
         font-size: 9vw !important;
-        line-height: 10vw !important
+        line-height: 10vw !important;
     }
     #testimoni h2#second-text {
         font-size: 3vw !important;
         line-height: 4vw !important;
-        margin-bottom: 14vw
+        margin-bottom: 14vw;
     }
 }
 
-/* height break point */
 @media(max-height:700px) {
     #testimoni #content-wraper {
-        justify-content: flex-start !important
+        justify-content: flex-start !important;
     }
     #testimoni #content-wraper h1#main-text {
-        padding-top: 4rem
+        padding-top: 4rem;
     }
     #testimoni #testimonies-wraper {
-        padding-bottom: 4rem
+        padding-bottom: 4rem;
     }
     #testimoni #img-testi {
-        transform: translateY(-2.5rem)
+        transform: translateY(-2.5rem);
     }
 }
 
 @media(max-height:700px) and (max-width:1146px) {
     #testimoni #content-wraper h1#main-text {
-        padding-top: 0
+        padding-top: 0;
     }
 }
 
 @media(max-height:700px) and (max-width:640px) {
     #testimoni #testimonies-wraper {
-        padding-bottom: 0
+        padding-bottom: 0;
     }
 }

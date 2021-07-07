@@ -1,7 +1,4 @@
-
-// ... URL ...
-const API_URL  = $('span#api-url').data('url');
-const BASE_URL = $('span#base-url').data('url');
+/* URL's declaration at views/Layout/footer.php */
 
 /* 
     Window on LOAD
@@ -13,7 +10,9 @@ window.addEventListener('load', () => {
     if(!navigator.onLine){
         showError("Ups, connection lost!",true);
     }
+    return 0;
 });
+
 
 /* 
     API - get all data
@@ -94,9 +93,6 @@ let getProducts  = getDataFromApi(API_URL+'getProducts');
 getCountDown
     .then((resCountDown) => {
 
-        /* 
-        ... Count-down
-        */
         let date = resCountDown.tgl.split('/');
         
         // .. count-down algorithim

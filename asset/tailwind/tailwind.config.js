@@ -6,7 +6,7 @@ module.exports = {
     content: ['../../app/views/**/*.php','../js/**/*.js'],
   },
   presets: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     screens: {
       "sm-411": '411px',
@@ -32,7 +32,11 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
-      tgadget: "#FFB903",
+      tgadget: {
+        100 : "rgba(255, 185, 3, 0.1)",
+        200 : "rgba(255, 185, 3, 0.2)",
+        1000: "#FFB903",
+      }
     },
     spacing: {
       px: '1px',
@@ -807,6 +811,7 @@ module.exports = {
     }),
     zIndex: {
       auto: 'auto',
+      "min-1": '-1',
       0: '0',
       10: '10',
       20: '20',

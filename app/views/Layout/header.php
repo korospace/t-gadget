@@ -9,12 +9,7 @@
         <link rel="shortcut icon" href="<?= BASE_URL ?>asset/img/logo-t-min.webp" type="image/x-icon">
 
         <!-- css -->
-        <link rel="stylesheet" href="<?= BASE_URL ?>asset/tailwind/css-build/tailwind.css">
-        
         <style>
-            body{
-                background-image: url("<?= BASE_URL ?>asset/img/bg-body.webp");
-            }
             @font-face {
                 font-family: 'bebas';
                 src: url('<?= BASE_URL ?>asset/font/BebasNeue-Regular.ttf');
@@ -26,15 +21,15 @@
         </style>
         
         <?php if($data['title'] == 'home') : ?>
-            <link rel="stylesheet" href="<?= BASE_URL ?>asset/css/home.css">
+            <link rel="stylesheet" href="<?= BASE_URL ?>asset/tailwind/dist/home.css">
         <?php else : ?>
             <link rel="stylesheet" href="<?= BASE_URL ?>asset/css/glide.core.min.css">
             <link rel="stylesheet" href="<?= BASE_URL ?>asset/css/glide.theme.min.css">
-            <link rel="stylesheet" href="<?= BASE_URL ?>asset/css/produk.css">
+            <link rel="stylesheet" href="<?= BASE_URL ?>asset/tailwind/dist/product.css">
         <?php endif; ?>
         
     </head>
-    <body class="h-screen flex flex-col">
+    <body class="bg-tgadget-1000 h-screen flex flex-col" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
         
         <!-- 
             new visitor
@@ -51,7 +46,7 @@
         <!-- 
             Error
         -->
-        <div id="diverror" class="bg-tgadget hidden fixed w-screen h-screen flex justify-center items-center" style="z-index: 10003;">
+        <div id="diverror" class="bg-tgadget-1000 hidden fixed w-screen h-screen flex justify-center items-center" style="z-index: 10000;">
             <div class="mt-14 mb-8 w-40 mysm:w-52 opacity-80">
                 <img src="<?= BASE_URL; ?>asset/img/notfound.webp" class="w-full">
                 <h1 class="mt-6 font-extrabold text-lg mysm:text-xl text-center"></h1>

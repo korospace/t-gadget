@@ -240,8 +240,7 @@ if(NewVisitor === 'true'){
 /* 
     GET testimoni images
 */
-// let getTesti = getDataFromApi(`${API_URL}getTestimonies/`);
-let getTesti = getDataFromApi(`getTestimonies/`);
+let getTesti = getDataFromApi(`${API_URL}getTestimonies/`);
 
 getTesti
     .then((resTesti) => {

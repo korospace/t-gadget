@@ -9,9 +9,9 @@
         
         <!-- burger open -->
         <div id="burgerOpen" class="w-6 h-5 flex md:hidden flex-col justify-between transform transition-transform duration-300 opacity-80 hover:opacity-100 cursor-pointer" onclick="doBurger();">
-            <span class="bg-tgadget w-full h-1"></span>
-            <span class="bg-tgadget w-full h-1"></span>
-            <span class="bg-tgadget w-full h-1"></span>
+            <span class="bg-tgadget-1000 w-full h-1"></span>
+            <span class="bg-tgadget-1000 w-full h-1"></span>
+            <span class="bg-tgadget-1000 w-full h-1"></span>
         </div>
         
         <!-- burger close -->
@@ -21,7 +21,7 @@
     </div>
 
     <!-- NAV'S HREF -->
-    <div id="nav-href" class="w-0 md:w-96.6 absolute md:static top-14.7 sm:top-16.2 bottom-0 right-0 flex flex-col md:py-6 md:pr-16 transition-w duration-300 overflow-hidden" style="background-image: linear-gradient(to bottom, #000 50%, rgba(0, 0, 0, 0.9));">
+    <div id="nav-href" class="w-0 md:w-96.6 fixed md:static top-14.7 sm:top-16.2 bottom-0 right-0 flex flex-col md:py-6 md:pr-16 transition-w duration-300 overflow-hidden" style="background-image: linear-gradient(to bottom, #000 50%, rgba(0, 0, 0, 0.9));">
         
         <!-- Navbar's Href -->
         <div id="href-wraper" class="h-3/5 md:h-full flex hidden md:flex flex-col md:flex-row justify-between px-8 md:px-0 pt-10 md:pt-0 text-white text-center duration-300 opacity-0 md:opacity-100">
@@ -35,10 +35,10 @@
         <div id="sosmed-wraper" class="w-full flex-1 flex hidden md:hidden items-center">
             <div class="w-full flex justify-between items-center px-10 sm-411:px-16 sm:px-8">
                 <a class="w-8 mr-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('tokopedia',event,'https://www.tokopedia.com/t-gadgetid/product');">
-                    <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/tokopedia.svg" alt="tgadget id">
+                    <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/tokopedia.svg" alt="tgadget-1000 id">
                 </a>
                 <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('shopee',event,'not available');">
-                    <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/shopee.svg" alt="tgadget id">
+                    <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/shopee.svg" alt="tgadget-1000 id">
                 </a>
                 <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('lazada',event,'not available');">
                     <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/lazada.svg" alt="t gadget id">
@@ -53,16 +53,14 @@
 </nav>
 
 <main id="container" class="w-screen flex-1 flex flex-col overflow-hidden" style="background-color: rgba(0, 0, 0, 0.8);">
-    <!-- 
-        HOME section
-     -->
+    
     <section id="home" class="relative w-full h-full flex flex-col justify-center items-center text-center transition duration-700">
             
         <!-- main text -->
         <div id="main-text" class="flex flex-col md:flex-row justify-center items-center opacity-90">
-            <h1 class="pt-0 md:pt-6 pr-0 md:pr-10 text-white text-8xl md:text-6xl md-911:text-7xl lg-1040:text-8xl tracking-widest border-r-0 md:border-r-2 border-tgadget" style="font-family: 'bebas';">
+            <h1 class="pt-0 md:pt-6 pr-0 md:pr-10 text-white text-8xl md:text-6xl md-911:text-7xl lg-1040:text-8xl tracking-widest border-r-0 md:border-r-2 border-tgadget-1000" style="font-family: 'bebas';">
                 welcome to</h1>
-            <h2 class="pb-8 md:pb-0 pl-0 md:pl-10 text-8xl md:text-6xl md-911:text-7xl lg-1040:text-8xl tracking-wide uppercase border-b-2 md:border-b-0 border-tgadget" style="font-family: 'lato';">
+            <h2 class="pb-8 md:pb-0 pl-0 md:pl-10 text-8xl md:text-6xl md-911:text-7xl lg-1040:text-8xl tracking-wide uppercase border-b-2 md:border-b-0 border-tgadget-1000" style="font-family: 'lato';">
                 tgadget</h2>
         </div>
         
@@ -75,10 +73,10 @@
         
         <!-- button -->
         <div id="buttons-wraper" class="flex mt-20">
-            <a class="href-navigator active:bg-tgadget mx-3 px-6 lg-1040:px-8 py-2 lg-1040:py-4 border-2 border-white text-white text-lg lg-1040:text-2xl font-bold tracking-widest uppercase opacity-90 hover:opacity-100 inline md:hidden" style="font-family: 'bebas';" href="about">
+            <a class="href-navigator active:bg-tgadget-1000 mx-3 px-6 lg-1040:px-8 py-2 lg-1040:py-4 border-2 border-white text-white text-lg lg-1040:text-2xl font-bold tracking-widest uppercase opacity-90 hover:opacity-100 inline md:hidden" style="font-family: 'bebas';" href="about">
                 tentang kami
             </a>
-            <a class="bg-tgadget mx-3 px-6 lg-1040:px-8 py-2 lg-1040:py-4 border-2 border-tgadget text-lg lg-1040:text-2xl font-bold tracking-widest uppercase opacity-90 hover:opacity-100" style="font-family: 'bebas';" href="<?= BASE_URL; ?>produk/">
+            <a class="bg-tgadget-1000 mx-3 px-6 lg-1040:px-8 py-2 lg-1040:py-4 border-2 border-tgadget-1000 text-lg lg-1040:text-2xl font-bold tracking-widest uppercase opacity-90 hover:opacity-100" style="font-family: 'bebas';" href="<?= BASE_URL; ?>produk/">
                 lihat produk
             </a>
         </div>
@@ -86,7 +84,7 @@
         <!-- Customer Service -->
         <div id="cservice-wraper" class="fixed z-10 bottom-6 right-6 flex items-center">
             <!-- message-cloud -->
-            <h4 id="cservice-message" class="bg-gradient-to-r from-tgadget to-white min-w-max relative flex items-center mr-5 p-1.5 sm:p-2 text-xs sm:text-sm transition-opacity duration-700 rounded-sm sm:rounded opacity-0">
+            <h4 id="cservice-message" class="bg-gradient-to-r from-tgadget-1000 to-white min-w-max relative flex items-center mr-5 p-1.5 sm:p-2 text-xs sm:text-sm transition-opacity duration-700 rounded-sm sm:rounded opacity-0">
                 <span class="text-black">Hai, ada yang bisa saya bantu?</span>
                 <div class="bg-white w-5 h-5 absolute -right-4 border-l-2 border-white" style="clip-path: polygon(90% 50%, 0 0, 0 100%);"></div>
             </h4>
@@ -94,15 +92,14 @@
             <!-- btn-link -->
             <a id="cservice-href" class="w-10 sm:w-16 h-10 sm:h-16 relative flex items-center rounded-full cursor-pointer" onclick="updateStatistic('whatsapp',event,'https://mywa.link/3xwr4ga2');">
                 <img src="<?= BASE_URL; ?>asset/img/profil-min.webp" class="w-full h-full rounded-full">
-                <div class="bg-green-500 w-3 sm:w-4 h-3 sm:h-4 absolute bottom-0 right-0.5 rounded-full"></div>
+                <div class="bg-green-500 w-3 sm:w-4 h-3 sm:h-4 absolute bottom-0 right-0.5 rounded-full">
+                    <div class="bg-green-500 w-full h-full rounded-full animate-ping"></div>
+                </div>
             </a>
         </div>
 
     </section>
 
-    <!--  
-        About
-     -->
     <section id="about" class="w-full h-full hidden relative transition-opacity duration-300 overflow-hidden">
 
         <div id="content-wraper" class="relative w-full h-full block md-911:flex flex-col md-911:flex-row justify-center items-center px-8 md:px-16 overflow-hidden">
@@ -116,9 +113,9 @@
             <div id="left-side" class="w-full md-911:w-auto md-911:flex-1 relative z-10 flex flex-col justify-center md-911:justify-around items-center pr-0 sm:pr-32 md-911:pr-20" style="min-height: 100%;">
                 <!-- text -->
                 <div id="text-wraper">
-                    <h1 class="text-tgadget text-5xl md:text-6xl md-911:text-5xl lg-1040:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
+                    <h1 class="text-tgadget-1000 text-5xl md:text-6xl md-911:text-5xl lg-1040:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
                         anti</h1>
-                    <h2 class="text-tgadget text-5xl md:text-6xl md-911:text-5xl lg-1040:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
+                    <h2 class="text-tgadget-1000 text-5xl md:text-6xl md-911:text-5xl lg-1040:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
                         rugi-rugi club</h2>
                     <h3 class="text-white text-2xl md:text-4xl md-911:text-2xl lg:text-3xl lg-1040:text-4xl font-extrabold tracking-wide uppercase opacity-90">murah dan bergaransi</h3>
                     <ul class="mt-6 opacity-90 list-disc list-inside text-white">
@@ -136,9 +133,9 @@
 
                 <!-- buttons -->
                 <div id="buttons-wraper" class="w-full flex mt-16 md-911:mt-0 text-xs lg-1040:text-sm text-center">
-                    <a class="href-navigator active:bg-tgadget flex-1 mr-2 md-911:mr-4 py-1 border-2 border-white hover:border-tgadget text-white hover:text-tgadget tracking-wide capitalize rounded-full" href="testimoni">
+                    <a class="href-navigator active:bg-tgadget-1000 flex-1 mr-2 md-911:mr-4 py-1 border-2 border-white hover:border-tgadget-1000 text-white hover:text-tgadget-1000 tracking-wide capitalize rounded-full" href="testimoni">
                         testimoni</a>
-                    <a class="bg-tgadget flex-1 ml-2 md-911:ml-4 py-1 border-2 border-tgadget tracking-wide capitalize rounded-full opacity-90 hover:opacity-100" href="<?= BASE_URL; ?>produk/">
+                    <a class="bg-tgadget-1000 flex-1 ml-2 md-911:ml-4 py-1 border-2 border-tgadget-1000 tracking-wide capitalize rounded-full opacity-90 hover:opacity-100" href="<?= BASE_URL; ?>produk/">
                         produk kami</a>
                 </div>
             </div>
@@ -147,17 +144,17 @@
             <div id="right-side" class="w-full md-911:w-auto md-911:flex-1 relative z-10 flex justify-end items-center" style="min-height: 100%;">
                 <div id="cards-wraper" class="relative w-full flex justify-center md-911:justify-end items-center">
                     <!-- white line -->
-                    <div id="garis" class="absolute z-10 w-72 border-b-2 border-tgadget opacity-90"></div>
+                    <div id="garis" class="absolute z-10 w-72 border-b-2 border-tgadget-1000 opacity-90"></div>
                     
                     <!-- card - instan -->
-                    <div class="bg-black relative z-20 h-40 sm:h-48 md-911:h-40 lg-1040:h-48 w-32 sm:w-40 md-911:w-32 lg-1040:w-40 py-2 sm:py-5 md-911:py-2 lg-1040:py-5 pl-3 pr-5 border-2 border-tgadget transform -translate-x-2" id="instan">
+                    <div class="bg-black relative z-20 h-40 sm:h-48 md-911:h-40 lg-1040:h-48 w-32 sm:w-40 md-911:w-32 lg-1040:w-40 py-2 sm:py-5 md-911:py-2 lg-1040:py-5 pl-3 pr-5 border-2 border-tgadget-1000 transform -translate-x-2" id="instan">
                         <h5 class="text-white text-2xl sm:text-4xl md-911:text-2xl lg-1040:text-4xl tracking-widest" style="font-family: 'bebas';">
                             instan</h5>
                         <p class="text-white text-xs sm:text-sm md-911:text-xs lg-1040:text-sm" style="font-family: 'lato';">
                             Pelayanan kami di jamin cepat, tidak perlu takut pesanan lama diproses</p>
                     </div>
                     <!-- card - murah -->
-                    <div class="bg-tgadget relative z-20 h-40 sm:h-48 md-911:h-40 lg-1040:h-48 w-32 sm:w-40 md-911:w-32 lg-1040:w-40 flex flex-col transform -translate-x-6 translate-y-10" id="murah">
+                    <div class="bg-tgadget-1000 relative z-20 h-40 sm:h-48 md-911:h-40 lg-1040:h-48 w-32 sm:w-40 md-911:w-32 lg-1040:w-40 flex flex-col transform -translate-x-6 translate-y-10" id="murah">
                         <div class="w-full h-4/6 py-2 sm:py-5 md-911:py-2 lg-1040:py-5 pl-3 pr-3">
                             <h5 class="text-white text-2xl sm:text-4xl md-911:text-2xl lg-1040:text-4xl tracking-widest" style="font-family: 'bebas';">
                                 murah</h5>
@@ -186,13 +183,10 @@
 
     </section>
     
-    <!--  
-        Testimoni
-     -->
     <section id="testimoni" class="w-full h-full relative hidden transition-opaicty duration-300 overflow-auto">
         <div id="content-wraper" class="w-full h-full flex flex-col flex-start lg-1040:justify-center items-center px-8 md:px-16">
             <!-- Main text -->
-            <h1 id="main-text" class="mt-14 lg-1040:mt-0 text-tgadget text-4xl sm:text-5xl md:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
+            <h1 id="main-text" class="mt-14 lg-1040:mt-0 text-tgadget-1000 text-4xl sm:text-5xl md:text-6xl tracking-wide uppercase opacity-90" style="font-family: 'bebas';">
                 apa pendapat mereka ?</h1>
 
             <!-- Second text -->

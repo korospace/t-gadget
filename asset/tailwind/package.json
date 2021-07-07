@@ -4,7 +4,7 @@
   "description": "tailwind for tgadget website",
   "main": "postcss.config.js",
   "scripts": {
-    "build-tailwind": "postcss css-raw/tailwind.css -o css-build/tailwind.css"
+    "build-tailwind": "postcss src/product.css -o dist/product.css"
   },
   "keywords": [
     "tailwind",
