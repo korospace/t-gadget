@@ -30,11 +30,6 @@
         
     </head>
     <body class="bg-tgadget-1000 h-screen flex flex-col" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
-        
-        <!-- 
-            new visitor
-        -->
-        <div id="newVisitor" data-visitor="<?= $data['visitor']; ?>"></div>
 
         <!-- 
             Windows Load animation 
