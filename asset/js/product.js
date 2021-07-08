@@ -68,13 +68,19 @@ getLinkSosmed
 /* 
     Update statistic
 */
-function updateStatistic(atribut,thisEl = null,event = null){
+function updateStatistic(atribut = null,thisEl = null,event = null,id = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
     let params     = new FormData;
     params.append("code",CODE);
-    params.append("atribut",atribut);
+
+    if(id !== null){
+        params.append("id",id);
+    }
+    if(atribut !== null){
+        params.append("atribut",atribut);
+    }
 
     let result = doXhr(API_URL+'updateStatistic',params);
 
@@ -130,15 +136,6 @@ burgerCategory.addEventListener('click', () => {
     });
 
     categoriesWraper.classList.toggle('sm-411:hidden');
-
-    // if(window.scrollY >= productsWraper.offsetTop-70){
-    //     if(!sectionContent.classList.contains('sm-411:pt-24')){
-    //         sectionContent.classList.add('sm-411:pt-24');
-    //     }
-    // }
-    // if(window.scrollY <= productsWraper.offsetTop-70){
-    //     sectionContent.classList.toggle('sm-411:pt-24');
-    // }
 
 });
 
@@ -338,6 +335,33 @@ function closeCountDown(event){
 //////////////////////////////////////////////
 let productsWraper = document.querySelector('#products-wraper');
 let btnLoadMore    = document.querySelector('#load-more');
+let arrProducts    = [];
+
+// .. loading cards
+function loadingCard(){
+    for (let i = 1; i <= 10; i++) {
+        let rawCard = `<a href="" class="loadingCard w-full ${(i>6&&i<9) ? 'hidden sm:flex' : 'flex'} ${(i>=9) ? 'hidden lg:flex' : 'flex'} flex-col rounded-tl-lg rounded-br-lg overflow-hidden opacity-60 animate-pulse">
+            <div class="bg-black w-full flex-1 relative flex justify-center items-center">
+                <img class="w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp" alt="">
+            </div>
+            <div class="py-3">
+                <div class="flex">
+                    <span class="bg-black block w-3/5 h-2 mr-2 rounded-md"></span>
+                    <span class="bg-black block w-1/5 h-2 mr-2 rounded-md"></span>
+                    <span class="bg-black block w-1/5 h-2 rounded-md"></span>
+                </div>
+                <div class="flex mt-2">
+                    <span class="bg-black block w-3/5 h-2 rounded-md"></span>
+                </div>
+            </div>
+        </a>`;
+    
+        htmlToElements(rawCard).forEach(e => {
+            productsWraper.insertBefore(e,productsWraper.lastElementChild);
+        });
+    }
+}
+loadingCard();
 
 // .. get products
 function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
@@ -390,7 +414,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
             }
             
             resProducts.forEach(e => {
-                let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" data-id="${e.id}" onclick="cardOnClick(this,event);">
+                let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" onclick="cardOnClick(event,${e.id});">
                     <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                     <div class="w-full flex-1 relative flex justify-center items-center">
                         <img class="w-full" src="${BASE_URL}asset/img/bg-produk.webp">
@@ -407,6 +431,8 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
                 htmlToElements(rawCards).forEach(e => {
                     productsWraper.insertBefore(e,productsWraper.lastElementChild);
                 });
+
+                insertArray(e);
             });
 
             // .. remove img spinner
@@ -433,32 +459,6 @@ btnLoadMore.addEventListener('click',(el) => {
     funcGetProducts(totalCard,filterBy,filterVal);
 });
 
-// .. loading cards
-function loadingCard(){
-    for (let i = 1; i <= 10; i++) {
-        let rawCard = `<a href="" class="loadingCard w-full ${(i>6&&i<9) ? 'hidden sm:flex' : 'flex'} ${(i>=9) ? 'hidden lg:flex' : 'flex'} flex-col rounded-tl-lg rounded-br-lg overflow-hidden opacity-60 animate-pulse">
-            <div class="bg-black w-full flex-1 relative flex justify-center items-center">
-                <img class="w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp" alt="">
-            </div>
-            <div class="py-3">
-                <div class="flex">
-                    <span class="bg-black block w-3/5 h-2 mr-2 rounded-md"></span>
-                    <span class="bg-black block w-1/5 h-2 mr-2 rounded-md"></span>
-                    <span class="bg-black block w-1/5 h-2 rounded-md"></span>
-                </div>
-                <div class="flex mt-2">
-                    <span class="bg-black block w-3/5 h-2 rounded-md"></span>
-                </div>
-            </div>
-        </a>`;
-    
-        htmlToElements(rawCard).forEach(e => {
-            productsWraper.insertBefore(e,productsWraper.lastElementChild);
-        });
-    }
-}
-loadingCard();
-
 // .. HTML TO ELEMENT 
 function htmlToElements(html) {
     var template       = document.createElement('template');
@@ -468,13 +468,13 @@ function htmlToElements(html) {
 }
 
 // .. Insert arrProducts
-function insertArray(value){
+function insertArray(data){
     if(arrProducts.length == 0){
-        arrProducts.push(value);
+        arrProducts.push(data);
     }else{        
-        let isExist = arrProducts.find(e => value.id == e.id);
+        let isExist = arrProducts.find(e => e.id == data.id);
 
-        (!isExist) ? arrProducts.push(value) : '';
+        (!isExist) ? arrProducts.push(data) : '';
     }
 }
 
@@ -519,6 +519,134 @@ function scrollToTopOfContent(){
         top: sectionContent.offsetTop,
     });
 }
+
+// .. card on click
+let modalsDetail    = document.querySelector('#modals-detail');
+let btnClose        = modalsDetail.querySelector('#btn-close');
+let detailContainer = modalsDetail.querySelector('#detail-container');
+let leftSide        = modalsDetail.querySelector('#left-side');
+let rightSide       = modalsDetail.querySelector('#right-side');
+
+function cardOnClick(event,id){
+    
+    // .. update column dilihat
+    updateStatistic(null,null,event,id);
+
+    // .. find product from array products
+    let product = arrProducts.find(e => e.id == id);
+
+    // .. insert stok
+    modalsDetail.querySelector('.img-product').src = product.imgurl;
+    modalsDetail.querySelector('#stok').innerText = (product.stok == 1) ? 'ready' : 'habis';
+    modalsDetail.querySelector('#product-name').innerText = product.nama;
+    modalsDetail.querySelector('#price').innerText = createHarga(product.harga);
+    modalsDetail.querySelector('#description').innerText = product.deskripsi;
+    modalsDetail.querySelector('#isipaket ul').innerHTML = createLi(product.isipaket);
+    modalsDetail.querySelector('#fitur ul').innerHTML = createLi(product.fitur);
+    modalsDetail.querySelector('#spesifikasi ul').innerHTML = createLi(product.spesifikasi);
+
+    // .. insert link
+    if(product.linktp !== ''){
+        buyContainer.querySelector('#link-tokped-wraper').classList.remove('hidden');
+        buyContainer.querySelector('#link-tokped').innerText = product.linktp;
+        buyContainer.querySelector('#btn-link-tokped').setAttribute('data-href',product.linktp);
+        buyContainer.querySelector('#btn-link-tokped').setAttribute('onclick',`updateStatistic('tokopedia',this,event,${product.id});`);
+    }
+    if(product.linksp !== ''){
+        buyContainer.querySelector('#link-shopee-wraper').classList.remove('hidden');
+        buyContainer.querySelector('#link-shopee').innerText = product.linksp;
+        buyContainer.querySelector('#btn-link-shopee').setAttribute('data-href',product.linksp);
+        buyContainer.querySelector('#btn-link-shopee').setAttribute('onclick',`updateStatistic('shopee',this,event,${product.id});`);
+    }
+    if(product.linklz !== ''){
+        buyContainer.querySelector('#link-lazada-wraper').classList.remove('hidden');
+        buyContainer.querySelector('#link-lazada').innerText = product.linklz;
+        buyContainer.querySelector('#btn-link-lazada').setAttribute('data-href',product.linklz);
+        buyContainer.querySelector('#btn-link-lazada').setAttribute('onclick',`updateStatistic('lazada',this,event,'${product.linklz}',${product.id});`);
+    }
+    if(product.linkwa !== ''){
+        buyContainer.querySelector('#link-wa-wraper').classList.remove('hidden');
+        buyContainer.querySelector('#link-wa').innerText = product.linkwa;
+        buyContainer.querySelector('#btn-link-wa').setAttribute('data-href',product.linkwa);
+        buyContainer.querySelector('#btn-link-wa').setAttribute('onclick',`updateStatistic('whatsapp',this,event,'${product.linkwa}',${product.id});`);
+    }
+
+    // .. open modals detail
+    document.body.classList.add('overflow-hidden');
+    modalsDetail.classList.toggle('hidden');
+    setTimeout(() => {
+        detailContainer.classList.toggle('h-6/7');
+        btnClose.classList.toggle('opacity-0');
+        leftSide.classList.toggle('opacity-0');
+        rightSide.classList.toggle('opacity-0');
+    }, 50);
+
+};
+
+function createLi(data){
+    let el = '';
+    data.split('|').forEach(e => {
+        el += `<li>${e}</li>`;
+    });
+    return el;
+}
+
+// .. close modals detail
+modalsDetail.addEventListener('click',(e) => {
+    if(e.target.classList.contains('close')){
+        document.body.classList.remove('overflow-hidden');
+        btnClose.classList.toggle('opacity-0');
+        leftSide.classList.toggle('opacity-0');
+        rightSide.classList.toggle('opacity-0');
+        detailContainer.classList.toggle('h-6/7');
+        setTimeout(() => {
+            modalsDetail.classList.toggle('hidden');
+            if(rightSide.classList.contains('top-20')){
+                doUpAndDown();
+            }
+        }, 300);
+    }
+});
+
+// .. modals link for buy
+let buyContainer = document.querySelector('#buy-container');
+let bgOuter      = buyContainer.querySelector('#bg-outer');
+
+function openLinkForBuy(){
+    buyContainer.classList.remove('hidden');
+    setTimeout(() => {
+        bgOuter.classList.remove('scale-90');
+        bgOuter.classList.remove('opacity-0');
+    }, 50);
+}
+
+buyContainer.addEventListener('click',(e) => {
+    if(e.target.classList.contains('close')){
+        bgOuter.classList.add('scale-90');
+        bgOuter.classList.add('opacity-0');
+        setTimeout(() => {
+            buyContainer.classList.add('hidden');
+        }, 300);
+        buyContainer.querySelectorAll('.links-wraper').forEach(e => {
+            e.classList.add('hidden');
+        });
+    }
+});
+
+// .. btn up and down
+let btnUpAndDown         = document.querySelector('#upAndDown');
+let descriptionWraper = document.querySelector('#description-wraper');
+
+let doUpAndDown = () => {
+    btnUpAndDown.classList.toggle('rotate-180');
+    rightSide.classList.toggle('top-20');
+    descriptionWraper.classList.toggle('sm:block');
+    descriptionWraper.classList.toggle('hidden');
+    setTimeout(() => {
+        descriptionWraper.classList.toggle('sm:opacity-100');
+        descriptionWraper.classList.toggle('opacity-0');
+    }, 50);
+};
 
 //////////////////////////////////////////////
 ////////////      Dummy Data      ////////////

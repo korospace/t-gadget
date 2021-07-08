@@ -266,7 +266,7 @@ getTesti
     .then((resTesti) => {
         let el = '';
         resTesti.forEach((testimoni,i) => {
-            el += `<div class="bg-tgadget relative ${(i>=6) ? 'flex md:hidden' : ''} ${(i>=8) ? 'flex sm:hidden' : ''} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">
+            el += `<div class="bg-tgadget-1000 relative ${(i>=6) ? 'flex md:hidden' : ''} ${(i>=8) ? 'flex sm:hidden' : ''} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">
                 <div class="eyeWraper w-full h-full absolute z-20 flex justify-center items-center cursor-pointer opacity-0 hover:opacity-100" style="background: rgba(0,0,0,0.6);">
                     <img src="${BASE_URL}asset/img/eye.svg" class="w-8 md:w-10 transition duration-300">
                 </div>
@@ -331,7 +331,7 @@ function testimoniLoadingState(imgName = 'loading.svg',msg = 'please wait...'){
     let el = '';
     for (let i = 0; i < 9; i++) {
         el += `<div class="relative block ${ (i>=6) ? 'md:hidden' : '' } ${ (i>=8) ? 'sm:hidden' : '' } transition rounded-sm md:rounded overflow-hidden opacity-80">
-            <div class="bg-tgadget w-full h-full absolute flex flex-col justify-center items-center">
+            <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">
                 <img src="${BASE_URL}asset/img/${imgName}" class="loadingImg w-12 sm:w-16 opacity-80">
                 <span class="mt-6 font-extrabold text-md">${msg}</span>
             </div>

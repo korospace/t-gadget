@@ -2,8 +2,8 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: {
-    enabled: true,
-    content: ['../../app/views/**/*.php','../js/**/*.js'],
+    // enabled: true,
+    // content: ['../../app/views/**/*.php','../js/**/*.js'],
   },
   presets: [],
   darkMode: false,
@@ -442,6 +442,7 @@ module.exports = {
       '3/6': '50%',
       '4/6': '66.666667%',
       '5/6': '83.333333%',
+      '6/7': '90%',
       full: '100%',
       screen: '100vh',
     }),
@@ -553,6 +554,8 @@ module.exports = {
     }),
     minHeight: {
       0: '0px',
+      44: '11rem',
+      '6/7': '90%',
       full: '100%',
       screen: '100vh',
     },
