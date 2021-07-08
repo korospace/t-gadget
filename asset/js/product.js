@@ -185,6 +185,7 @@ getCategories
                     cleanCard('productCard');
                     loadingCard();
                     funcGetProducts(0,false,false);
+                    scrollToTopOfContent();
                 }
 
             });
@@ -357,9 +358,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
         loadingCard();
 
         // .. scroll to top
-        window.scrollTo({
-            top: sectionContent.offsetTop,
-        });
+        scrollToTopOfContent();
     }
 
     showError("", false);
@@ -511,6 +510,13 @@ function rmImgSpinner(){
 function cleanCard(className){
     document.querySelectorAll(`.${className}`).forEach(e => {
         e.remove();
+    });
+}
+
+// .. scroll to top of content
+function scrollToTopOfContent(){
+    window.scrollTo({
+        top: sectionContent.offsetTop,
     });
 }
 
