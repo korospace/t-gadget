@@ -1,8 +1,9 @@
 <?php
 
 class produk extends BaseController{
+
     public function index(){
-        $data['code']       = '031020';
+        $data['code']       = $this->getSecretCode();
         $data['title']      = 'produk';
         $data['NewVisitor'] = 'false';
         
@@ -15,5 +16,21 @@ class produk extends BaseController{
         $this->view('Produk/index');
         $this->view('Layout/footer',$data);
     }
+
+    public function getSecretCode(){
+
+        $handle = curl_init();
+        
+        $url = API_URL.'getSecretCode';
+        
+        curl_setopt($handle, CURLOPT_URL, $url);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        
+        $output = curl_exec($handle);
+        
+        curl_close($handle);
+        
+        return $output;
+    }           
 }
 ?>

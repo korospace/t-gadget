@@ -31,7 +31,7 @@ function doXhr(url,data = null){
         }
 
         if(data === null){
-            params.append('code','031020');
+            params.append('code',CODE);
         }else{
             params = data;
         }
@@ -49,9 +49,55 @@ function doXhr(url,data = null){
     })
 }
 
+/* 
+    GET LINK SOSMED
+*/
+let getLinkSosmed = doXhr(API_URL+'getLinkSosmed');
+
+getLinkSosmed
+    .then((resLinkSosmed) => {
+        document.querySelector('a#tokopedia').setAttribute('data-href',resLinkSosmed.tokopedia);
+        document.querySelector('a#shopee').setAttribute('data-href',resLinkSosmed.shopee);
+        document.querySelector('a#lazada').setAttribute('data-href',resLinkSosmed.lazada);
+        document.querySelector('a#whatsapp').setAttribute('data-href',resLinkSosmed.whatsapp);
+    })
+    .catch((err) => {
+        console.log(`getLinkSosmed:\n${err.message}`);
+    });
+
+/* 
+    Update statistic
+*/
+function updateStatistic(atribut,thisEl = null,event = null){
+    (event !== null) ? event.preventDefault() : '';
+
+    let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
+    let params     = new FormData;
+    params.append("code",CODE);
+    params.append("atribut",atribut);
+
+    let result = doXhr(API_URL+'updateStatistic',params);
+
+    result.catch((err) => {
+        console.log(`updateStatistic:\n${err}`);
+    });
+
+    if(sosmedLink !== null){
+        (sosmedLink !== 'not available') ? window.open(sosmedLink,'blank') : alert('Maaf, lapak belum tersedia');
+    }
+}
+
+/* 
+    New visitor
+*/
+if(NewVisitor === true){
+    updateStatistic('pengunjung');
+}
+
 //////////////////////////////////////////////
 /////////       Categories         ///////////
 //////////////////////////////////////////////
+let sectionContent      = document.querySelector('section#content');
 let burgerCategory      = document.querySelector('#burger-category');
 let categoriesContainer = document.querySelector('#categories-container');
 let categoriesWraper    = document.querySelector('#categories-wraper');
@@ -84,13 +130,20 @@ burgerCategory.addEventListener('click', () => {
     });
 
     categoriesWraper.classList.toggle('sm-411:hidden');
-    document.querySelector('section#content').classList.toggle('sm-411:pt-24');
+
+    // if(window.scrollY >= productsWraper.offsetTop-70){
+    //     if(!sectionContent.classList.contains('sm-411:pt-24')){
+    //         sectionContent.classList.add('sm-411:pt-24');
+    //     }
+    // }
+    // if(window.scrollY <= productsWraper.offsetTop-70){
+    //     sectionContent.classList.toggle('sm-411:pt-24');
+    // }
 
 });
 
 // .. get datas of categories
 let getCategories = doXhr(API_URL+'getCategories');
-// let getCategories = doXhr('getCategories');
 
 getCategories
     .then(resCategories => {
@@ -238,8 +291,7 @@ function clearInputKeyword(){
 let functCountDown  = '';
 let containerCountD = document.querySelector('#countdown-container');
 let imageCountD     = document.querySelector('#countdown-img');
-// let getCountDown    = doXhr(API_URL+'getCountDown');
-let getCountDown    = doXhr('getCountDown');
+let getCountDown    = doXhr(API_URL+'getCountDown');
 
 getCountDown
     .then((resCountDown) => {
@@ -306,7 +358,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
 
         // .. scroll to top
         window.scrollTo({
-            top: document.querySelector('nav').offsetTop,
+            top: sectionContent.offsetTop,
         });
     }
 

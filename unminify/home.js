@@ -33,9 +33,10 @@ let navHrefs          = document.querySelectorAll('a.href-navigator');
 
 navHrefs.forEach( href => {
     href.addEventListener('click',el => {
-        if(el.target.innerHTML != 'product'){
-            el.preventDefault();
+        if(el.target.innerHTML === 'product'){
+            return false;
         }
+        el.preventDefault();
 
         let thisHref      = el.target;
         let thisHrefValue = el.target.getAttribute('href');
@@ -214,12 +215,31 @@ function getDataFromApi(url,atribut = null){
 }
 
 /* 
+    GET LINK SOSMED
+*/
+let getLinkSosmed = getDataFromApi(API_URL+'getLinkSosmed');
+
+getLinkSosmed
+    .then((resLinkSosmed) => {
+        document.querySelector('a#tokopedia').setAttribute('data-href',resLinkSosmed.tokopedia);
+        document.querySelector('a#shopee').setAttribute('data-href',resLinkSosmed.shopee);
+        document.querySelector('a#lazada').setAttribute('data-href',resLinkSosmed.lazada);
+        document.querySelectorAll('a.whatsapp').forEach(e => {
+            e.setAttribute('data-href',resLinkSosmed.whatsapp);
+        });
+    })
+    .catch((err) => {
+        console.log(`getLinkSosmed:\n${err.message}`);
+    });
+
+/* 
     Update statistic
 */
-function updateStatistic(atribut,event = null,sosmedLink = null){
+function updateStatistic(atribut,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
-    let result = getDataFromApi(API_URL+'updateStatistic/',atribut);
+    let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
+    let result     = getDataFromApi(API_URL+'updateStatistic/',atribut);
 
     result.catch((err) => {
         console.log(`updateStatistic:\n${err}`);
@@ -233,7 +253,7 @@ function updateStatistic(atribut,event = null,sosmedLink = null){
 /* 
     New visitor
 */
-if(NewVisitor === 'true'){
+if(NewVisitor === true){
     updateStatistic('pengunjung');
 }
 

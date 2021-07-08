@@ -3,8 +3,8 @@
         // ... URL ...
         const API_URL    = "<?= API_URL; ?>";
         const BASE_URL   = "<?= BASE_URL; ?>";
-        const CODE       = "<?= $data['code']; ?>";
-        const NewVisitor = "<?= $data['NewVisitor']; ?>";
+        const CODE       = <?= $data['code']; ?>;
+        const NewVisitor = <?= $data['NewVisitor']; ?>;
 
         // Window on offline
         window.onoffline = () => {

@@ -83,20 +83,19 @@
         <div class="w-full flex flex-col justify-between items-center mt-4 py-8 border-t border-tgadget-200">
             <h1 class="text-xs sm:text-sm opacity-80 tracking-wide">Copyright © 2020-<?= date("Y"); ?> T-GadgetID</h1>
             <div class="flex items-center mt-4">
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('tokopedia',event,'https://www.tokopedia.com/t-gadgetid/product');">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('tokopedia',this,event);" id="tokopedia">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/tokopediav2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('shopee',event,'not available');">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('shopee',this,event);" id="shopee">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/shopeev2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('lazada',event,'not available');">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('lazada',this,event);" id="lazada">
                     <img class="w-4 sm:w-5.5 md:w-7" src="<?= BASE_URL; ?>asset/img/lazadav2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('whatsapp',event,'https://mywa.link/3xwr4ga2');">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('whatsapp',this,event);" id="whatsapp">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/whatsappv2.svg">
                 </a>
             </div>
-
         </div>
     </section>
 

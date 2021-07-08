@@ -34,16 +34,16 @@
         <!-- social media links -->
         <div id="sosmed-wraper" class="w-full flex-1 flex hidden md:hidden items-center">
             <div class="w-full flex justify-between items-center px-10 sm-411:px-16 sm:px-8">
-                <a class="w-8 mr-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('tokopedia',event,'https://www.tokopedia.com/t-gadgetid/product');">
+                <a class="w-8 mr-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('tokopedia',this,event);" id="tokopedia">
                     <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/tokopedia.svg" alt="tgadget-1000 id">
                 </a>
-                <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('shopee',event,'not available');">
+                <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('shopee',this,event);" id="shopee">
                     <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/shopee.svg" alt="tgadget-1000 id">
                 </a>
-                <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('lazada',event,'not available');">
+                <a class="w-8 mx-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('lazada',this,event);" id="lazada">
                     <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/lazada.svg" alt="t gadget id">
                 </a>
-                <a class="w-8 ml-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('whatsapp',event,'https://mywa.link/3xwr4ga2');">
+                <a class="whatsapp w-8 ml-2 transform translate-x-28 transition-all duration-500 opacity-0 cursor-pointer" onclick="updateStatistic('whatsapp',this,event);">
                     <img loading="lazy" width="100%" class="transition" src="<?= BASE_URL; ?>/asset/img/whatsapp.svg" alt="t gadget id">
                 </a>
             </div>
@@ -90,7 +90,7 @@
             </h4>
 
             <!-- btn-link -->
-            <a id="cservice-href" class="w-10 sm:w-16 h-10 sm:h-16 relative flex items-center rounded-full cursor-pointer" onclick="updateStatistic('whatsapp',event,'https://mywa.link/3xwr4ga2');">
+            <a id="cservice-href" class="whatsapp w-10 sm:w-16 h-10 sm:h-16 relative flex items-center rounded-full cursor-pointer" onclick="updateStatistic('whatsapp',this,event);">
                 <img src="<?= BASE_URL; ?>asset/img/profil-min.webp" class="w-full h-full rounded-full">
                 <div class="bg-green-500 w-3 sm:w-4 h-3 sm:h-4 absolute bottom-0 right-0.5 rounded-full">
                     <div class="bg-green-500 w-full h-full rounded-full animate-ping"></div>
