@@ -1,11 +1,5 @@
 /* URL's declaration at views/Layout/footer.php */
 
-// .. if network disconnect
-if(!navigator.onLine){
-    showError("Ups, connection lost!",true);
-    
-}
-
 // .. loading cards
 let productsWraper = document.querySelector('#products-wraper');
 let btnLoadMore    = document.querySelector('#load-more');
@@ -15,7 +9,7 @@ function loadingCard(){
     for (let i = 1; i <= 10; i++) {
         let rawCard = `<a href="" class="loadingCard w-full ${(i>6&&i<9) ? 'hidden sm:flex' : 'flex'} ${(i>=9) ? 'hidden lg:flex' : 'flex'} flex-col rounded-tl-lg rounded-br-lg overflow-hidden opacity-60 animate-pulse">
             <div class="bg-black w-full flex-1 relative flex justify-center items-center">
-                <img class="img-bground w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp">
+                <img class="w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp">
             </div>
             <div class="py-3">
                 <div class="flex">
@@ -36,12 +30,24 @@ function loadingCard(){
 }
 loadingCard();
 
-// .. remove loading page
-document.querySelectorAll('.img-bground').forEach(e => {
-    e.onload = () => {
-        document.querySelector('#divloader').classList.add('hidden');
+/* 
+    window on load
+*/
+window.onload = () => {
+    // .. if network disconnect
+    if(!navigator.onLine){
+        showError("Ups, connection lost!",true);
     }
-});
+    // .. remove loading page
+    document.querySelector('#divloader').classList.add('hidden');
+    // .. get data from api
+    doGetLink();
+    doGetCategories();
+    doGetKeywords();
+    doGetCountdown();
+    doGetBanners();
+    funcGetProducts();
+}
 
 /* 
     API - do xhr
@@ -74,9 +80,10 @@ function doXhr(url,params = null){
 /* 
     GET LINK SOSMED
 */
-let getLinkSosmed = doXhr(API_URL+'getLinkSosmed');
+function doGetLink(){
+    let getLinkSosmed = doXhr(API_URL+'getLinkSosmed');
 
-getLinkSosmed
+    getLinkSosmed
     .then((resLinkSosmed) => {
         document.querySelector('a#tokopedia').setAttribute('data-href',resLinkSosmed.tokopedia);
         document.querySelector('a#shopee').setAttribute('data-href',resLinkSosmed.shopee);
@@ -86,6 +93,7 @@ getLinkSosmed
     .catch((err) => {
         console.log(`getLinkSosmed:\n${err.message}`);
     });
+}
 
 /* 
     Update statistic
@@ -161,9 +169,10 @@ burgerCategory.addEventListener('click', () => {
 });
 
 // .. get datas of categories
-let getCategories = doXhr(API_URL+'getCategories');
+function doGetCategories(){
+    let getCategories = doXhr(API_URL+'getCategories');
 
-getCategories
+    getCategories
     .then(resCategories => {
         
         // .. create span category
@@ -214,6 +223,7 @@ getCategories
         console.log(`getCategories msg:\n${err}`);
         showError(err.message,true);
     });  
+}
 
 //////////////////////////////////////////////
 //////////     Search Produk       ///////////
@@ -224,9 +234,10 @@ let searchIcon       = document.querySelector('label[for=input-keyword] img');
 let keywords         = [];
 
 // .. get datas of keyword
-let getKeywords  = doXhr(API_URL+'getKeywords');
+function doGetKeywords(){
+    let getKeywords  = doXhr(API_URL+'getKeywords');
 
-getKeywords
+    getKeywords
     .then(resKeywords => {
         resKeywords
             .map( k => k.keyword.split('|') )
@@ -242,6 +253,7 @@ getKeywords
         console.log(`getKeywords msg:\n${err.message}`);
         showError(err.message,true);
     });
+}
 
 // .. input keyword on typing
 inputKeyword.addEventListener('keyup',() => {
@@ -310,9 +322,11 @@ function clearInputKeyword(){
 let functCountDown  = '';
 let containerCountD = document.querySelector('#countdown-container');
 let imageCountD     = document.querySelector('#countdown-img');
-let getCountDown    = doXhr(API_URL+'getCountDown');
 
-getCountDown
+function doGetCountdown(){
+    let getCountDown    = doXhr(API_URL+'getCountDown');
+
+    getCountDown
     .then((res) => {
 
         let day   = (res.day.length === 1) ? '0'+res.day : res.day;
@@ -344,6 +358,7 @@ getCountDown
     .catch(err => {
         console.log('getCountDown:\n'+err.message);
     });
+}
 
 // .. close count-down
 function closeCountDown(event){
@@ -356,12 +371,14 @@ function closeCountDown(event){
 //////////////////////////////////////////////
 /////////         Banners          ///////////
 //////////////////////////////////////////////
-let getBanners = doXhr(API_URL+'getBanners');
-let glideTrackDesktop = document.querySelector('#glide-track-desktop .glide__slides');
-let glideTrackMobile  = document.querySelector('#glide-track-mobile .glide__slides');
 
-getBanners
+function doGetBanners(){
+    let getBanners = doXhr(API_URL+'getBanners');
+    
+    getBanners
     .then((res) => {
+        let glideTrackDesktop = document.querySelector('#glide-track-desktop .glide__slides');
+        let glideTrackMobile  = document.querySelector('#glide-track-mobile .glide__slides');
         let bannerDesktop = ``; 
         let bannerMobile  = ``; 
         
@@ -369,10 +386,10 @@ getBanners
             bannerDesktop += `<img src="${banner.imgurl}" class="img-banner w-full h-full">`; 
             bannerMobile  += `<img src="${banner.imgurl_mobile}" class="img-banner w-full h-full">`; 
         });
-
+    
         glideTrackDesktop.innerHTML = bannerDesktop;
         glideTrackMobile.innerHTML  = bannerMobile;
-
+    
         let option = {
             type: 'carousel',
             focusAt: 'center',
@@ -382,10 +399,10 @@ getBanners
             gap: 0,
             perView: 1
         }
-
+    
         new Glide('#glide_desktop', option).mount();
         new Glide('#glide_mobile', option).mount();
-
+    
         // .. remove skeleton loaders
         document.querySelectorAll('.img-banner').forEach(e => {
             e.onload = () => {
@@ -396,7 +413,7 @@ getBanners
                 });
             };
         });
-
+    
         // Banner Service - Hover
         let glidArrowLeft  = document.querySelectorAll('.glide__arrow--left');
         let glidArrowRight = document.querySelectorAll('.glide__arrow--right');
@@ -427,6 +444,7 @@ getBanners
     .catch(err => {
         console.log('getBanners:\n'+err.message);
     });
+}
 
 //////////////////////////////////////////////
 ////////////       Product        ////////////
@@ -491,7 +509,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
                             <img class="imgProduk w-full" src="${e.imgurl}" alt="${e.nama}">
                         </div>
                     </div>
-                    <div class="bg-tgadget-1000 px-3 pt-3 pb-2 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
+                    <div class="bg-tgadget-1000 px-2 py-1 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
                         <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">${e.nama}</span>
                     </div>
                 </a>`
@@ -515,7 +533,6 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
         });
 
 }
-funcGetProducts();
 
 // btn-LoadMore on click
 btnLoadMore.addEventListener('click',(el) => {

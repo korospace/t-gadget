@@ -1,11 +1,16 @@
 /* URL's declaration at app/views/Layout/footer */
 
+testimoniLoadingState();
+
 /* 
     Windows on load
 */
 window.addEventListener('load',function() {
 
-    testimoniLoadingState();
+    // .. if network is disconected
+    if(!navigator.onLine){
+        showError("Ups, connection lost!",true);
+    }
 
     // .. remove loading animation
     document.querySelector('#divloader').classList.add('hidden');
@@ -18,11 +23,6 @@ window.addEventListener('load',function() {
     
     // .. CService 
     runCservice();
-
-    // .. if network is disconected
-    if(!navigator.onLine){
-        showError("Ups, connection lost!",true);
-    }
     
 });
 
