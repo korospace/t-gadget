@@ -1,3 +1,11 @@
+
+<!-- 
+    Windows Load animation 
+-->
+<div id="divloader" class="bg-black fixed w-screen h-screen flex justify-center items-center" style="z-index: 10003;">
+    <img src="<?= BASE_URL; ?>asset/img/logo-t-min.webp" class="animate-pulse">
+</div>
+
 <nav class="bg-black z-50 w-screen flex justify-between items-center">
     
     <a href="<?= BASE_URL; ?>" class="pl-8 md:pl-16">

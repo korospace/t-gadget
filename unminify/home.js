@@ -188,8 +188,6 @@ function getDataFromApi(url,atribut = null){
         let xhr  = new XMLHttpRequest();
         let data = new FormData();
 
-        data.append('code',CODE);
-
         (atribut !== null) ? data.append("atribut",atribut) : "";
         
         xhr.open('POST',url,true);

@@ -17,8 +17,8 @@
         <div class="relative flex-1 overflow-visible" style="color: rgba(49,53,59,0.96);">
             <!-- input keyword -->
             <div class="bg-white relative border-2 border-tgadget-1000 rounded-sm overflow-hidden">
-                <input id="input-keyword" class="inputKeyword block px-3 py-1 w-full text-xs sm:text-sm outline-none" type="text" autocomplete="off" placeholder="cari produk">
-                <label for="input-keyword" class="bg-tgadget-1000 w-8 sm:w-10 absolute top-0 bottom-0 right-0 block cursor-pointer" onclick="clearInputKeyword();">
+                <input id="input-keyword" class="inputKeyword block pl-2 sm:pl-2 pr-10 sm:pr-12 py-1 w-full text-xs sm:text-sm outline-none" type="text" autocomplete="off" placeholder="cari produk">
+                <label for="input-keyword" class="bg-tgadget-1000 w-8 sm:w-10 absolute top-0 bottom-0 right-0 block border-2 border-tgadget-1000 cursor-pointer" onclick="clearInputKeyword();">
                     <img class="w-full h-full p-1 opacity-80 hover:opacity-100" src="<?= BASE_URL; ?>asset/img/search.svg">
                 </label>
             </div>
@@ -51,16 +51,59 @@
 </nav>
 
 <!-- 
-////////////////////////
-||| Product & footer |||
-////////////////////////
+/////////////////////////////////
+||| Banner & Product & Footer |||
+/////////////////////////////////
  -->
 <main class="flex-1 w-full">
 
     <section id="content" class="w-full min-h-screen flex flex-col items-center pt-40 sm-411:pt-24 pb-10 px-5 md-911:px-10 transition-padding duration-300">
 
+        <!-- banner -->
+        <div id="glide_desktop" class="glide w-full relative hidden md:flex items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
+            <!-- bg & loading skeleton -->
+            <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
+                <img id="bg-desktop" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-desktop.webp">
+            </div>
+            <!-- glide track desktop version -->
+            <div id="glide-track-desktop" class="h-full glide__track absolute z-20" data-glide-el="track">
+                <div class="h-full glide__slides flex items-center">
+                </div>
+            </div>
+            <!-- glide arrow -->
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left bg-tgadget-1000 w-10 border-none rounded-full transform -translate-y-4 opacity-0 transition-all duration-300" data-glide-dir="<">
+                    <img class="w-4/6 transform translate-x-1.5" src="<?= BASE_URL; ?>asset/img/arrowleft.png">
+                </button>
+                <button class="glide__arrow glide__arrow--right bg-tgadget-1000 w-10 border-none rounded-full transform -translate-y-4 opacity-0 transition-all duration-300" data-glide-dir=">">
+                    <img class="w-4/6 transform -translate-x-1.5" src="<?= BASE_URL; ?>asset/img/arrowright.png">
+                </button>
+            </div>
+        </div>
+
+        <div id="glide_mobile" class="glide w-full relative flex md:hidden items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
+            <!-- bg & loading skeleton -->
+            <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
+                <img id="bg-mobile" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-mobile.webp">
+            </div>
+            <!-- glide track mobile version -->
+            <div id="glide-track-mobile" class="h-full glide__track absolute z-20" data-glide-el="track">
+                <div class="h-full glide__slides flex items-center">
+                </div>
+            </div>
+            <!-- glide arrow -->
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left bg-tgadget-1000 w-10 border-none rounded-full transform -translate-y-4 opacity-0 transition-all duration-300" data-glide-dir="<">
+                    <img class="w-4/6 transform translate-x-1.5" src="<?= BASE_URL; ?>asset/img/arrowleft.png">
+                </button>
+                <button class="glide__arrow glide__arrow--right bg-tgadget-1000 w-10 border-none rounded-full transform -translate-y-4 opacity-0 transition-all duration-300" data-glide-dir=">">
+                    <img class="w-4/6 transform -translate-x-1.5" src="<?= BASE_URL; ?>asset/img/arrowright.png">
+                </button>
+            </div>
+        </div>
+
         <!-- products -->
-        <div id="products-wraper" class="w-full grid gap-6 grid-cols-2 sm:grid-cols-4 lg:grid-cols-5">
+        <div id="products-wraper" class="w-full grid gap-6 grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 mt-7">
             <a></a>
         </div>
 
@@ -71,6 +114,7 @@
 
     </section>
 
+    <!-- footer -->
     <section id="footer" class="relative w-full flex flex-col items-center pt-8 px-5 md-911:px-10" style="z-index:10001;background-image: linear-gradient(to bottom, rgba(0,0,0,0), #000)">
         
         <!-- top-footer -->
@@ -165,19 +209,19 @@
  -->
 <div id="modals-detail" class="close w-full h-full fixed hidden" style="z-index: 10002;background-color: rgba(0,0,0,0.8);">
 
-    <div id="detail-container" class="bg-tgadget-1000 w-full h-0 absolute bottom-0 block sm:flex transition-h duration-300 rounded-tl-xl rounded-tr-xl overflow-hidden">
+    <div id="detail-container" class="bg-tgadget-1000 w-full h-0 absolute bottom-0 block sm:flex transition-h duration-500 rounded-tl-xl rounded-tr-xl overflow-hidden">
 
-        <img id="btn-close" class="close w-5 absolute top-3 right-3 opacity-80 hover:opacity-100 cursor-pointer opacity-0" src="<?= BASE_URL; ?>asset/img/cancel.svg">
+        <img id="btn-close" class="close w-5 absolute top-3 right-3 opacity-80 hover:opacity-100 cursor-pointer transition-all duration-500 delay-500 opacity-0" src="<?= BASE_URL; ?>asset/img/cancel.svg">
 
-        <div id="left-side" class="bg-white h-full sm:flex-1 mt-11 sm:mt-0 flex items-start sm:items-center transition-all duration-300 delay-300 opacity-0 rounded-t-xl sm:rounded-none overflow-hidden">
+        <div id="left-side" class="bg-white h-full sm:flex-1 mt-11 sm:mt-0 flex items-start sm:items-center transition-all duration-500 delay-500 opacity-0 rounded-t-xl sm:rounded-none overflow-hidden">
             <img class="w-full img-product" src="">
         </div>
 
-        <div id="right-side" class="bg-tgadget-1000 w-full sm:w-auto sm:flex-1 absolute sm:static bottom-0 flex flex-col pt-0 sm:pt-16 pl-4 sm:pl-8 pr-4 transition-all duration-300 delay-300 opacity-0 rounded-t-xl sm:rounded-none overflow-hidden">
+        <div id="right-side" class="bg-tgadget-1000 w-full sm:w-auto sm:flex-1 absolute sm:static bottom-0 flex flex-col pt-0 sm:pt-16 pl-4 sm:pl-8 pr-4 transition-all duration-400 delay-500 opacity-0 rounded-t-xl sm:rounded-none overflow-hidden">
             
             <!-- button up & down -->
             <div class="w-full flex sm:hidden justify-center">
-                <div id="upAndDown" class="w-max py-0.5 px-1.5 transform rotate-180 transition-transform duration-300 rounded-sm cursor-pointer" style="box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);">
+                <div id="upAndDown" class="w-max py-0.5 px-1.5 transform rotate-180 transition-transform duration-500 delay-100 rounded-sm cursor-pointer" style="box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);">
                     <img id="img-product" class="w-3 opacity-80" src="<?= BASE_URL; ?>asset/img/down-arrow.svg" onclick="doUpAndDown();">
                 </div>
             </div>

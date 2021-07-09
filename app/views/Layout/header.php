@@ -29,14 +29,7 @@
         <?php endif; ?>
         
     </head>
-    <body class="bg-tgadget-1000 h-screen flex flex-col overflow-hidden" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
-
-        <!-- 
-            Windows Load animation 
-        -->
-        <div id="divloader" class="bg-black fixed w-screen h-screen flex justify-center items-center" style="z-index: 10003;">
-            <img src="<?= BASE_URL; ?>asset/img/logo-t-min.webp" class="animate-pulse">
-        </div>
+    <body class="bg-tgadget-1000 h-screen flex flex-col <?= ($data['title'] == 'home') ? 'overflow-hidden' : '' ?>" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
 
         <!-- 
             Error

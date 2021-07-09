@@ -2,7 +2,6 @@
 
 class home extends BaseController{
     public function index(){
-        $data['code']       = $this->getSecretCode();
         $data['title']      = 'home';
         $data['NewVisitor'] = 'false';
         
@@ -16,20 +15,5 @@ class home extends BaseController{
         $this->view('Layout/footer',$data);
     }
 
-    public function getSecretCode(){
-
-        $handle = curl_init();
-        
-        $url = API_URL.'getSecretCode';
-        
-        curl_setopt($handle, CURLOPT_URL, $url);
-        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        
-        $output = curl_exec($handle);
-        
-        curl_close($handle);
-        
-        return $output;
-    } 
 }
 ?>
