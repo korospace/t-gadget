@@ -1,15 +1,16 @@
 /* URL's declaration at views/Layout/footer.php */
 
+// .. if network disconnect
 if(!navigator.onLine){
     showError("Ups, connection lost!",true);
     
 }
 
+// .. loading cards
 let productsWraper = document.querySelector('#products-wraper');
 let btnLoadMore    = document.querySelector('#load-more');
 let arrProducts    = [];
 
-// .. loading cards
 function loadingCard(){
     for (let i = 1; i <= 10; i++) {
         let rawCard = `<a href="" class="loadingCard w-full ${(i>6&&i<9) ? 'hidden sm:flex' : 'flex'} ${(i>=9) ? 'hidden lg:flex' : 'flex'} flex-col rounded-tl-lg rounded-br-lg overflow-hidden opacity-60 animate-pulse">
@@ -34,6 +35,13 @@ function loadingCard(){
     }
 }
 loadingCard();
+
+// .. remove loading page
+document.querySelectorAll('.loadingCard img').forEach(e => {
+    e.onload = () => {
+        document.querySelector('#divloader').classList.add('hidden');
+    }
+});
 
 /* 
     API - do xhr

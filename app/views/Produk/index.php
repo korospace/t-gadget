@@ -60,13 +60,14 @@
     <section id="content" class="w-full min-h-screen flex flex-col items-center pt-40 sm-411:pt-24 pb-10 px-5 md-911:px-10 transition-padding duration-300">
 
         <!-- banner -->
+        <span class="hidden translate-x-12 -translate-x-12"></span>
         <div id="glide_desktop" class="glide w-full relative hidden md:flex items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
             <!-- bg & loading skeleton -->
             <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
                 <img id="bg-desktop" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-desktop.webp">
             </div>
             <!-- glide track desktop version -->
-            <div id="glide-track-desktop" class="h-full glide__track absolute z-20" data-glide-el="track">
+            <div id="glide-track-desktop" class="h-full glide__track absolute" data-glide-el="track">
                 <div class="h-full glide__slides flex items-center">
                 </div>
             </div>
@@ -87,7 +88,7 @@
                 <img id="bg-mobile" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-mobile.webp">
             </div>
             <!-- glide track mobile version -->
-            <div id="glide-track-mobile" class="h-full glide__track absolute z-20" data-glide-el="track">
+            <div id="glide-track-mobile" class="h-full glide__track absolute" data-glide-el="track">
                 <div class="h-full glide__slides flex items-center">
                 </div>
             </div>
