@@ -64,7 +64,7 @@
         <div id="glide_desktop" class="glide w-full relative hidden md:flex items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
             <!-- bg & loading skeleton -->
             <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
-                <img id="bg-desktop" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-desktop.webp">
+                <img id="bg-desktop" class="img-bground w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-desktop.webp">
             </div>
             <!-- glide track desktop version -->
             <div id="glide-track-desktop" class="h-full glide__track absolute" data-glide-el="track">
@@ -85,7 +85,7 @@
         <div id="glide_mobile" class="glide w-full relative flex md:hidden items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
             <!-- bg & loading skeleton -->
             <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
-                <img id="bg-mobile" class="w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-mobile.webp">
+                <img id="bg-mobile" class="img-bground w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-mobile.webp">
             </div>
             <!-- glide track mobile version -->
             <div id="glide-track-mobile" class="h-full glide__track absolute" data-glide-el="track">
@@ -172,7 +172,7 @@
         <!-- img-countdown -->
         <div id="bg-countdown-img" class="bg-tgadget-1000 w-full p-0.5 rounded-tl-xl rounded-tr-xl rounded-b-md">
             <div id="countdown-img-wraper" class="w-full relative flex items-center justify-center rounded-tl-xl rounded-tr-xl rounded-b-md border-2 border-black overflow-hidden">
-                <img class="w-full relative opacity-0" src="<?= BASE_URL; ?>asset/img/bg-countdown.webp">
+                <img class="img-bground w-full relative opacity-0" src="<?= BASE_URL; ?>asset/img/bg-countdown.webp">
                 <img class="w-10 absolute z-10 opacity-80" src="<?= BASE_URL; ?>asset/img/loading.svg">
                 <img class="w-full absolute z-20" id="countdown-img" src="">
             </div>

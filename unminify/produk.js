@@ -15,7 +15,7 @@ function loadingCard(){
     for (let i = 1; i <= 10; i++) {
         let rawCard = `<a href="" class="loadingCard w-full ${(i>6&&i<9) ? 'hidden sm:flex' : 'flex'} ${(i>=9) ? 'hidden lg:flex' : 'flex'} flex-col rounded-tl-lg rounded-br-lg overflow-hidden opacity-60 animate-pulse">
             <div class="bg-black w-full flex-1 relative flex justify-center items-center">
-                <img class="w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp">
+                <img class="img-bground w-full opacity-0" src="${BASE_URL}asset/img/bg-produk.webp">
             </div>
             <div class="py-3">
                 <div class="flex">
@@ -37,7 +37,7 @@ function loadingCard(){
 loadingCard();
 
 // .. remove loading page
-document.querySelectorAll('.loadingCard img').forEach(e => {
+document.querySelectorAll('.img-bground').forEach(e => {
     e.onload = () => {
         document.querySelector('#divloader').classList.add('hidden');
     }
@@ -485,7 +485,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
                 let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" onclick="cardOnClick(event,${e.id});">
                     <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                     <div class="w-full flex-1 relative flex justify-center items-center">
-                        <img class="w-full" src="${BASE_URL}asset/img/bg-produk.webp">
+                        <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
                         <img class="absolute w-8 sm:w-12 opacity-80 imgLoading" src="${BASE_URL}asset/img/loading.svg">
                         <div class="bg-white w-full absolute z-20">
                             <img class="imgProduk w-full" src="${e.imgurl}" alt="${e.nama}">
