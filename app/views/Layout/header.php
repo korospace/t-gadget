@@ -29,7 +29,7 @@
         <?php endif; ?>
         
     </head>
-    <body class="bg-tgadget-1000 h-screen flex flex-col <?= ($data['title'] == 'home') ? 'overflow-hidden' : '' ?>" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
+    <body class="bg-tgadget-1000 h-screen flex flex-col bg-cover bg-no-repeat bg-fixed <?= ($data['title'] == 'home') ? 'overflow-hidden' : '' ?>" style="<?= ($data['title'] == 'home') ? 'background-image: url('.BASE_URL.'asset/img/bg-body.webp);' : '' ?>">
 
         <!-- 
             Windows Load animation 

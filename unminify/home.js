@@ -1,7 +1,5 @@
 /* URL's declaration at app/views/Layout/footer */
 
-testimoniLoadingState();
-
 /* 
     Windows on load
 */
@@ -25,6 +23,29 @@ window.addEventListener('load',function() {
     runCservice();
     
 });
+
+/* 
+    testimoni loading state
+*/ 
+let testiIsScrolled    = false;
+let testimoniesWraper  = document.querySelector('#testimoni #testimonies-wraper'); 
+
+function testimoniLoadingState(imgName = 'loading.svg',msg = 'please wait...'){
+    let el = '';
+    for (let i = 0; i < 9; i++) {
+        el += `<div class="relative block ${ (i>=6) ? 'md:hidden' : '' } ${ (i>=8) ? 'sm:hidden' : '' } transition rounded-sm md:rounded overflow-hidden opacity-80">
+            <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">
+                <img src="${BASE_URL}asset/img/${imgName}" class="loadingImg w-12 sm:w-16 opacity-80">
+                <span class="mt-6 font-extrabold text-md">${msg}</span>
+            </div>
+            <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
+        </div>`;
+    }
+
+    testimoniesWraper.innerHTML = el;
+}
+
+testimoniLoadingState();
 
 /* 
     Navbar's Href ONCLICK
@@ -317,28 +338,6 @@ getTesti
         });
 
     });
-
-
-/* 
-    testimoni loading state
-*/ 
-let testiIsScrolled    = false;
-let testimoniesWraper  = document.querySelector('#testimoni #testimonies-wraper'); 
-
-function testimoniLoadingState(imgName = 'loading.svg',msg = 'please wait...'){
-    let el = '';
-    for (let i = 0; i < 9; i++) {
-        el += `<div class="relative block ${ (i>=6) ? 'md:hidden' : '' } ${ (i>=8) ? 'sm:hidden' : '' } transition rounded-sm md:rounded overflow-hidden opacity-80">
-            <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">
-                <img src="${BASE_URL}asset/img/${imgName}" class="loadingImg w-12 sm:w-16 opacity-80">
-                <span class="mt-6 font-extrabold text-md">${msg}</span>
-            </div>
-            <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
-        </div>`;
-    }
-
-    testimoniesWraper.innerHTML = el;
-}
 
 /* 
     auto scroll at testi 

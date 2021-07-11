@@ -9,7 +9,8 @@ module.exports = {
   darkMode: false,
   theme: {
     screens: {
-      "sm-411": '411px',
+      "sm-412": '412px',
+      "sm-461": '461px',
       sm: '640px',
       md: '768px',
       "md-911": '911px',
@@ -179,6 +180,7 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       none: 'none',
+      card: '2px 2px 6px 0px rgba(0,0,0,0.3);'
     },
     caretColor: (theme) => theme('colors'),
     contrast: {

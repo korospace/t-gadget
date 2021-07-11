@@ -524,9 +524,15 @@ video {
   width: 100%;
 }
 
-@media (min-width: 411px) {
+@media (min-width: 412px) {
   .container {
-    max-width: 411px;
+    max-width: 412px;
+  }
+}
+
+@media (min-width: 461px) {
+  .container {
+    max-width: 461px;
   }
 }
 
@@ -747,6 +753,10 @@ video {
   margin-right: 1.25rem;
 }
 
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -777,6 +787,10 @@ video {
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
 }
 
 .box-border {
@@ -1394,6 +1408,18 @@ video {
   --tw-gradient-to: #FFB903;
 }
 
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-fixed {
+  background-attachment: fixed;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
 .p-0 {
   padding: 0px;
 }
@@ -1719,6 +1745,11 @@ video {
   --tw-shadow: 0 0 #0000;
 }
 
+.shadow-card {
+  --tw-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1801,108 +1832,68 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (min-width: 411px) {
-  .sm-411\:-top-3 {
+@media (min-width: 412px) {
+  .sm-412\:-top-3 {
     top: -0.75rem;
   }
 
-  .sm-411\:-right-3 {
+  .sm-412\:-right-3 {
     right: -0.75rem;
   }
 
-  .sm-411\:mt-4 {
+  .sm-412\:mt-4 {
     margin-top: 1rem;
   }
 
-  .sm-411\:mr-0 {
+  .sm-412\:mt-5 {
+    margin-top: 1.25rem;
+  }
+
+  .sm-412\:mr-0 {
     margin-right: 0px;
   }
 
-  .sm-411\:mr-0\.5 {
+  .sm-412\:mr-0\.5 {
     margin-right: 0.125rem;
   }
 
-  .sm-411\:mb-6 {
+  .sm-412\:mb-6 {
     margin-bottom: 1.5rem;
   }
 
-  .sm-411\:inline {
+  .sm-412\:inline {
     display: inline;
   }
 
-  .sm-411\:hidden {
-    display: none;
-  }
-
-  .sm-411\:h-0 {
-    height: 0px;
-  }
-
-  .sm-411\:h-10 {
-    height: 2.5rem;
-  }
-
-  .sm-411\:w-8 {
+  .sm-412\:w-8 {
     width: 2rem;
   }
 
-  .sm-411\:w-9 {
+  .sm-412\:w-9 {
     width: 2.25rem;
   }
 
-  .sm-411\:w-10 {
-    width: 2.5rem;
-  }
-
-  .sm-411\:flex-row {
+  .sm-412\:flex-row {
     flex-direction: row;
   }
 
-  .sm-411\:overflow-hidden {
-    overflow: hidden;
-  }
-
-  .sm-411\:border-0 {
-    border-width: 0px;
-  }
-
-  .sm-411\:p-4 {
-    padding: 1rem;
-  }
-
-  .sm-411\:px-16 {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-
-  .sm-411\:py-2 {
+  .sm-412\:py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
 
-  .sm-411\:pt-24 {
-    padding-top: 6rem;
-  }
-
-  .sm-411\:text-xs {
+  .sm-412\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
   }
 
-  .sm-411\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
-  .sm-411\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .sm-411\:text-2xl {
+  .sm-412\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
   }
+}
+
+@media (min-width: 461px) {
 }
 
 @media (min-width: 640px) {
@@ -1920,6 +1911,10 @@ video {
 
   .sm\:mt-0 {
     margin-top: 0px;
+  }
+
+  .sm\:mr-0 {
+    margin-right: 0px;
   }
 
   .sm\:mr-1 {
@@ -1944,6 +1939,10 @@ video {
 
   .sm\:hidden {
     display: none;
+  }
+
+  .sm\:h-0 {
+    height: 0px;
   }
 
   .sm\:h-1 {
@@ -2026,6 +2025,10 @@ video {
     align-items: center;
   }
 
+  .sm\:overflow-hidden {
+    overflow: hidden;
+  }
+
   .sm\:overflow-visible {
     overflow: visible;
   }
@@ -2036,6 +2039,10 @@ video {
 
   .sm\:rounded {
     border-radius: 0.25rem;
+  }
+
+  .sm\:border-0 {
+    border-width: 0px;
   }
 
   .sm\:p-2 {
@@ -2071,6 +2078,10 @@ video {
     padding-top: 4rem;
   }
 
+  .sm\:pt-24 {
+    padding-top: 6rem;
+  }
+
   .sm\:pr-12 {
     padding-right: 3rem;
   }
@@ -2081,10 +2092,6 @@ video {
 
   .sm\:pl-2 {
     padding-left: 0.5rem;
-  }
-
-  .sm\:pl-5 {
-    padding-left: 1.25rem;
   }
 
   .sm\:pl-8 {
@@ -2384,16 +2391,8 @@ video {
     padding-bottom: 0.5rem;
   }
 
-  .md-911\:pr-10 {
-    padding-right: 2.5rem;
-  }
-
   .md-911\:pr-20 {
     padding-right: 5rem;
-  }
-
-  .md-911\:pl-10 {
-    padding-left: 2.5rem;
   }
 
   .md-911\:text-xs {

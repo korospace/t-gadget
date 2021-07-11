@@ -5,14 +5,14 @@
  -->
 <nav class="w-full fixed top-0 text-tgadget-1000" style="z-index:10001;">
     
-    <div class="bg-black w-full relative flex justify-between items-center pl-3 sm:pl-5 md-911:pl-10 pr-5 md-911:pr-10 py-5" style="z-index:10000;">
+    <div class="bg-black w-full relative flex justify-between items-center px-5 md-911:px-10 py-5" style="z-index:10000;">
         <!-- logo -->
-        <a class="w-28 md:w-36 hidden sm:inline" href="">
+        <a class="w-28 md:w-36 hidden sm-412:inline mr-10 sm:mr-0" href="">
             <img class="w-full" src="<?= BASE_URL; ?>asset/img/logo-text.webp" alt="t-gadgetid logo">
         </a>
 
         <!-- burger-kategori -->
-        <span id="burger-category" class="hover:bg-tgadget-200 hidden sm-411:inline sm:ml-6 md:ml-8 mr-2 md:mr-4 px-2 py-1 text-sm rounded-sm cursor-pointer opacity-90 hover:opacity-100">kategori</span>
+        <span id="burger-category" class="hover:bg-tgadget-200 hidden sm:inline ml-6 md:ml-8 mr-2 md:mr-4 px-2 py-1 text-sm rounded-sm cursor-pointer opacity-90 hover:opacity-100">kategori</span>
 
         <div class="relative flex-1 overflow-visible" style="color: rgba(49,53,59,0.96);">
             <!-- input keyword -->
@@ -24,7 +24,7 @@
             </div>
 
             <!-- keywords sugestion -->
-            <ul id="sugestions-wraper" class="bg-white w-full absolute block mt-1 text-xs sm:text-sm rounded-sm overflow-auto" style="max-height: 200px;box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);"></ul>
+            <ul id="sugestions-wraper" class="bg-white w-full absolute block mt-1 text-xs sm:text-sm rounded-sm overflow-auto shadow-card" style="max-height: 200px;"></ul>
         </div>
 
         <!-- btn-links -->
@@ -42,8 +42,8 @@
     </div>
 
     <!-- Categories -->
-    <div id="categories-container" class="bg-black w-full h-full sm-411:h-0 absolute py-0.5 sm-411:border-0 transition-all duration-300 overflow-auto sm-411:overflow-hidden box-border" style="border-color: rgba(255, 185, 3,0.3);">
-        <div id="categories-wraper" class="min-w-max min-h-full flex sm-411:hidden text-xs sm:text-sm capitalize tracking-wide">
+    <div id="categories-container" class="bg-black w-full h-full sm:h-0 absolute py-0.5 sm:border-0 transition-all duration-300 overflow-auto sm:overflow-hidden box-border" style="border-color: rgba(255, 185, 3,0.3);">
+        <div id="categories-wraper" class="min-w-max min-h-full flex sm:hidden text-xs sm:text-sm capitalize tracking-wide">
             
         </div>
     </div>
@@ -57,11 +57,11 @@
  -->
 <main class="flex-1 w-full">
 
-    <section id="content" class="w-full min-h-screen flex flex-col items-center pt-40 sm-411:pt-24 pb-10 px-5 md-911:px-10 transition-padding duration-300">
+    <section id="content" class="w-full min-h-screen flex flex-col items-center pt-40 sm:pt-24 pb-10 px-5 md-911:px-10 transition-padding duration-300">
 
         <!-- banner -->
         <span class="hidden translate-x-12 -translate-x-12"></span>
-        <div id="glide_desktop" class="glide w-full relative hidden md:flex items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
+        <div id="glide_desktop" class="glide w-full relative hidden md:flex items-center rounded-md overflow-hidden">
             <!-- bg & loading skeleton -->
             <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
                 <img id="bg-desktop" class="img-skeleton-banner w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-desktop.webp">
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div id="glide_mobile" class="glide w-full relative flex md:hidden items-center rounded-md overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">
+        <div id="glide_mobile" class="glide w-full relative flex md:hidden items-center rounded-md overflow-hidden">
             <!-- bg & loading skeleton -->
             <div class="bg-wraper bg-black w-full opacity-60 animate-pulse">
                 <img id="bg-mobile" class="img-skeleton-banner w-full opacity-0" src="<?= BASE_URL; ?>asset/img/bg-banner-mobile.webp">
@@ -119,19 +119,19 @@
     <section id="footer" class="relative w-full flex flex-col items-center pt-8 px-5 md-911:px-10" style="z-index:10001;background-image: linear-gradient(to bottom, rgba(0,0,0,0), #000)">
         
         <!-- top-footer -->
-        <div class="w-full flex flex-col sm-411:flex-row justify-between items-center">
+        <div class="w-full flex flex-col sm-412:flex-row justify-between items-center">
             <div>
-                <div class="flex items-center text-3xl sm-411:text-2xl sm:text-3xl md:text-4xl font-bold">
-                    <img class="w-12 sm-411:w-9 md:w-12" src="<?= BASE_URL; ?>asset/img/logo-t-min.webp" alt="t-gadgetid">
+                <div class="flex items-center text-3xl sm-412:text-2xl sm:text-3xl md:text-4xl font-bold">
+                    <img class="w-12 sm-412:w-9 md:w-12" src="<?= BASE_URL; ?>asset/img/logo-t-min.webp" alt="t-gadgetid">
                     <span class="ml-2 opacity-80">t-gadgetid</span>
                 </div>
-                <div class="mt-4 flex text-tgadget-1000 text-md sm-411:text-xs sm:text-sm md:text-base tracking-wide">
-                    <a class="px-2 py-1 mr-1 sm-411:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">home</a>
-                    <a class="px-2 py-1 mr-1 sm-411:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">testimoni</a>
-                    <a class="px-2 py-1 mr-1 sm-411:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">about</a>
+                <div class="mt-4 flex text-tgadget-1000 text-md sm-412:text-xs sm:text-sm md:text-base tracking-wide">
+                    <a class="px-2 py-1 mr-1 sm-412:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">home</a>
+                    <a class="px-2 py-1 mr-1 sm-412:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">testimoni</a>
+                    <a class="px-2 py-1 mr-1 sm-412:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">about</a>
                 </div>
             </div>
-            <a class="bg-black px-2.5 sm:px-4 py-1.5 sm:py-2 hidden sm-411:inline border-2 border-tgadget-1000 text-tgadget-1000 text-xs sm:text-sm md:text-base tracking-widest opacity-80 hover:opacity-100 rounded-sm" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" href="">contact us</a>
+            <a class="bg-black px-2.5 sm:px-4 py-1.5 sm:py-2 hidden sm-412:inline border-2 border-tgadget-1000 text-tgadget-1000 text-xs sm:text-sm md:text-base tracking-widest opacity-80 hover:opacity-100 rounded-sm shadow-card" href="">contact us</a>
         </div>
 
         <!-- bottom-footer -->
@@ -165,7 +165,7 @@
     <div id="countdown-wraper" class="relative w-72">
         
         <!-- close-countdown -->
-        <div id="close-countdown" class="close bg-tgadget-1000 w-6 sm-411:w-8 absolute z-30 -top-2 sm-411:-top-3 -right-2 sm-411:-right-3 p-2 rounded-full cursor-pointer" onclick="closeCountDown(event);">
+        <div id="close-countdown" class="close bg-tgadget-1000 w-6 sm-412:w-8 absolute z-30 -top-2 sm-412:-top-3 -right-2 sm-412:-right-3 p-2 rounded-full cursor-pointer" onclick="closeCountDown(event);">
             <img class="w-full close" src="<?= BASE_URL; ?>asset/img/cancel.svg">
         </div>
         
@@ -180,21 +180,21 @@
 
         <!-- date-countdown -->
         <div id="bg-countdown-date" class="bg-tgadget-1000 w-full mt-2 p-0.5 rounded-md">
-            <div class="w-full h-auto flex py-1 sm-411:py-2 border-2 border-black rounded-md">
+            <div class="w-full h-auto flex py-1 sm-412:py-2 border-2 border-black rounded-md">
                 <div class="flex-1 flex flex-col border-r border-black text-center" style="border-color: rgba(0,0,0,0.3);">
-                    <span id="day" class="text-xs sm-411:text-md sm:text-2xl text-bold">0</span>
+                    <span id="day" class="text-xs sm-412:text-md sm:text-2xl text-bold">0</span>
                     <span class="text-xs opacity-90">hari</span>
                 </div>
                 <div class="flex-1 flex flex-col border-r border-black text-center" style="border-color: rgba(0,0,0,0.3);">
-                    <span id="hour" class="text-xs sm-411:text-md sm:text-2xl text-bold">0</span>
+                    <span id="hour" class="text-xs sm-412:text-md sm:text-2xl text-bold">0</span>
                     <span class="text-xs opacity-90">jam</span>
                 </div>
                 <div class="flex-1 flex flex-col border-r border-black text-center" style="border-color: rgba(0,0,0,0.3);">
-                    <span id="minute" class="text-xs sm-411:text-md sm:text-2xl text-bold">0</span>
+                    <span id="minute" class="text-xs sm-412:text-md sm:text-2xl text-bold">0</span>
                     <span class="text-xs opacity-90">menit</span>
                 </div>
                 <div class="flex-1 flex flex-col text-center">
-                    <span id="second" class="text-xs sm-411:text-md sm:text-2xl text-bold">0</span>
+                    <span id="second" class="text-xs sm-412:text-md sm:text-2xl text-bold">0</span>
                     <span class="text-xs opacity-90">detik</span>
                 </div>
             </div>
@@ -228,13 +228,13 @@
             </div>
 
             <!-- Status stok -->
-            <h1 id="stok" class="bg-black w-max px-2 py-1 text-tgadget-1000 text-xs lg:text-sm tracking-wide rounded-sm" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);">ready</h1>
+            <h1 id="stok" class="bg-black w-max px-2 py-1 text-tgadget-1000 text-xs lg:text-sm tracking-wide rounded-sm shadow-card">ready</h1>
             <!-- product name -->
-            <h1 id="product-name" class="mt-2 sm-411:mt-4 text-lg md:text-xl lg:text-2xl font-bold tracking-wide opacity-80" style="font-family: lato;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora, sequi.</h1>
+            <h1 id="product-name" class="mt-2 sm-412:mt-4 text-lg md:text-xl lg:text-2xl font-bold tracking-wide opacity-80" style="font-family: lato;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora, sequi.</h1>
             <!-- price -->
-            <h1 id="price" class="mt-3 mysm-411:mt-5 text-md md:text-lg lg:text-xl tracking-widest opacity-90" style="font-family: lato;">Rp. 1000.000</h1>
+            <h1 id="price" class="mt-3 sm-412:mt-5 text-md md:text-lg lg:text-xl tracking-widest opacity-90" style="font-family: lato;">Rp. 1000.000</h1>
             <!-- btn link fo buy -->
-            <button class="bg-yellow-600 w-full mt-4 mb-4 sm-411:mb-6 py-3 capitalize rounded-md opacity-90 hover:opacity-100 active:opacity-100 focus:outline-none" style="box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);" onclick="openLinkForBuy();">
+            <button class="bg-yellow-600 w-full mt-4 mb-4 sm-412:mb-6 py-3 capitalize rounded-md opacity-90 hover:opacity-100 active:opacity-100 focus:outline-none" style="box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);" onclick="openLinkForBuy();">
                 <h1 class="text-sm md:text-md lg:text-lg opacity-80">pesan sekarang</h1>
             </button>
 

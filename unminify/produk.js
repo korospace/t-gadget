@@ -158,13 +158,13 @@ for (let i = 0; i < 10; i++) {
 burgerCategory.addEventListener('click', () => {
     burgerCategory.classList.toggle('bg-tgadget-200');
 
-    'sm-411:h-0 sm-411:border-0 sm-411:overflow-hidden'.split(' ').forEach((className,i) => {
+    'sm:h-0 sm:border-0 sm:overflow-hidden'.split(' ').forEach((className,i) => {
         setTimeout(() => {
             categoriesContainer.classList.toggle(className); 
         }, (i===2) ? 300 : 0);
     });
 
-    categoriesWraper.classList.toggle('sm-411:hidden');
+    categoriesWraper.classList.toggle('sm:hidden');
 
 });
 
@@ -411,6 +411,8 @@ function doGetBanners(){
                     e.classList.remove('animate-pulse');
                     e.classList.remove('opacity-0');
                 });
+                document.querySelector('#glide_desktop').classList.add('shadow-card');
+                document.querySelector('#glide_mobile').classList.add('shadow-card');
             };
         });
     
@@ -500,7 +502,7 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
             }
             
             resProducts.forEach(e => {
-                let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden" style="box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.3);" onclick="cardOnClick(event,${e.id});">
+                let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden shadow-card" onclick="cardOnClick(event,${e.id});">
                     <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
                     <div class="w-full flex-1 relative flex justify-center items-center">
                         <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
