@@ -1,4 +1,3 @@
-/* URL's declaration at views/Layout/footer.php */
 
 // .. loading cards
 let productsWraper = document.querySelector('#products-wraper');

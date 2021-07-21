@@ -1,4 +1,3 @@
-/* URL's declaration at app/views/Layout/footer */
 
 /* 
     Windows on load
@@ -207,15 +206,19 @@ function aboutArrow(el){
 function getDataFromApi(url,atribut = null){
     return new Promise((resolve,rejected) => {
         let xhr  = new XMLHttpRequest();
-        let data = new FormData();
-
-        (atribut !== null) ? data.append("atribut",atribut) : "";
         
-        xhr.open('POST',url,true);
-
+        if(atribut !== null){
+            let data = new FormData();
+            data.append("atribut",atribut)
+            xhr.open('POST',url,true);
+            xhr.send(data);
+        }
+        else{
+            xhr.open('GET',url,true);
+            xhr.send();
+        }
+        
         xhr.timeout = 30000;
-        
-        xhr.send(data);
 
         xhr.ontimeout = () => {
             rejected(Error("Ups, request timeout")); 
@@ -223,12 +226,13 @@ function getDataFromApi(url,atribut = null){
         }
 
         xhr.onload = () => {
-            try{
+            if(xhr.status == 200 || xhr.status == 202){
                 resolve(JSON.parse(xhr.responseText));
             }
-            catch(err){
-                rejected(Error("Ups, server error")); 
-            }
+            else{
+                let ress = JSON.parse(xhr.responseText);
+                rejected(Error(ress.message)); 
+            };
         }
     })
 }
@@ -236,7 +240,7 @@ function getDataFromApi(url,atribut = null){
 /* 
     GET LINK SOSMED
 */
-let getLinkSosmed = getDataFromApi(API_URL+'getLinkSosmed');
+let getLinkSosmed = getDataFromApi(API_URL+'get/linkSosmed');
 
 getLinkSosmed
     .then((resLinkSosmed) => {
@@ -248,7 +252,7 @@ getLinkSosmed
         });
     })
     .catch((err) => {
-        console.log(`getLinkSosmed:\n${err.message}`);
+        console.log({"method":"getLinkSosmed","status" : err.status,"error"  : err.message});
     });
 
 /* 
@@ -258,10 +262,10 @@ function updateStatistic(atribut,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
-    let result     = getDataFromApi(API_URL+'updateStatistic/',atribut);
+    let result     = getDataFromApi(API_URL+'update/statistic',atribut);
 
     result.catch((err) => {
-        console.log(`updateStatistic:\n${err}`);
+        console.log({"method":"updateStatistic","status" : err.status,"error"  : err.message});
     });
 
     if(sosmedLink !== null){
@@ -279,7 +283,7 @@ if(NewVisitor === true){
 /* 
     GET testimoni images
 */
-let getTesti = getDataFromApi(`${API_URL}getTestimonies/`);
+let getTesti = getDataFromApi(`${API_URL}get/testimonies`);
 
 getTesti
     .then((resTesti) => {
@@ -299,7 +303,7 @@ getTesti
 
     })
     .catch((error) => {
-        console.log(`message :\n${error.message}`);
+        console.log({"method":"getTesti","status" : err.status,"error"  : err.message});
         testimoniLoadingState('notfound.webp',`${error.message}`);
     })
     .finally(() => {

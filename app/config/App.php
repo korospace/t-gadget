@@ -2,7 +2,7 @@
 
 class App{
     public $controller = 'home';
-    public $method = 'index';
+    public $method     = 'index';
     public $params = [];
 
     public function __construct()
