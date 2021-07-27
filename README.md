@@ -1,8 +1,7 @@
-# T-Gadget Home Page
+# T-Gadgetid Home Page
+tgadgetid is a website that I created for introducing my products on Tokopedia. All data is fetched from my restFul API at https://t-gadgetapi.000webhostapp.com/
 
 ## 1. Tools & Stack
-- [x] VS Code
-- [x] PhpMyadmin
 - [x] PHP Native (MVC)
 - [x] Tailwind
 - [x] glide.js
