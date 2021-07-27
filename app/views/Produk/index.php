@@ -18,7 +18,7 @@
             <!-- input keyword -->
             <div class="bg-white relative border-2 border-tgadget-1000 rounded-sm overflow-hidden">
                 <input id="input-keyword" class="inputKeyword block pl-2 sm:pl-2 pr-10 sm:pr-12 py-1 w-full text-xs sm:text-sm outline-none" type="text" autocomplete="off" placeholder="cari produk">
-                <label for="input-keyword" class="bg-tgadget-1000 w-8 sm:w-10 absolute top-0 bottom-0 right-0 block border-2 border-tgadget-1000 cursor-pointer" onclick="clearInputKeyword();">
+                <label for="input-keyword" class="bg-tgadget-1000 w-8 sm:w-10 absolute top-0 bottom-0 right-0 block border-2 border-tgadget-1000 cursor-pointer" onclick="cancelSearch();">
                     <img class="w-full h-full p-1 opacity-80 hover:opacity-100" src="<?= BASE_URL; ?>asset/img/search.svg">
                 </label>
             </div>
@@ -109,7 +109,7 @@
         </div>
 
         <!-- load more -->
-        <div id="load-more" class="relative z-min-1 mt-10 border-b-2 border-black opacity-80 hover:opacity-100 active:opacity-100 transition-opacity duration-300 cursor-pointer">
+        <div id="load-more" class="relative z-min-1 mt-10 border-b-2 border-black opacity-80 transition-opacity duration-300 cursor-pointer">
             load more
         </div>
 
@@ -242,24 +242,6 @@
             <div id="description-wraper" class="hidden sm:block flex-1 my-4 pr-4 overflow-auto opacity-0 sm:opacity-100 transition-all duration-500">
                 <!-- main description -->
                 <h1 id="description" class="font-bold tracking-wide text-justify opacity-80" style="text-indent: 10%;font-family: lato;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime tempore harum ab! Praesentium iusto aliquam aliquid placeat excepturi quos asperiores, dolore ratione molestiae ipsum iure at corrupti est sint perferendis?</h1>
-                <!-- isi paket -->
-                <h1 class="mt-3 text-extrabold">Isi paket :</h1>
-                <h1 id="isipaket" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
-                    <ul class="list-disc list-inside">
-                    </ul>
-                </h1>
-                <!-- features -->
-                <h1 class="mt-3 text-extrabold">Fitur :</h1>
-                <h1 id="fitur" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
-                    <ul class="list-disc list-inside">
-                    </ul>
-                </h1>
-                <!-- specification -->
-                <h1 class="mt-3 text-extrabold">Spesifikasi :</h1>
-                <h1 id="spesifikasi" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
-                    <ul class="list-disc list-inside">
-                    </ul>
-                </h1>
             </div>
         </div>
 

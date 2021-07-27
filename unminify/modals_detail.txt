@@ -1,0 +1,18 @@
+
+<!-- <h1 class="mt-3 text-extrabold">Isi paket :</h1>
+<h1 id="isipaket" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
+    <ul class="list-disc list-inside">
+    </ul>
+</h1>
+
+<h1 class="mt-3 text-extrabold">Fitur :</h1>
+<h1 id="fitur" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
+    <ul class="list-disc list-inside">
+    </ul>
+</h1>
+
+<h1 class="mt-3 text-extrabold">Spesifikasi :</h1>
+<h1 id="spesifikasi" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;">
+    <ul class="list-disc list-inside">
+    </ul>
+</h1> -->

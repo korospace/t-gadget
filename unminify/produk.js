@@ -45,7 +45,7 @@ window.onload = () => {
     doGetKeywords();
     doGetCountdown();
     doGetBanners();
-    funcGetProducts();
+    doGetProducts();
 }
 
 /* 
@@ -53,25 +53,30 @@ window.onload = () => {
 */
 function doXhr(url,params = null){
     return new Promise((resolve,rejected) => {
-        let xhr    = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-        xhr.open('POST',url,true);
+        if(params !== null){
+            xhr.open('PUT',url,true);
+        }
+        else{
+            xhr.open('GET',url,true);
+        }
         
+        xhr.setRequestHeader('api-key', '60fce58dc283d');
+        xhr.send(params);
         xhr.timeout   = 30000;
         xhr.ontimeout = () => { 
             rejected(Error("Ups, request timeout!")); 
             return 0;
         }
-
-        xhr.send(params);
-
         xhr.onload = () => {
-            try{
-                resolve(JSON.parse(xhr.responseText));
+            let result = JSON.parse(xhr.responseText);
+            if(xhr.status == 200 || xhr.status == 202){
+                resolve(result);
             }
-            catch(err){
-                rejected(Error("Ups, server error")); 
-            }
+            else{
+                rejected(Error(result.message)); 
+            };
         }
     })
 }
@@ -80,18 +85,18 @@ function doXhr(url,params = null){
     GET LINK SOSMED
 */
 function doGetLink(){
-    let getLinkSosmed = doXhr(API_URL+'getLinkSosmed');
+    doXhr(API_URL+'get/socialmedia')
+        .then((resLinkSosmed) => {
+            let data = resLinkSosmed.data;
+            document.querySelector('a#tokopedia')  .setAttribute('data-href',data.tokopedia);
+            document.querySelector('a#shopee')     .setAttribute('data-href',data.shopee);
+            document.querySelector('a#lazada')     .setAttribute('data-href',data.lazada);
+            document.querySelector('a#whatsapp')   .setAttribute('data-href',data.whatsapp);
 
-    getLinkSosmed
-    .then((resLinkSosmed) => {
-        document.querySelector('a#tokopedia').setAttribute('data-href',resLinkSosmed.tokopedia);
-        document.querySelector('a#shopee').setAttribute('data-href',resLinkSosmed.shopee);
-        document.querySelector('a#lazada').setAttribute('data-href',resLinkSosmed.lazada);
-        document.querySelector('a#whatsapp').setAttribute('data-href',resLinkSosmed.whatsapp);
-    })
-    .catch((err) => {
-        console.log(`getLinkSosmed:\n${err.message}`);
-    });
+        })
+        .catch((err) => {
+            console.log({"method":"doGetLinkSosmed","error":err.message});
+        });
 }
 
 /* 
@@ -110,10 +115,9 @@ function updateStatistic(atribut = null,thisEl = null,event = null,id = null){
         params.append("atribut",atribut);
     }
 
-    let result = doXhr(API_URL+'updateStatistic',params);
-
-    result.catch((err) => {
-        console.log(`updateStatistic:\n${err}`);
+    let response = doXhr(API_URL+'update/statistic',params);
+    response.catch((err) => {
+        console.log({"method":"updateStatistic","error":err.message});
     });
 
     if(sosmedLink !== null){
@@ -125,7 +129,7 @@ function updateStatistic(atribut = null,thisEl = null,event = null,id = null){
     New visitor
 */
 if(NewVisitor === true){
-    updateStatistic('pengunjung');
+    updateStatistic('ourwebsite');
 }
 
 //////////////////////////////////////////////
@@ -169,21 +173,19 @@ burgerCategory.addEventListener('click', () => {
 
 // .. get datas of categories
 function doGetCategories(){
-    let getCategories = doXhr(API_URL+'getCategories');
-
-    getCategories
+    doXhr(API_URL+'get/categories')
     .then(resCategories => {
         
         // .. create span category
-        elCategory = `<span class="bg-tgadget-100 min-w-max min-h-full block flex jusify-center items-center px-6 md:px-8 border-t border-tgadget-200 cursor-pointer opacity-80 hover:opacity-100">
+        elCategory = `<span id="semua-kategori" class="bg-tgadget-100 min-w-max min-h-full block flex jusify-center items-center px-6 md:px-8 border-t border-tgadget-200 cursor-pointer opacity-80 hover:opacity-100">
             semua kategori
         </span>`;
 
-        resCategories
-            .sort((a,b) => a.kategori.length - b.kategori.length)
+        resCategories.data
+            .sort((a,b) => a.name.length - b.name.length)
             .forEach( c => {
                 elCategory += `<span class="min-w-max min-h-full block flex jusify-center items-center px-6 md:px-8 border-t border-l border-tgadget-200 cursor-pointer opacity-80 hover:opacity-100">
-                    ${c.kategori}
+                    ${c.name}
                 </span>`;
 
                 categoriesWraper.innerHTML = elCategory;
@@ -193,6 +195,7 @@ function doGetCategories(){
         categoriesWraper.querySelectorAll('span').forEach(category => {
             category.addEventListener('click', (el) => {
                 
+                clearInputKeyword();
                 // .. add mark to clicked span
                 categoriesWraper.querySelectorAll('span').forEach(el => {
                     el.classList.remove('bg-tgadget-100');
@@ -201,27 +204,29 @@ function doGetCategories(){
 
                 // .. add data filter to btn load-more
                 if(el.target.innerText !== 'Semua Kategori'){
-                    btnLoadMore.setAttribute('data-filterby','kategori');
+                    btnLoadMore.setAttribute('data-filterby','category');
                     btnLoadMore.setAttribute('data-filterval',el.target.innerText.toLowerCase());
-                    funcGetProducts(0,'kategori',el.target.innerText.toLowerCase());
+                    doGetProducts(0,'category',el.target.innerText.toLowerCase());
                 }
                 else{
-                    btnLoadMore.removeAttribute('data-filterby');
-                    btnLoadMore.removeAttribute('data-filterval');
-                    cleanCard('productCard');
-                    loadingCard();
-                    funcGetProducts(0,false,false);
-                    scrollToTopOfContent();
+                    showAllProduct();
                 }
-
             });
         });
-
     })
     .catch(err => {
-        console.log(`getCategories msg:\n${err}`);
-        showError(err.message,true);
+        console.log({"method":"doGetCategories","error":err.message});
     });  
+}
+
+function showAllProduct(){
+    document.querySelector("span#semua-kategori").classList.add('bg-tgadget-100');
+    btnLoadMore.removeAttribute('data-filterby');
+    btnLoadMore.removeAttribute('data-filterval');
+    cleanCard('productCard');
+    loadingCard();
+    doGetProducts(0,false,false);
+    scrollToTopOfContent();
 }
 
 //////////////////////////////////////////////
@@ -234,11 +239,9 @@ let keywords         = [];
 
 // .. get datas of keyword
 function doGetKeywords(){
-    let getKeywords  = doXhr(API_URL+'getKeywords');
-
-    getKeywords
+    doXhr(API_URL+'get/keywords')
     .then(resKeywords => {
-        resKeywords
+        resKeywords.data
             .map( k => k.keyword.split('|') )
             .map( k => k.map( keyword => keywords.push(keyword) ) );
 
@@ -249,8 +252,7 @@ function doGetKeywords(){
         });
     })
     .catch(err => {
-        console.log(`getKeywords msg:\n${err.message}`);
-        showError(err.message,true);
+        console.log({"method":"doGetKeywords","error" :err.message});
     });
 }
 
@@ -301,17 +303,22 @@ window.addEventListener('click',(el) => {
         });
         btnLoadMore.setAttribute('data-filterby','keyword');
         btnLoadMore.setAttribute('data-filterval',el.target.dataset.value);
-        funcGetProducts(0,'keyword',el.target.dataset.value);
+        doGetProducts(0,'keyword',el.target.dataset.value);
     }else{
-        clearInputKeyword();
+        sugestionsWraper.innerHTML = "";
     }
 });
 
 // .. cancel on click
+function cancelSearch(){
+    clearInputKeyword();
+    showAllProduct();
+}
+
 function clearInputKeyword(){
-    inputKeyword.value       = ""
     searchIcon.style.opacity = '1';
     searchIcon.src = BASE_URL+'asset/img/search.svg';
+    inputKeyword.value = ""
     sugestionsWraper.innerHTML = "";
 }
 
@@ -323,23 +330,17 @@ let containerCountD = document.querySelector('#countdown-container');
 let imageCountD     = document.querySelector('#countdown-img');
 
 function doGetCountdown(){
-    let getCountDown    = doXhr(API_URL+'getCountDown');
-
-    getCountDown
-    .then((res) => {
-
-        let day   = (res.day.length === 1) ? '0'+res.day : res.day;
-        let month = (res.month.length === 1) ? '0'+res.month : res.month;
-        let year  = (res.year.length === 1) ? '0'+res.year : res.year;
-
+    doXhr(API_URL+'get/countDown')
+    .then((resCountdown) => {
+        let data = resCountdown.data
         // .. count-down algorithim
         const countDown = () => {
-            const dateX = new Date(`${year}-${month}-${day}T00:00`).getTime();
+            const dateX = new Date(`${data.year}-${data.month}-${data.day}T00:00`).getTime();
             const now   = new Date().getTime();
             const gap   = dateX - now;
             
-            document.querySelector('span#day').innerHTML    = Math.floor(gap/(1000*60*60*24)); 
-            document.querySelector('span#hour').innerHTML   = Math.floor((gap%(1000*60*60*24))/(1000*60*60)); 
+            document.querySelector('span#day')   .innerHTML = Math.floor(gap/(1000*60*60*24)); 
+            document.querySelector('span#hour')  .innerHTML = Math.floor((gap%(1000*60*60*24))/(1000*60*60)); 
             document.querySelector('span#minute').innerHTML = Math.floor((gap%(1000*60*60))/(1000*60)); 
             document.querySelector('span#second').innerHTML = Math.floor((gap%(1000*60))/(1000)); 
         }
@@ -347,7 +348,7 @@ function doGetCountdown(){
         functCountDown = setInterval(()=>countDown(), 1000);
         
         // .. open count-down
-        imageCountD.src = res.imgurl;
+        imageCountD.src = data.poster;
         containerCountD.classList.remove('hidden');
 
         imageCountD.onload = () => {
@@ -355,7 +356,7 @@ function doGetCountdown(){
         }
     })
     .catch(err => {
-        console.log('getCountDown:\n'+err.message);
+        console.log({"method":"getCountDown","error":err.message});
     });
 }
 
@@ -372,17 +373,16 @@ function closeCountDown(event){
 //////////////////////////////////////////////
 
 function doGetBanners(){
-    let getBanners = doXhr(API_URL+'getBanners');
-    
-    getBanners
-    .then((res) => {
+    doXhr(API_URL+'get/banners')
+    .then((resBanners) => {
+        let data = resBanners.data;
         let glideTrackDesktop = document.querySelector('#glide-track-desktop .glide__slides');
         let glideTrackMobile  = document.querySelector('#glide-track-mobile .glide__slides');
-        let bannerDesktop = ``; 
-        let bannerMobile  = ``; 
+        let bannerDesktop     = ``; 
+        let bannerMobile      = ``; 
         
-        res.forEach( (banner) => {
-            bannerDesktop += `<img src="${banner.imgurl}" class="img-banner w-full h-full">`; 
+        data.forEach((banner) => {
+            bannerDesktop += `<img src="${banner.imgurl_desktop}" class="img-banner w-full h-full">`; 
             bannerMobile  += `<img src="${banner.imgurl_mobile}" class="img-banner w-full h-full">`; 
         });
     
@@ -443,7 +443,8 @@ function doGetBanners(){
         
     })
     .catch(err => {
-        console.log('getBanners:\n'+err.message);
+        console.log({"method":"getBanners","error":err.message});
+        showError("Ups, server error",true);
     });
 }
 
@@ -452,15 +453,12 @@ function doGetBanners(){
 //////////////////////////////////////////////
 
 // .. get products
-function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
+function doGetProducts(offset = 0,filterBy = false, filterVal = false){
 
-    let params = new FormData;
-    params.append('offset',offset);
-    params.append('limit',10);
-    
+    let endpoint = '';
+
     if(filterBy){
-        params.append('filterBy',filterBy);
-        params.append('filterVal',filterVal);
+        endpoint = API_URL+'get/products/'+offset+'/11/'+filterBy+'/'+filterVal;
 
         // .. cleaning card
         cleanCard('productCard');
@@ -471,15 +469,18 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
         // .. scroll to top
         scrollToTopOfContent();
     }
+    else{
+        endpoint = API_URL+'get/products/'+offset+'/11';
+    }
 
     showError("", false);
 
-    let getProducts = doXhr(API_URL+'getProductsWithLimit',params);
-    getProducts
+    doXhr(endpoint)
         .then(resProducts => {
 
+            let data = resProducts.data;
             // .. load-more rise or not
-            if(resProducts.length <= 9){
+            if(data.length <= 10){
                 btnLoadMore.innerText = 'no more product';
                 setTimeout(() => {
                     btnLoadMore.classList.add('z-min-1');
@@ -495,23 +496,23 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
             }
 
             if(filterBy === 'keyword'){
-                if(resProducts.length <= 0){
+                if(data.length <= 0){
                     showError("Sory, product not found!", true);
                 }
             }
             
-            resProducts.forEach(e => {
+            data.forEach(e => {
                 let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden shadow-card" onclick="cardOnClick(event,${e.id});">
-                    <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.harga)}</span>
+                    <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.price)}</span>
                     <div class="w-full flex-1 relative flex justify-center items-center">
                         <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
                         <img class="absolute w-8 sm:w-12 opacity-80 imgLoading" src="${BASE_URL}asset/img/loading.svg">
                         <div class="bg-white w-full absolute z-20">
-                            <img class="imgProduk w-full" src="${e.imgurl}" alt="${e.nama}">
+                            <img class="imgProduk w-full" src="${e.imgurl}" alt="${e.name}">
                         </div>
                     </div>
                     <div class="bg-tgadget-1000 px-2 py-1 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
-                        <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">${e.nama}</span>
+                        <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">${e.name}</span>
                     </div>
                 </a>`
 
@@ -529,8 +530,8 @@ function funcGetProducts(offset = 0,filterBy = false, filterVal = false){
             cleanCard('loadingCard');
         })
         .catch(err => {
-            console.log(`getProducst msg:\n${err.message}`);
-            // showError(err.message,true);
+            console.log({"method":"getProducts","error":err.message});
+            showError(`Ups, ${err.message}`,true);
         });
 
 }
@@ -542,7 +543,7 @@ btnLoadMore.addEventListener('click',(el) => {
     let filterVal = (btnLoadMore.dataset.filterval !== undefined) ? btnLoadMore.dataset.filterval : false;
     el.target.innerHTML = `<img class="w-6" src="${BASE_URL}asset/img/loading.svg"/>`
 
-    funcGetProducts(totalCard,filterBy,filterVal);
+    doGetProducts(totalCard,filterBy,filterVal);
 });
 
 // .. HTML TO ELEMENT 
@@ -566,7 +567,7 @@ function insertArray(data){
 
 // .. Modif price
 function createHarga(rHarga){
-    let j = 1;
+    let j       = 1;
     let hargav2 = '';
     let hargav3 = '';
     for(let i = [...rHarga].length-1;i >= 0; i--){
@@ -622,39 +623,36 @@ function cardOnClick(event,id){
     let product = arrProducts.find(e => e.id == id);
 
     // .. insert stok
-    modalsDetail.querySelector('.img-product').src = product.imgurl;
-    modalsDetail.querySelector('#stok').innerText = (product.stok == 1) ? 'ready' : 'habis';
-    modalsDetail.querySelector('#product-name').innerText = product.nama;
-    modalsDetail.querySelector('#price').innerText = createHarga(product.harga);
-    modalsDetail.querySelector('#description').innerText = product.deskripsi;
-    modalsDetail.querySelector('#isipaket ul').innerHTML = createLi(product.isipaket);
-    modalsDetail.querySelector('#fitur ul').innerHTML = createLi(product.fitur);
-    modalsDetail.querySelector('#spesifikasi ul').innerHTML = createLi(product.spesifikasi);
+    modalsDetail.querySelector('.img-product') .src       = product.imgurl;
+    modalsDetail.querySelector('#stok')        .innerText = (product.stock == 1) ? 'ready' : 'habis';
+    modalsDetail.querySelector('#product-name').innerText = product.name;
+    modalsDetail.querySelector('#price')       .innerText = "Rp "+createHarga(product.price);
+    modalsDetail.querySelector('#description') .innerText = product.deskripsi;
 
     // .. insert link
     if(product.linktp !== ''){
         buyContainer.querySelector('#link-tokped-wraper').classList.remove('hidden');
-        buyContainer.querySelector('#link-tokped').innerText = product.linktp;
-        buyContainer.querySelector('#btn-link-tokped').setAttribute('data-href',product.linktp);
-        buyContainer.querySelector('#btn-link-tokped').setAttribute('onclick',`updateStatistic('tokopedia',this,event,${product.id});`);
+        buyContainer.querySelector('#link-tokped')       .innerText = product.linktp;
+        buyContainer.querySelector('#btn-link-tokped')   .setAttribute('data-href',product.linktp);
+        buyContainer.querySelector('#btn-link-tokped')   .setAttribute('onclick',`updateStatistic('tokopedia',this,event,${product.id});`);
     }
     if(product.linksp !== ''){
         buyContainer.querySelector('#link-shopee-wraper').classList.remove('hidden');
-        buyContainer.querySelector('#link-shopee').innerText = product.linksp;
-        buyContainer.querySelector('#btn-link-shopee').setAttribute('data-href',product.linksp);
-        buyContainer.querySelector('#btn-link-shopee').setAttribute('onclick',`updateStatistic('shopee',this,event,${product.id});`);
+        buyContainer.querySelector('#link-shopee')       .innerText = product.linksp;
+        buyContainer.querySelector('#btn-link-shopee')   .setAttribute('data-href',product.linksp);
+        buyContainer.querySelector('#btn-link-shopee')   .setAttribute('onclick',`updateStatistic('shopee',this,event,${product.id});`);
     }
     if(product.linklz !== ''){
         buyContainer.querySelector('#link-lazada-wraper').classList.remove('hidden');
-        buyContainer.querySelector('#link-lazada').innerText = product.linklz;
-        buyContainer.querySelector('#btn-link-lazada').setAttribute('data-href',product.linklz);
-        buyContainer.querySelector('#btn-link-lazada').setAttribute('onclick',`updateStatistic('lazada',this,event,'${product.linklz}',${product.id});`);
+        buyContainer.querySelector('#link-lazada')       .innerText = product.linklz;
+        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('data-href',product.linklz);
+        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('onclick',`updateStatistic('lazada',this,event,'${product.linklz}',${product.id});`);
     }
     if(product.linkwa !== ''){
         buyContainer.querySelector('#link-wa-wraper').classList.remove('hidden');
-        buyContainer.querySelector('#link-wa').innerText = product.linkwa;
-        buyContainer.querySelector('#btn-link-wa').setAttribute('data-href',product.linkwa);
-        buyContainer.querySelector('#btn-link-wa').setAttribute('onclick',`updateStatistic('whatsapp',this,event,'${product.linkwa}',${product.id});`);
+        buyContainer.querySelector('#link-wa')       .innerText = product.linkwa;
+        buyContainer.querySelector('#btn-link-wa')   .setAttribute('data-href',product.linkwa);
+        buyContainer.querySelector('#btn-link-wa')   .setAttribute('onclick',`updateStatistic('whatsapp',this,event,'${product.linkwa}',${product.id});`);
     }
 
     // .. open modals detail

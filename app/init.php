@@ -1,11 +1,13 @@
 <?php 
 
-// spl_autoload_register(function($file){
-//     require_once 'config/'.$file.'.php';
-// });
+spl_autoload_register(function($file){
+    require_once 'core/'.$file.'.php';
+});
 
-require_once 'config/App.php';
-require_once 'config/BaseController.php';
-require_once 'config/Config.php';
+// define('BASE_URL','http://localhost/t-gadget/');
+define('BASE_URL','https://tgadget.herokuapp.com/');
+
+// define('API_URL' ,'http://localhost/t-gadgetapi/');
+define('API_URL' ,'https://t-gadgetapi.000webhostapp.com/');
 
 ?>

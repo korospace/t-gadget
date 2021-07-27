@@ -9,6 +9,9 @@ window.addEventListener('load',function() {
         showError("Ups, connection lost!",true);
     }
 
+    doGetLinkSosmed();
+    doGetTesti();
+
     // .. remove loading animation
     document.querySelector('#divloader').classList.add('hidden');
     document.querySelector('body').classList.remove('overflow-hidden');
@@ -49,7 +52,7 @@ testimoniLoadingState();
 /* 
     Navbar's Href ONCLICK
 */
-let navHrefs          = document.querySelectorAll('a.href-navigator');
+let navHrefs = document.querySelectorAll('a.href-navigator');
 
 navHrefs.forEach( href => {
     href.addEventListener('click',el => {
@@ -206,32 +209,30 @@ function aboutArrow(el){
 function getDataFromApi(url,atribut = null){
     return new Promise((resolve,rejected) => {
         let xhr  = new XMLHttpRequest();
+        let data = new FormData();
         
         if(atribut !== null){
-            let data = new FormData();
             data.append("atribut",atribut)
-            xhr.open('POST',url,true);
-            xhr.send(data);
+            xhr.open('PUT',url,true);
         }
         else{
             xhr.open('GET',url,true);
-            xhr.send();
         }
         
-        xhr.timeout = 30000;
-
+        xhr.setRequestHeader('api-key', '60fce58dc283d');
+        xhr.send(data);
+        xhr.timeout   = 30000;
         xhr.ontimeout = () => {
             rejected(Error("Ups, request timeout")); 
             return 0;
         }
-
         xhr.onload = () => {
+            let result = JSON.parse(xhr.responseText);
             if(xhr.status == 200 || xhr.status == 202){
-                resolve(JSON.parse(xhr.responseText));
+                resolve(result);
             }
             else{
-                let ress = JSON.parse(xhr.responseText);
-                rejected(Error(ress.message)); 
+                rejected(Error(result.message)); 
             };
         }
     })
@@ -240,20 +241,21 @@ function getDataFromApi(url,atribut = null){
 /* 
     GET LINK SOSMED
 */
-let getLinkSosmed = getDataFromApi(API_URL+'get/linkSosmed');
-
-getLinkSosmed
-    .then((resLinkSosmed) => {
-        document.querySelector('a#tokopedia').setAttribute('data-href',resLinkSosmed.tokopedia);
-        document.querySelector('a#shopee').setAttribute('data-href',resLinkSosmed.shopee);
-        document.querySelector('a#lazada').setAttribute('data-href',resLinkSosmed.lazada);
-        document.querySelectorAll('a.whatsapp').forEach(e => {
-            e.setAttribute('data-href',resLinkSosmed.whatsapp);
+function doGetLinkSosmed(){
+    getDataFromApi(API_URL+'get/socialmedia')
+        .then((resLinkSosmed) => {
+            let data = resLinkSosmed.data;
+            document.querySelector('a#tokopedia')  .setAttribute('data-href',data.tokopedia);
+            document.querySelector('a#shopee')     .setAttribute('data-href',data.shopee);
+            document.querySelector('a#lazada')     .setAttribute('data-href',data.lazada);
+            document.querySelectorAll('a.whatsapp').forEach(e => {
+                e.setAttribute('data-href',data.whatsapp);
+            });
+        })
+        .catch((err) => {
+            console.log({"method":"doGetLinkSosmed","error":err.message});
         });
-    })
-    .catch((err) => {
-        console.log({"method":"getLinkSosmed","status" : err.status,"error"  : err.message});
-    });
+}
 
 /* 
     Update statistic
@@ -262,10 +264,10 @@ function updateStatistic(atribut,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
-    let result     = getDataFromApi(API_URL+'update/statistic',atribut);
+    let response   = getDataFromApi(API_URL+'update/statistic',atribut);
 
-    result.catch((err) => {
-        console.log({"method":"updateStatistic","status" : err.status,"error"  : err.message});
+    response.catch((err) => {
+        console.log({"method":"updateStatistic","error":err.message});
     });
 
     if(sosmedLink !== null){
@@ -277,34 +279,36 @@ function updateStatistic(atribut,thisEl = null,event = null){
     New visitor
 */
 if(NewVisitor === true){
-    updateStatistic('pengunjung');
+    updateStatistic('ourwebsite');
 }
 
 /* 
     GET testimoni images
 */
-let getTesti = getDataFromApi(`${API_URL}get/testimonies`);
 
-getTesti
+function doGetTesti(){
+    getDataFromApi(`${API_URL}get/testimonies`)
     .then((resTesti) => {
-        let el = '';
-        resTesti.forEach((testimoni,i) => {
+        let data = resTesti.data;
+
+        let el   = '';
+        data.forEach((testi,i) => {
             el += `<div class="bg-tgadget-1000 relative ${(i>=6) ? 'flex md:hidden' : ''} ${(i>=8) ? 'flex sm:hidden' : ''} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">
                 <div class="eyeWraper w-full h-full absolute z-20 flex justify-center items-center cursor-pointer opacity-0 hover:opacity-100" style="background: rgba(0,0,0,0.6);">
                     <img src="${BASE_URL}asset/img/eye.svg" class="w-8 md:w-10 transition duration-300">
                 </div>
                 <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
                 <img src="${BASE_URL}asset/img/loading.svg" class="loadingImg w-12 sm:w-16 absolute opacity-80">
-                <img src="${testimoni.imgurl}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">
+                <img src="${testi.imgurl}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">
             </div>`;
         });
 
         testimoniesWraper.innerHTML = el;
 
     })
-    .catch((error) => {
-        console.log({"method":"getTesti","status" : err.status,"error"  : err.message});
-        testimoniLoadingState('notfound.webp',`${error.message}`);
+    .catch((err) => {
+        console.log({"method":"getTesti","error":err.message});
+        testimoniLoadingState('notfound.webp',`${err.message}`);
     })
     .finally(() => {
 
@@ -342,6 +346,7 @@ getTesti
         });
 
     });
+}
 
 /* 
     auto scroll at testi 
