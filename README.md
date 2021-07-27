@@ -9,7 +9,7 @@
 - [x] GSAP
 
 ## 2. Preview
-Live Demo Can access at <a href="https://tgadgetid.herokuapp.com/">https://tgadgetid.herokuapp.com/</a> <br><br>
+Live Demo Can access at <a href="https://t-gadget.herokuapp.com/">https://t-gadget.herokuapp.com/</a> <br><br>
 
 > Home
 > <img src="asset/screenshoot/home.png" width="860px" /><br><br>
