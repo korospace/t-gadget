@@ -1,5 +1,5 @@
 # T-Gadgetid Home Page
-Tgadgetid is a website that I created for introducing my friend's products on Tokopedia. All data is fetched from my restFul API at https://t-gadgetapi.000webhostapp.com/
+Tgadgetid is a website that I created for introducing my friend's products on Tokopedia. All data is fetched from my RESTFUL API at https://github.com/korospace/t-gadgetapi
 
 ## 1. Tools & Stack
 - [x] PHP Native (MVC)
