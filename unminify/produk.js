@@ -744,9 +744,6 @@ buyContainer.addEventListener('click',(e) => {
         setTimeout(() => {
             buyContainer.classList.add('hidden');
         }, 300);
-        buyContainer.querySelectorAll('.links-wraper').forEach(e => {
-            e.classList.add('hidden');
-        });
     }
 });
 
