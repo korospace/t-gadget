@@ -8,6 +8,6 @@ spl_autoload_register(function($file){
 define('BASE_URL','https://t-gadget.herokuapp.com/');
 
 // define('API_URL' ,'http://localhost/t-gadgetapi/');
-define('API_URL' ,'https://t-gadgetapi.herokuapp.com/');
+define('API_URL' ,'https://t-gadgetcors.herokuapp.com/https://t-gadgetapi.herokuapp.com/');
 
 ?>

@@ -62,7 +62,7 @@ function doXhr(url,params = null){
             xhr.open('GET',url,true);
         }
         
-        xhr.setRequestHeader('api-key', '610129623b609');
+        xhr.setRequestHeader('api-key', '610644b1eba3e');
         xhr.send(params);
         xhr.timeout   = 30000;
         xhr.ontimeout = () => { 
@@ -71,7 +71,7 @@ function doXhr(url,params = null){
         }
         xhr.onload = () => {
             let result = JSON.parse(xhr.responseText);
-            if(xhr.status == 200 || xhr.status == 202){
+            if(xhr.status == 200 || xhr.status == 201){
                 resolve(result);
             }
             else{
@@ -95,14 +95,15 @@ function doGetLink(){
 
         })
         .catch((err) => {
-            console.log({"method":"doGetLinkSosmed","error":err.message});
+            console.log("method: doGetLinkSosmed");
+            console.log("error : "+err.message);
         });
 }
 
 /* 
     Update statistic
 */
-function updateStatistic(atribut = null,thisEl = null,event = null,id = null){
+function updateStatistic(column = null,thisEl = null,event = null,id = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
@@ -111,13 +112,14 @@ function updateStatistic(atribut = null,thisEl = null,event = null,id = null){
     if(id !== null){
         params.append("id",id);
     }
-    if(atribut !== null){
-        params.append("atribut",atribut);
+    if(column !== null){
+        params.append("column",column);
     }
 
     let response = doXhr(API_URL+'update/statistic',params);
     response.catch((err) => {
-        console.log({"method":"updateStatistic","error":err.message});
+        console.log("method: updateStatistic");
+        console.log("error : "+err.message);
     });
 
     if(sosmedLink !== null){
@@ -215,7 +217,8 @@ function doGetCategories(){
         });
     })
     .catch(err => {
-        console.log({"method":"doGetCategories","error":err.message});
+        console.log("method: doGetCategories");
+        console.log("error : "+err.message);
     });  
 }
 
@@ -252,7 +255,8 @@ function doGetKeywords(){
         });
     })
     .catch(err => {
-        console.log({"method":"doGetKeywords","error" :err.message});
+        console.log("method: doGetKeywords");
+        console.log("error : "+err.message);
     });
 }
 
@@ -356,7 +360,8 @@ function doGetCountdown(){
         }
     })
     .catch(err => {
-        console.log({"method":"getCountDown","error":err.message});
+        console.log("method: getCountDown");
+        console.log("error : "+err.message);
     });
 }
 
@@ -372,18 +377,18 @@ function closeCountDown(event){
 /////////         Banners          ///////////
 //////////////////////////////////////////////
 
+let glideTrackDesktop = document.querySelector('#glide-track-desktop .glide__slides');
+let glideTrackMobile  = document.querySelector('#glide-track-mobile .glide__slides');
+let bannerDesktop     = ``; 
+let bannerMobile      = ``; 
 function doGetBanners(){
     doXhr(API_URL+'get/banners')
     .then((resBanners) => {
         let data = resBanners.data;
-        let glideTrackDesktop = document.querySelector('#glide-track-desktop .glide__slides');
-        let glideTrackMobile  = document.querySelector('#glide-track-mobile .glide__slides');
-        let bannerDesktop     = ``; 
-        let bannerMobile      = ``; 
         
         data.forEach((banner) => {
-            bannerDesktop += `<img src="${banner.imgurl_desktop}" class="img-banner w-full h-full">`; 
-            bannerMobile  += `<img src="${banner.imgurl_mobile}" class="img-banner w-full h-full">`; 
+            bannerDesktop += `<img src="${banner.img_desktop}" class="img-banner w-full h-full">`; 
+            bannerMobile  += `<img src="${banner.img_mobile}" class="img-banner w-full h-full">`; 
         });
     
         glideTrackDesktop.innerHTML = bannerDesktop;
@@ -443,8 +448,30 @@ function doGetBanners(){
         
     })
     .catch(err => {
-        console.log({"method":"getBanners","error":err.message});
-        showError("Ups, server error",true);
+        console.log("method: getBanners");
+        console.log("error : "+err.message);
+        glideTrackDesktop.innerHTML = `<div class="flex flex-col items-center justify-center"><img src="${BASE_URL}asset/img/notfound.webp" class="img-banner w-8 sm:w-12"><h1 class="mt-2 font-extrabold text-xs text-center">Ups, something wrong</h1></div>`;
+        glideTrackMobile.innerHTML  = `<div class="flex flex-col items-center justify-center"><img src="${BASE_URL}asset/img/notfound.webp" class="img-banner w-8 sm:w-12"><h1 class="mt-2 font-extrabold text-xs text-center">Ups, something wrong</h1></div>`;
+    
+        let option = {
+            type: 'carousel',
+            focusAt: 'center',
+            autoplay: 5000,
+            animationTimingFunc: 'ease-in-out',
+            animationDuration: 1000,
+            gap: 0,
+            perView: 1
+        }
+    
+        new Glide('#glide_desktop', option).mount();
+        new Glide('#glide_mobile', option).mount();
+        document.querySelectorAll('.bg-wraper').forEach(e => {
+            e.classList.remove('bg-black');
+            e.classList.remove('animate-pulse');
+            e.classList.remove('opacity-0');
+        });
+        document.querySelector('#glide_desktop').classList.add('shadow-card');
+        document.querySelector('#glide_mobile').classList.add('shadow-card');
     });
 }
 
@@ -459,13 +486,10 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
 
     if(filterBy){
         endpoint = API_URL+'get/products/'+offset+'/11/'+filterBy+'/'+filterVal;
-
         // .. cleaning card
         cleanCard('productCard');
-
         // .. loading card
         loadingCard();
-
         // .. scroll to top
         scrollToTopOfContent();
     }
@@ -508,7 +532,7 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
                         <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
                         <img class="absolute w-8 sm:w-12 opacity-80 imgLoading" src="${BASE_URL}asset/img/loading.svg">
                         <div class="bg-white w-full absolute z-20">
-                            <img class="imgProduk w-full" src="${e.imgurl}" alt="${e.name}">
+                            <img class="imgProduk w-full" src="${e.img}" alt="${e.name}">
                         </div>
                     </div>
                     <div class="bg-tgadget-1000 px-2 py-1 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
@@ -530,7 +554,8 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
             cleanCard('loadingCard');
         })
         .catch(err => {
-            console.log({"method":"getProducts","error":err.message});
+            console.log("method: getProducts");
+            console.log("error : "+err.message);
             showError(`Ups, ${err.message}`,true);
         });
 
@@ -623,7 +648,7 @@ function cardOnClick(event,id){
     let product = arrProducts.find(e => e.id == id);
 
     // .. insert stok
-    modalsDetail.querySelector('.img-product') .src       = product.imgurl;
+    modalsDetail.querySelector('.img-product') .src       = product.img;
     modalsDetail.querySelector('#stok')        .innerText = (product.stock == 1) ? 'ready' : 'habis';
     modalsDetail.querySelector('#product-name').innerText = product.name;
     modalsDetail.querySelector('#price')       .innerText = "Rp "+createHarga(product.price);
@@ -646,13 +671,13 @@ function cardOnClick(event,id){
         buyContainer.querySelector('#link-lazada-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-lazada')       .innerText = product.linklz;
         buyContainer.querySelector('#btn-link-lazada')   .setAttribute('data-href',product.linklz);
-        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('onclick',`updateStatistic('lazada',this,event,'${product.linklz}',${product.id});`);
+        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('onclick',`updateStatistic('lazada',this,event,${product.id});`);
     }
     if(product.linkwa !== ''){
         buyContainer.querySelector('#link-wa-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-wa')       .innerText = product.linkwa;
         buyContainer.querySelector('#btn-link-wa')   .setAttribute('data-href',product.linkwa);
-        buyContainer.querySelector('#btn-link-wa')   .setAttribute('onclick',`updateStatistic('whatsapp',this,event,'${product.linkwa}',${product.id});`);
+        buyContainer.querySelector('#btn-link-wa')   .setAttribute('onclick',`updateStatistic('whatsapp',this,event,${product.id});`);
     }
 
     // .. open modals detail

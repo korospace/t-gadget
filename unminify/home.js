@@ -206,20 +206,20 @@ function aboutArrow(el){
 /* 
     GET data api
 */
-function getDataFromApi(url,atribut = null){
+function getDataFromApi(url,column = null){
     return new Promise((resolve,rejected) => {
         let xhr  = new XMLHttpRequest();
         let data = new FormData();
-        
-        if(atribut !== null){
-            data.append("atribut",atribut)
+
+        if(column !== null){
+            data.append("column",column)
             xhr.open('PUT',url,true);
         }
         else{
             xhr.open('GET',url,true);
         }
         
-        xhr.setRequestHeader('api-key', '610129623b609');
+        xhr.setRequestHeader('api-key', '610644b1eba3e');
         xhr.send(data);
         xhr.timeout   = 30000;
         xhr.ontimeout = () => {
@@ -260,11 +260,11 @@ function doGetLinkSosmed(){
 /* 
     Update statistic
 */
-function updateStatistic(atribut,thisEl = null,event = null){
+function updateStatistic(column,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
-    let response   = getDataFromApi(API_URL+'update/statistic',atribut);
+    let response   = getDataFromApi(API_URL+'update/statistic',column);
 
     response.catch((err) => {
         console.log({"method":"updateStatistic","error":err.message});
@@ -290,7 +290,7 @@ function doGetTesti(){
     getDataFromApi(`${API_URL}get/testimonies`)
     .then((resTesti) => {
         let data = resTesti.data;
-
+        
         let el   = '';
         data.forEach((testi,i) => {
             el += `<div class="bg-tgadget-1000 relative ${(i>=6) ? 'flex md:hidden' : ''} ${(i>=8) ? 'flex sm:hidden' : ''} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">
@@ -299,7 +299,7 @@ function doGetTesti(){
                 </div>
                 <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
                 <img src="${BASE_URL}asset/img/loading.svg" class="loadingImg w-12 sm:w-16 absolute opacity-80">
-                <img src="${testi.imgurl}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">
+                <img src="${testi.img}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">
             </div>`;
         });
 
