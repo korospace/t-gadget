@@ -4,7 +4,7 @@
 */
 window.addEventListener('load',function() {
 
-    // .. if network is disconected
+    // .. if network is disconected.
     if(!navigator.onLine){
         showError("Ups, connection lost!",true);
     }
@@ -206,20 +206,19 @@ function aboutArrow(el){
 /* 
     GET data api
 */
-function getDataFromApi(url,column = null){
+function getDataFromApi(url,method = null){
     return new Promise((resolve,rejected) => {
         let xhr  = new XMLHttpRequest();
         let data = new FormData();
 
-        if(column !== null){
-            data.append("column",column)
+        if(method == 'PUT'){
             xhr.open('PUT',url,true);
         }
         else{
             xhr.open('GET',url,true);
         }
         
-        xhr.setRequestHeader('api-key', '610644b1eba3e');
+        xhr.setRequestHeader('api-key', API_KEY);
         xhr.send(data);
         xhr.timeout   = 30000;
         xhr.ontimeout = () => {
@@ -264,7 +263,7 @@ function updateStatistic(column,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
-    let response   = getDataFromApi(API_URL+'update/statistic',column);
+    let response   = getDataFromApi(API_URL+'update/statistic?storename='+column,'PUT');
 
     response.catch((err) => {
         console.log({"method":"updateStatistic","error":err.message});

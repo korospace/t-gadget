@@ -51,19 +51,20 @@ window.onload = () => {
 /* 
     API - do xhr
 */
-function doXhr(url,params = null){
+function doXhr(url,method = null){
     return new Promise((resolve,rejected) => {
         let xhr = new XMLHttpRequest();
 
-        if(params !== null){
+        if(method == 'PUT'){
             xhr.open('PUT',url,true);
         }
         else{
             xhr.open('GET',url,true);
         }
         
-        xhr.setRequestHeader('api-key', '610644b1eba3e');
-        xhr.send(params);
+        xhr.setRequestHeader('api-key', API_KEY);
+        xhr.send();
+
         xhr.timeout   = 30000;
         xhr.ontimeout = () => { 
             rejected(Error("Ups, request timeout!")); 
@@ -91,8 +92,9 @@ function doGetLink(){
             document.querySelector('a#tokopedia')  .setAttribute('data-href',data.tokopedia);
             document.querySelector('a#shopee')     .setAttribute('data-href',data.shopee);
             document.querySelector('a#lazada')     .setAttribute('data-href',data.lazada);
-            document.querySelector('a#whatsapp')   .setAttribute('data-href',data.whatsapp);
-
+            document.querySelectorAll('a.whatsapp').forEach(e => {
+                e.setAttribute('data-href',data.whatsapp);
+            });
         })
         .catch((err) => {
             console.log("method: doGetLinkSosmed");
@@ -103,20 +105,12 @@ function doGetLink(){
 /* 
     Update statistic
 */
-function updateStatistic(column = null,thisEl = null,event = null,id = null){
+function updateStatistic(url = null,thisEl = null,event = null){
     (event !== null) ? event.preventDefault() : '';
 
     let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
-    let params     = new FormData;
-
-    if(id !== null){
-        params.append("id",id);
-    }
-    if(column !== null){
-        params.append("column",column);
-    }
-
-    let response = doXhr(API_URL+'update/statistic',params);
+    let response   = doXhr(API_URL+'update/statistic'+url,'PUT');
+    
     response.catch((err) => {
         console.log("method: updateStatistic");
         console.log("error : "+err.message);
@@ -131,7 +125,7 @@ function updateStatistic(column = null,thisEl = null,event = null,id = null){
     New visitor
 */
 if(NewVisitor === true){
-    updateStatistic('ourwebsite');
+    updateStatistic('?storename=ourwebsite');
 }
 
 //////////////////////////////////////////////
@@ -184,10 +178,10 @@ function doGetCategories(){
         </span>`;
 
         resCategories.data
-            .sort((a,b) => a.name.length - b.name.length)
+            .sort((a,b) => a.category_name.length - b.category_name.length)
             .forEach( c => {
                 elCategory += `<span class="min-w-max min-h-full block flex jusify-center items-center px-6 md:px-8 border-t border-l border-tgadget-200 cursor-pointer opacity-80 hover:opacity-100">
-                    ${c.name}
+                    ${c.category_name}
                 </span>`;
 
                 categoriesWraper.innerHTML = elCategory;
@@ -206,9 +200,9 @@ function doGetCategories(){
 
                 // .. add data filter to btn load-more
                 if(el.target.innerText !== 'Semua Kategori'){
-                    btnLoadMore.setAttribute('data-filterby','category');
+                    btnLoadMore.setAttribute('data-filterby','kategori');
                     btnLoadMore.setAttribute('data-filterval',el.target.innerText.toLowerCase());
-                    doGetProducts(0,'category',el.target.innerText.toLowerCase());
+                    doGetProducts(0,'kategori',el.target.innerText.toLowerCase());
                 }
                 else{
                     showAllProduct();
@@ -485,7 +479,7 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
     let endpoint = '';
 
     if(filterBy){
-        endpoint = API_URL+'get/products/'+offset+'/11/'+filterBy+'/'+filterVal;
+        endpoint = API_URL+`get/products?limit=11&offset=${offset}&filterBy=${filterBy}&filterVal=${filterVal}`;
         // .. cleaning card
         cleanCard('productCard');
         // .. loading card
@@ -494,7 +488,7 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
         scrollToTopOfContent();
     }
     else{
-        endpoint = API_URL+'get/products/'+offset+'/11';
+        endpoint = API_URL+`get/products?limit=11&offset=${offset}`;
     }
 
     showError("", false);
@@ -528,14 +522,14 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
             data.forEach(e => {
                 let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden shadow-card" onclick="cardOnClick(event,${e.id});">
                     <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.price)}</span>
-                    <div class="w-full flex-1 relative flex justify-center items-center">
+                    <div class="w-full relative flex justify-center items-center">
                         <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
                         <img class="absolute w-8 sm:w-12 opacity-80 imgLoading" src="${BASE_URL}asset/img/loading.svg">
                         <div class="bg-white w-full absolute z-20">
                             <img class="imgProduk w-full" src="${e.img}" alt="${e.name}">
                         </div>
                     </div>
-                    <div class="bg-tgadget-1000 px-2 py-1 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
+                    <div class="bg-tgadget-1000 flex-1 px-2 py-1 text-xs sm-411:text-base sm:text-sm md:text-base md-911:text-sm text-left text-black border-4 border-tgadget-1000">
                         <span class="w-full" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">${e.name}</span>
                     </div>
                 </a>`
@@ -642,7 +636,7 @@ let rightSide       = modalsDetail.querySelector('#right-side');
 function cardOnClick(event,id){
     
     // .. update column dilihat
-    updateStatistic(null,null,event,id);
+    updateStatistic('?productid='+id,null,event);
 
     // .. find product from array products
     let product = arrProducts.find(e => e.id == id);
@@ -652,32 +646,32 @@ function cardOnClick(event,id){
     modalsDetail.querySelector('#stok')        .innerText = (product.stock == 1) ? 'ready' : 'habis';
     modalsDetail.querySelector('#product-name').innerText = product.name;
     modalsDetail.querySelector('#price')       .innerText = "Rp "+createHarga(product.price);
-    modalsDetail.querySelector('#description') .innerText = product.deskripsi;
+    modalsDetail.querySelector('#description') .innerHTML = product.deskripsi;
 
     // .. insert link
     if(product.linktp !== ''){
         buyContainer.querySelector('#link-tokped-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-tokped')       .innerText = product.linktp;
         buyContainer.querySelector('#btn-link-tokped')   .setAttribute('data-href',product.linktp);
-        buyContainer.querySelector('#btn-link-tokped')   .setAttribute('onclick',`updateStatistic('tokopedia',this,event,${product.id});`);
+        buyContainer.querySelector('#btn-link-tokped')   .setAttribute('onclick',`updateStatistic('?storename=tokopedia&productid=${product.id}',this,event);`);
     }
     if(product.linksp !== ''){
         buyContainer.querySelector('#link-shopee-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-shopee')       .innerText = product.linksp;
         buyContainer.querySelector('#btn-link-shopee')   .setAttribute('data-href',product.linksp);
-        buyContainer.querySelector('#btn-link-shopee')   .setAttribute('onclick',`updateStatistic('shopee',this,event,${product.id});`);
+        buyContainer.querySelector('#btn-link-shopee')   .setAttribute('onclick',`updateStatistic('?storename=shopee&productid=${product.id}',this,event);`);
     }
     if(product.linklz !== ''){
         buyContainer.querySelector('#link-lazada-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-lazada')       .innerText = product.linklz;
         buyContainer.querySelector('#btn-link-lazada')   .setAttribute('data-href',product.linklz);
-        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('onclick',`updateStatistic('lazada',this,event,${product.id});`);
+        buyContainer.querySelector('#btn-link-lazada')   .setAttribute('onclick',`updateStatistic('?storename=lazada&productid=${product.id}',this,event);`);
     }
     if(product.linkwa !== ''){
         buyContainer.querySelector('#link-wa-wraper').classList.remove('hidden');
         buyContainer.querySelector('#link-wa')       .innerText = product.linkwa;
         buyContainer.querySelector('#btn-link-wa')   .setAttribute('data-href',product.linkwa);
-        buyContainer.querySelector('#btn-link-wa')   .setAttribute('onclick',`updateStatistic('whatsapp',this,event,${product.id});`);
+        buyContainer.querySelector('#btn-link-wa')   .setAttribute('onclick',`updateStatistic('?storename=whatsapp&productid=${product.id}',this,event);`);
     }
 
     // .. open modals detail

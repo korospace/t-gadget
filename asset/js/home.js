@@ -1,1 +1,369 @@
-window.addEventListener("load",(function(){navigator.onLine||showError("Ups, connection lost!",!0),doGetLinkSosmed(),doGetTesti(),document.querySelector("#divloader").classList.add("hidden"),document.querySelector("body").classList.remove("overflow-hidden"),gsap.from("#home #main-text",{duration:.7,y:-20,opacity:0}),gsap.from("#home #second-text",{duration:.7,delay:.2,y:-20,opacity:0}),gsap.from("#home #buttons-wraper",{duration:.7,delay:.4,y:-20,opacity:0}),runCservice()}));let testiIsScrolled=!1,testimoniesWraper=document.querySelector("#testimoni #testimonies-wraper");function testimoniLoadingState(e="loading.svg",t="please wait..."){let o="";for(let s=0;s<9;s++)o+=`<div class="relative block ${s>=6?"md:hidden":""} ${s>=8?"sm:hidden":""} transition rounded-sm md:rounded overflow-hidden opacity-80">\n            <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">\n                <img src="${BASE_URL}asset/img/${e}" class="loadingImg w-12 sm:w-16 opacity-80">\n                <span class="mt-6 font-extrabold text-md">${t}</span>\n            </div>\n            <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">\n        </div>`;testimoniesWraper.innerHTML=o}testimoniLoadingState();let navHrefs=document.querySelectorAll("a.href-navigator");navHrefs.forEach((e=>{e.addEventListener("click",(e=>{if("product"===e.target.innerHTML)return!1;e.preventDefault();let t=e.target,o=e.target.getAttribute("href");navHrefs.forEach((e=>{e.classList.remove("nav-href-active")})),"buttons-wraper"===t.parentElement.getAttribute("id")?document.querySelector(`a.href-${o}`).classList.add("nav-href-active"):(t.classList.add("nav-href-active"),doBurger()),document.querySelectorAll("#container section").forEach((e=>{e.classList.add("opacity-0"),setTimeout((()=>{e.classList.remove("flex"),e.classList.add("hidden")}),200)})),setTimeout((()=>{let e=document.querySelector(`#container section#${o}`);e.classList.remove("hidden"),e.classList.add("flex"),setTimeout((()=>{e.classList.remove("opacity-0"),"about"==o&&(gsap.from("#about #left-side",{duration:.7,delay:.3,x:-16,opacity:0}),gsap.from("#about #right-side",{duration:.7,delay:.3,x:16,opacity:0})),"testimoni"==o&&(gsap.from("#testimoni #main-text",{duration:.7,delay:.3,y:-20,opacity:0}),gsap.from("#testimoni #second-text",{duration:.7,delay:.3,y:-20,opacity:0}),gsap.from("#testimonies-wraper",{duration:.7,delay:.3,y:20,opacity:0}),testiAutoScroll())}),100)}),200)}))}));let sections=document.querySelectorAll("main section");function doBurger(){sections.forEach((e=>{e.classList.toggle("opacity-0")})),document.querySelector("#burgerOpen").classList.toggle("translate-x-20"),document.querySelector("#burgerClose").classList.toggle("translate-x-20"),["w-0","w-full","sm:w-1/2"].forEach((e=>{document.querySelector("#nav-href").classList.toggle(e)}));let[e,t]=["hidden","opacity-0"];document.querySelector("#href-wraper").classList.toggle(e),setTimeout((()=>{document.querySelector("#href-wraper").classList.toggle(t)}),300);let o=1;document.querySelector("#sosmed-wraper").classList.toggle(e),document.querySelectorAll("#sosmed-wraper a").forEach((e=>{o++,setTimeout((()=>{e.classList.toggle("opacity-0"),e.classList.toggle("translate-x-28")}),100*o)}))}function runCservice(){let e=!1,t=document.querySelector("#cservice-href"),o=document.querySelector("#cservice-message");setTimeout((()=>{o.classList.remove("opacity-0"),setTimeout((()=>{e||o.classList.add("opacity-0")}),8e3)}),3e3),t.addEventListener("mouseenter",(()=>{e=!0,o.classList.remove("opacity-0"),o.querySelector("span").innerHTML="Kami aktif 24 jam!"})),t.addEventListener("mouseleave",(()=>{e=!1,o.classList.add("opacity-0")}))}function aboutArrow(e){e.classList.toggle("rotate-90"),e.classList.toggle("-rotate-90");let t=document.querySelector("#content-wraper"),o=document.querySelector(`#${e.dataset.target}`);t.scrollTo({top:o.offsetTop,behavior:"smooth"}),"right-side"===e.dataset.target?(e.setAttribute("data-target","left-side"),gsap.from("#about #right-side",{duration:.7,delay:.3,x:16,opacity:0})):(e.setAttribute("data-target","right-side"),gsap.from("#about #left-side",{duration:.7,delay:.3,x:-16,opacity:0}))}function getDataFromApi(e,t=null){return new Promise(((o,s)=>{let a=new XMLHttpRequest,i=new FormData;null!==t?(i.append("column",t),a.open("PUT",e,!0)):a.open("GET",e,!0),a.setRequestHeader("api-key","610644b1eba3e"),a.send(i),a.timeout=3e4,a.ontimeout=()=>(s(Error("Ups, request timeout")),0),a.onload=()=>{let e=JSON.parse(a.responseText);200==a.status||202==a.status?o(e):s(Error(e.message))}}))}function doGetLinkSosmed(){getDataFromApi(API_URL+"get/socialmedia").then((e=>{let t=e.data;document.querySelector("a#tokopedia").setAttribute("data-href",t.tokopedia),document.querySelector("a#shopee").setAttribute("data-href",t.shopee),document.querySelector("a#lazada").setAttribute("data-href",t.lazada),document.querySelectorAll("a.whatsapp").forEach((e=>{e.setAttribute("data-href",t.whatsapp)}))})).catch((e=>{}))}function updateStatistic(e,t=null,o=null){null!==o&&o.preventDefault();let s=null!==t?t.dataset.href:null;getDataFromApi(API_URL+"update/statistic",e).catch((e=>{})),null!==s&&("not available"!==s?window.open(s,"blank"):alert("Maaf, lapak belum tersedia"))}function doGetTesti(){getDataFromApi(`${API_URL}get/testimonies`).then((e=>{let t=e.data,o="";t.forEach(((e,t)=>{o+=`<div class="bg-tgadget-1000 relative ${t>=6?"flex md:hidden":""} ${t>=8?"flex sm:hidden":""} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">\n                <div class="eyeWraper w-full h-full absolute z-20 flex justify-center items-center cursor-pointer opacity-0 hover:opacity-100" style="background: rgba(0,0,0,0.6);">\n                    <img src="${BASE_URL}asset/img/eye.svg" class="w-8 md:w-10 transition duration-300">\n                </div>\n                <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">\n                <img src="${BASE_URL}asset/img/loading.svg" class="loadingImg w-12 sm:w-16 absolute opacity-80">\n                <img src="${e.img}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">\n            </div>`})),testimoniesWraper.innerHTML=o})).catch((e=>{testimoniLoadingState("notfound.webp",`${e.message}`)})).finally((()=>{document.querySelectorAll("img.img-testi").forEach((e=>{e.onload=()=>{e.parentElement.classList.remove("opacity-80"),e.previousElementSibling.remove()}}));let e=document.querySelectorAll(".eyeWraper"),t=document.querySelector("#img-preview"),o=document.querySelector("#preview-wraper");e.forEach((e=>{e.addEventListener("click",(e=>{e.target.classList.contains("eyeWraper")&&(o.classList.remove("hidden"),t.src=e.target.nextElementSibling.nextElementSibling.src,gsap.from("#img-preview",{duration:.3,opacity:0,scale:.2}))}))})),o.addEventListener("click",(e=>{e.target.classList.contains("not-close-preview")||(t.src="",o.classList.add("hidden"))}))}))}function testiAutoScroll(){testiIsScrolled||(testiIsScrolled=!0,setTimeout((()=>{testimoniesWraper.scrollTo({top:testimoniesWraper.firstElementChild.nextElementSibling.offsetTop,behavior:"smooth"}),setTimeout((()=>{testimoniesWraper.scrollTo({top:testimoniesWraper.firstElementChild.offsetTop,behavior:"smooth"})}),1e3)}),2e3))}!0===NewVisitor&&updateStatistic("ourwebsite");
+
+/* 
+    Windows on load
+*/
+window.addEventListener('load',function() {
+
+    // .. if network is disconected.
+    if(!navigator.onLine){
+        showError("Ups, connection lost!",true);
+    }
+
+    doGetLinkSosmed();
+    doGetTesti();
+
+    // .. remove loading animation
+    document.querySelector('#divloader').classList.add('hidden');
+    document.querySelector('body').classList.remove('overflow-hidden');
+
+    // .. Landing-element at Home section
+    gsap.from("#home #main-text", {duration: 0.7, y: -20, opacity: 0});
+    gsap.from("#home #second-text", {duration: 0.7,delay: 0.2, y: -20, opacity: 0});
+    gsap.from("#home #buttons-wraper", {duration: 0.7,delay: 0.4, y: -20, opacity: 0});
+    
+    // .. CService 
+    runCservice();
+    
+});
+
+/* 
+    testimoni loading state
+*/ 
+let testiIsScrolled    = false;
+let testimoniesWraper  = document.querySelector('#testimoni #testimonies-wraper'); 
+
+function testimoniLoadingState(imgName = 'loading.svg',msg = 'please wait...'){
+    let el = '';
+    for (let i = 0; i < 9; i++) {
+        el += `<div class="relative block ${ (i>=6) ? 'md:hidden' : '' } ${ (i>=8) ? 'sm:hidden' : '' } transition rounded-sm md:rounded overflow-hidden opacity-80">
+            <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">
+                <img src="${BASE_URL}asset/img/${imgName}" class="loadingImg w-12 sm:w-16 opacity-80">
+                <span class="mt-6 font-extrabold text-md">${msg}</span>
+            </div>
+            <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
+        </div>`;
+    }
+
+    testimoniesWraper.innerHTML = el;
+}
+
+testimoniLoadingState();
+
+/* 
+    Navbar's Href ONCLICK
+*/
+let navHrefs = document.querySelectorAll('a.href-navigator');
+
+navHrefs.forEach( href => {
+    href.addEventListener('click',el => {
+        if(el.target.innerHTML === 'product'){
+            return false;
+        }
+        el.preventDefault();
+
+        let thisHref      = el.target;
+        let thisHrefValue = el.target.getAttribute('href');
+
+        // 1. remove marker from all hrefs
+        navHrefs.forEach( href => {
+            href.classList.remove("nav-href-active");
+        });
+        
+        // 2. add marker to clicked href
+        if(thisHref.parentElement.getAttribute('id') === 'buttons-wraper'){
+            document.querySelector(`a.href-${thisHrefValue}`).classList.add("nav-href-active");
+        }
+        else{
+            thisHref.classList.add("nav-href-active");
+
+            // 3. close navbar in mobile view
+            doBurger();
+        }
+
+        // 4. hide all section
+        document.querySelectorAll('#container section').forEach( section => {
+            section.classList.add('opacity-0');
+            setTimeout(() => {
+                section.classList.remove('flex');
+                section.classList.add('hidden');
+            }, 200);
+        });
+
+        // 5. show section target
+        setTimeout(() => {
+            let sectionTarget = document.querySelector(`#container section#${thisHrefValue}`);
+            sectionTarget.classList.remove('hidden');
+            sectionTarget.classList.add('flex');
+            setTimeout(() => {
+                sectionTarget.classList.remove('opacity-0');
+
+                // 6. landing element at about page
+                if(thisHrefValue == 'about'){
+                    gsap.from("#about #left-side", {duration: 0.7,delay:0.3, x: -16, opacity: 0});
+                    gsap.from("#about #right-side", {duration: 0.7,delay:0.3, x: 16, opacity: 0});
+                }
+            
+                // 7. auto scroll images testi
+                if(thisHrefValue == 'testimoni'){
+                    gsap.from("#testimoni #main-text", {duration: 0.7,delay:0.3, y: -20, opacity: 0});
+                    gsap.from("#testimoni #second-text", {duration: 0.7,delay:0.3, y: -20, opacity: 0});
+                    gsap.from("#testimonies-wraper", {duration: 0.7,delay:0.3, y: 20, opacity: 0});
+                    testiAutoScroll();
+                }
+            }, 100);
+        }, 200);
+        
+    });
+});
+
+/* 
+    Burgers ONCLICK
+*/
+let sections = document.querySelectorAll('main section'); 
+function doBurger(){
+    
+    sections.forEach(section => {
+        section.classList.toggle('opacity-0');
+    });
+
+    document.querySelector('#burgerOpen').classList.toggle('translate-x-20');
+    document.querySelector('#burgerClose').classList.toggle('translate-x-20');
+
+    ['w-0','w-full','sm:w-1/2'].forEach( className => {
+        document.querySelector('#nav-href').classList.toggle(className);
+    });
+
+    let [a,b] = ['hidden','opacity-0'];
+
+    document.querySelector('#href-wraper').classList.toggle(a);
+    setTimeout(() => {
+        document.querySelector('#href-wraper').classList.toggle(b);
+    }, 300);
+    
+    let i =1;
+    document.querySelector('#sosmed-wraper').classList.toggle(a);
+    document.querySelectorAll('#sosmed-wraper a').forEach((link) => {
+        i++;
+        setTimeout(() => {
+            link.classList.toggle("opacity-0");
+            link.classList.toggle("translate-x-28");
+        }, 100*i);
+    });
+}
+
+/* 
+    Cservice
+*/
+function runCservice(){
+    let csIsHover       = false;
+    let cService        = document.querySelector('#cservice-href');
+    let cServiceMessage = document.querySelector('#cservice-message');
+    
+    // Customer Service - Rising
+    setTimeout(() => {
+        cServiceMessage.classList.remove('opacity-0');
+        setTimeout(() => {
+            if(!csIsHover){
+                cServiceMessage.classList.add('opacity-0');
+            }
+        }, 8000);
+    }, 3000);
+    
+    // Customer Service - Hover
+    cService.addEventListener('mouseenter',() => {
+        csIsHover=true;
+        cServiceMessage.classList.remove('opacity-0');
+        cServiceMessage.querySelector('span').innerHTML = 'Kami aktif 24 jam!';
+    })
+    cService.addEventListener('mouseleave',() => {
+        csIsHover=false;
+        cServiceMessage.classList.add('opacity-0');
+    })
+}
+
+function aboutArrow(el){
+    
+    el.classList.toggle('rotate-90');
+    el.classList.toggle('-rotate-90');
+
+    let contentWraper = document.querySelector('#content-wraper');
+    let targetElement = document.querySelector(`#${el.dataset.target}`);
+
+    contentWraper.scrollTo({
+        top: targetElement.offsetTop,
+        behavior: "smooth"
+    });
+
+    if(el.dataset.target === 'right-side'){
+        el.setAttribute('data-target','left-side');
+        gsap.from("#about #right-side", {duration: 0.7,delay:0.3, x: 16, opacity: 0});
+    }else{
+        el.setAttribute('data-target','right-side');
+        gsap.from("#about #left-side", {duration: 0.7,delay:0.3, x: -16, opacity: 0});
+    }
+}
+
+/* 
+    GET data api
+*/
+function getDataFromApi(url,method = null){
+    return new Promise((resolve,rejected) => {
+        let xhr  = new XMLHttpRequest();
+
+        if(method == 'PUT'){
+            xhr.open('PUT',url,true);
+        }
+        else{
+            xhr.open('GET',url,true);
+        }
+        
+        xhr.setRequestHeader('api-key', API_KEY);
+        xhr.send();
+        
+        xhr.timeout   = 30000;
+        xhr.ontimeout = () => {
+            rejected(Error("Ups, request timeout")); 
+            return 0;
+        }
+        xhr.onload = () => {
+            let result = JSON.parse(xhr.responseText);
+            if(xhr.status == 200 || xhr.status == 202){
+                resolve(result);
+            }
+            else{
+                rejected(Error(result.message)); 
+            };
+        }
+    })
+}
+
+/* 
+    GET LINK SOSMED
+*/
+function doGetLinkSosmed(){
+    getDataFromApi(API_URL+'get/socialmedia')
+        .then((resLinkSosmed) => {
+            let data = resLinkSosmed.data;
+            document.querySelector('a#tokopedia')  .setAttribute('data-href',data.tokopedia);
+            document.querySelector('a#shopee')     .setAttribute('data-href',data.shopee);
+            document.querySelector('a#lazada')     .setAttribute('data-href',data.lazada);
+            document.querySelectorAll('a.whatsapp').forEach(e => {
+                e.setAttribute('data-href',data.whatsapp);
+            });
+        })
+        .catch((err) => {
+            console.log({"method":"doGetLinkSosmed","error":err.message});
+        });
+}
+
+/* 
+    Update statistic
+*/
+function updateStatistic(column,thisEl = null,event = null){
+    (event !== null) ? event.preventDefault() : '';
+
+    let sosmedLink = (thisEl !== null) ? thisEl.dataset.href : null;
+    let response   = getDataFromApi(API_URL+'update/statistic?storename='+column,'PUT');
+
+    response.catch((err) => {
+        console.log({"method":"updateStatistic","error":err.message});
+    });
+
+    if(sosmedLink !== null){
+        (sosmedLink !== 'not available') ? window.open(sosmedLink,'blank') : alert('Maaf, lapak belum tersedia');
+    }
+}
+
+/* 
+    New visitor
+*/
+if(NewVisitor === true){
+    updateStatistic('ourwebsite');
+}
+
+/* 
+    GET testimoni images
+*/
+
+function doGetTesti(){
+    getDataFromApi(`${API_URL}get/testimonies`)
+    .then((resTesti) => {
+        let data = resTesti.data;
+        
+        let el   = '';
+        data.forEach((testi,i) => {
+            el += `<div class="bg-tgadget-1000 relative ${(i>=6) ? 'flex md:hidden' : ''} ${(i>=8) ? 'flex sm:hidden' : ''} flex items-center justify-center transition rounded-sm md:rounded opacity-80 overflow-hidden">
+                <div class="eyeWraper w-full h-full absolute z-20 flex justify-center items-center cursor-pointer opacity-0 hover:opacity-100" style="background: rgba(0,0,0,0.6);">
+                    <img src="${BASE_URL}asset/img/eye.svg" class="w-8 md:w-10 transition duration-300">
+                </div>
+                <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
+                <img src="${BASE_URL}asset/img/loading.svg" class="loadingImg w-12 sm:w-16 absolute opacity-80">
+                <img src="${testi.img}" class="img-testi block absolute z-10 w-full h-full cursor-pointer">
+            </div>`;
+        });
+
+        testimoniesWraper.innerHTML = el;
+
+    })
+    .catch((err) => {
+        console.log({"method":"getTesti","error":err.message});
+        testimoniLoadingState('notfound.webp',`${err.message}`);
+    })
+    .finally(() => {
+
+        // .. remove loading images
+        document.querySelectorAll('img.img-testi').forEach(e => {
+            e.onload = () => {
+                e.parentElement.classList.remove('opacity-80');
+                e.previousElementSibling.remove();
+            };
+        });
+
+        // .. Open preview testimonie
+        let eyeWrapers    = document.querySelectorAll('.eyeWraper');
+        let imgPreview    = document.querySelector('#img-preview');
+        let previewWraper = document.querySelector('#preview-wraper');
+        
+        eyeWrapers.forEach(eyeWraper => {
+            eyeWraper.addEventListener('click',(e) => {
+                if(e.target.classList.contains('eyeWraper')){
+
+                    previewWraper.classList.remove('hidden');
+                    
+                    imgPreview.src = e.target.nextElementSibling.nextElementSibling.src;
+                    gsap.from("#img-preview", {duration: 0.3, opacity: 0, scale:0.2});
+                }
+            });
+        });
+
+        // .. Close preview testimonie
+        previewWraper.addEventListener('click',(e) => {
+            if(!e.target.classList.contains('not-close-preview')){
+                imgPreview.src = '';
+                previewWraper.classList.add('hidden');
+            }
+        });
+
+    });
+}
+
+/* 
+    auto scroll at testi 
+*/
+function testiAutoScroll(){
+    if(!testiIsScrolled){
+        testiIsScrolled = true;
+        setTimeout(() => {
+            testimoniesWraper.scrollTo({
+                top: testimoniesWraper.firstElementChild.nextElementSibling.offsetTop,
+                behavior: "smooth"
+            });
+            setTimeout(() => {
+                testimoniesWraper.scrollTo({
+                    top: testimoniesWraper.firstElementChild.offsetTop,
+                    behavior: "smooth"
+                });
+            }, 1000);
+        }, 2000);
+    }
+}

@@ -131,23 +131,23 @@
                     <a class="px-2 py-1 mr-1 sm-412:mr-0.5 sm:mr-1 opacity-80 hover:opacity-100 hover:bg-tgadget-100 active:bg-tgadget-100 rounded-md" href="<?= BASE_URL; ?>home/">about</a>
                 </div>
             </div>
-            <a class="bg-black px-2.5 sm:px-4 py-1.5 sm:py-2 hidden sm-412:inline border-2 border-tgadget-1000 text-tgadget-1000 text-xs sm:text-sm md:text-base tracking-widest opacity-80 hover:opacity-100 rounded-sm shadow-card" href="">contact us</a>
+            <a href="" class="whatsapp bg-black px-2.5 sm:px-4 py-1.5 sm:py-2 hidden sm-412:inline border-2 border-tgadget-1000 text-tgadget-1000 text-xs sm:text-sm md:text-base tracking-widest opacity-80 hover:opacity-100 rounded-sm shadow-card" onclick="updateStatistic('?storename=whatsapp',this,event);">contact us</a>
         </div>
 
         <!-- bottom-footer -->
         <div class="w-full flex flex-col justify-between items-center mt-4 py-8 border-t border-tgadget-200">
             <h1 class="text-xs sm:text-sm opacity-80 tracking-wide">Copyright © 2020-<?= date("Y"); ?> T-GadgetID</h1>
             <div class="flex items-center mt-4">
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('tokopedia',this,event);" id="tokopedia">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('?storename=tokopedia',this,event);" id="tokopedia">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/tokopediav2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('shopee',this,event);" id="shopee">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('?storename=shopee',this,event);" id="shopee">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/shopeev2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('lazada',this,event);" id="lazada">
-                    <img class="w-4 sm:w-5.5 md:w-7" src="<?= BASE_URL; ?>asset/img/lazadav2.svg">
+                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('?storename=lazada',this,event);" id="lazada">
+                    <img class="w-5 sm:w-5.5 md:w-7" src="<?= BASE_URL; ?>asset/img/lazadav2.svg">
                 </a>
-                <a href="" class="ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('whatsapp',this,event);" id="whatsapp">
+                <a href="" class="whatsapp ml-1 p-2 opacity-80 hover:opacity-100" onclick="updateStatistic('?storename=whatsapp',this,event);">
                     <img class="w-4 sm:w-5 md:w-6" src="<?= BASE_URL; ?>asset/img/whatsappv2.svg">
                 </a>
             </div>
@@ -174,7 +174,7 @@
             <div id="countdown-img-wraper" class="w-full relative flex items-center justify-center rounded-tl-xl rounded-tr-xl rounded-b-md border-2 border-black overflow-hidden">
                 <img class="bground-img-countdown w-full relative opacity-0" src="<?= BASE_URL; ?>asset/img/bg-countdown.webp">
                 <img class="w-10 absolute z-10 opacity-80" src="<?= BASE_URL; ?>asset/img/loading.svg">
-                <img class="w-full absolute z-20" id="countdown-img" src="">
+                <img class="w-full h-full absolute z-20" id="countdown-img" src="">
             </div>
         </div>
 
@@ -241,7 +241,7 @@
             <!-- description-wraper -->
             <div id="description-wraper" class="hidden sm:block flex-1 my-4 pr-4 overflow-auto opacity-0 sm:opacity-100 transition-all duration-500">
                 <!-- main description -->
-                <h1 id="description" class="font-bold tracking-wide text-justify opacity-80" style="text-indent: 10%;font-family: lato;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime tempore harum ab! Praesentium iusto aliquam aliquid placeat excepturi quos asperiores, dolore ratione molestiae ipsum iure at corrupti est sint perferendis?</h1>
+                <h1 id="description" class="font-bold tracking-wide text-justify opacity-80" style="font-family: lato;"></h1>
             </div>
         </div>
 
