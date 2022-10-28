@@ -521,7 +521,7 @@ function doGetProducts(offset = 0,filterBy = false, filterVal = false){
             
             data.forEach(e => {
                 let rawCards = `<a href="" class="productCard bg-white relative w-full h-full flex flex-col rounded-tl-lg rounded-br-lg overflow-hidden shadow-card" onclick="cardOnClick(event,${e.id});">
-                    <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.price)}</span>
+                    <span class="bg-black absolute z-30 top-0 right-0 px-2 py-1 text-tgadget-1000 text-xs sm-411:text-sm sm:text-xs" style="min-width: max-content;">Rp ${createHarga(e.price.toString())}</span>
                     <div class="w-full relative flex justify-center items-center">
                         <img class="img-bground w-full" src="${BASE_URL}asset/img/bg-produk.webp">
                         <img class="absolute w-8 sm:w-12 opacity-80 imgLoading" src="${BASE_URL}asset/img/loading.svg">
@@ -645,7 +645,7 @@ function cardOnClick(event,id){
     modalsDetail.querySelector('.img-product') .src       = product.img;
     modalsDetail.querySelector('#stok')        .innerText = (product.stock == 1) ? 'ready' : 'habis';
     modalsDetail.querySelector('#product-name').innerText = product.name;
-    modalsDetail.querySelector('#price')       .innerText = "Rp "+createHarga(product.price);
+    modalsDetail.querySelector('#price')       .innerText = "Rp "+createHarga(product.price.toString());
     modalsDetail.querySelector('#description') .innerHTML = product.deskripsi;
 
     // .. insert link
