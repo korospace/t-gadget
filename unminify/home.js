@@ -38,7 +38,7 @@ function testimoniLoadingState(imgName = 'loading.svg',msg = 'please wait...'){
         el += `<div class="relative block ${ (i>=6) ? 'md:hidden' : '' } ${ (i>=8) ? 'sm:hidden' : '' } transition rounded-sm md:rounded overflow-hidden opacity-80">
             <div class="bg-tgadget-1000 w-full h-full absolute flex flex-col justify-center items-center">
                 <img src="${BASE_URL}asset/img/${imgName}" class="loadingImg w-12 sm:w-16 opacity-80">
-                <span class="mt-6 font-extrabold text-md">${msg}</span>
+                <span class="mt-6 font-extrabold text-md" style="text-align:center;">${msg}</span>
             </div>
             <img src="${BASE_URL}asset/img/bg-testi.webp" class="w-full opacity-0">
         </div>`;
