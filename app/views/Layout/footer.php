@@ -2,7 +2,7 @@
     <script>
         // ... URL ...
         const API_URL    = "<?= API_URL; ?>";
-        const API_KEY    = "6191c5e86d34c";
+        const API_KEY    = "<?= API_KEY; ?>";
         const BASE_URL   = "<?= BASE_URL; ?>";
         const NewVisitor = <?= $data['NewVisitor']; ?>;
 

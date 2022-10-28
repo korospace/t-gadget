@@ -1,5 +1,5 @@
 # T-Gadgetid Home Page
-Tgadgetid is a website that I created for introducing my friend's products on Tokopedia. All data is fetched from my RESTFUL API at https://github.com/korospace/t-gadgetapi
+Tgadgetid is a website that I created for introducing my friend's products on Tokopedia. All data is fetched from my RESTFUL API at https://github.com/korospace/api-tgadget
 
 ## 1. Tools & Stack
 - [x] PHP Native (MVC)
@@ -8,7 +8,7 @@ Tgadgetid is a website that I created for introducing my friend's products on To
 - [x] GSAP
 
 ## 2. Preview
-Live Demo Can access at <a href="https://t-gadget.herokuapp.com/">https://t-gadget.herokuapp.com/</a> <br><br>
+Live Demo Can access at <a href="https://t-gadget.up.railway.app/">https://t-gadget.up.railway.app/</a> <br><br>
 
 > Home
 > <img src="asset/screenshoot/home.png" width="860px" /><br><br>
