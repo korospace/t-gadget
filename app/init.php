@@ -4,10 +4,10 @@ spl_autoload_register(function($file){
     require_once 'core/'.$file.'.php';
 });
 
-define('BASE_URL','https://t-gadget.up.railway.app/');
+define('BASE_URL','http://localhost/t-gadget/');
 
-define('API_URL' ,'https://koro-corsanywhere.up.railway.app/https://api-tgadget.up.railway.app/');
+define('API_URL' ,'http://localhost/api-tgadget/');
 
-define('API_KEY' ,'613efdda28e6d');
+define('API_KEY' ,'64140c0d0d2e6');
 
 ?>
